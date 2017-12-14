@@ -21,7 +21,7 @@ INC_FILE = line_input.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c line_input.c line_edit.c
+SRC_FILE = main.c line_input.c line_cursor_motion.c line_edit.c
 
 # Variables
 PROJET = input

@@ -34,6 +34,9 @@ static void		check_key(char **line, char buf[], t_line *line_info)
 		else if (buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
 				&& buf[2] == 51 && buf[3] == 126 && !buf[4] && !buf[5]))
 			delete_char(line, buf[0], line_info);
+		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
+				(buf[2] == 68 || buf[2] == 67))
+			move_cursor_on_line(buf[2], line_info);
 	}
 	(void)line_info;
 }

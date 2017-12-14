@@ -87,7 +87,7 @@ int			delete_char(char **line, char t, t_line *line_info)
 		if ((t == 127 || t == 8) && line_info->cursor_i > 0)
 			shift_char_left(&line[0][--line_info->cursor_i], 1);
 		else if (t == 27 && line_info->cursor_i < line_info->len)
-			shift_char_left(&line[0][line_info->cursor_i--], 1);
+			shift_char_left(&line[0][line_info->cursor_i], 1);
 		else
 			return (1);
 		line_info->len -= 1;

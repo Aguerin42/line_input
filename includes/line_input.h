@@ -28,6 +28,12 @@ typedef struct	s_line
 char	*line_input(size_t pt_len, t_list *history);
 
 /*
+**	line_cursor_motion.c
+*/
+
+int		move_cursor_on_line(char m, t_line *line_info);
+
+/*
 **	line_edit.c
 */
 
