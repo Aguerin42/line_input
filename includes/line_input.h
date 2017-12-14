@@ -5,8 +5,7 @@
 # include <unistd.h>
 # include <term.h>
 
-# define INPUT_BUF_SIZE	50
-# define PROMPT			"$>"
+# define INPUT_BUF_SIZE	4096
 
 /**
 **	\brief	Informations sur la ligne
@@ -27,5 +26,11 @@ typedef struct	s_line
 */
 
 char	*line_input(size_t pt_len, t_list *history);
+
+/*
+**	line_edit.c
+*/
+
+int		insert_char(char **line, char c, t_line *line_info);
 
 #endif

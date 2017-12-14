@@ -21,6 +21,22 @@ static t_line	init_line_info(size_t size, size_t prompt_len)
 	return (line_info);
 }
 
+/*
+**	\brief	Vérification de la touche tappée
+*/
+
+static void		check_key(char **line, char buf[], t_line *line_info)
+{
+	if (line)
+	{
+		if ((buf[0] >= 32 && buf [0] <= 126) && !buf[1] && !buf[2])
+		{
+			insert_char(line, buf[0], line_info);
+		}
+	}
+	(void)line_info;
+}
+
 /**
 **	\brief	Gestion de la ligne de commande
 **
@@ -38,11 +54,11 @@ static t_line	init_line_info(size_t size, size_t prompt_len)
 **							n'existe pas
 */
 
-char	*line_input(size_t prompt_len, t_list *history)
+char			*line_input(size_t prompt_len, t_list *history)
 {
-	t_line	line_info;
 	char	*line;
 	char	buf[7];
+	t_line	line_info;
 
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
@@ -52,7 +68,15 @@ char	*line_input(size_t prompt_len, t_list *history)
 		{
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
-			ft_putchar(buf[0]);
+			check_key(&line, buf, &line_info);
+		/*	for(int	i = 0; i < 6; i++)
+			{
+				if (i != 5)
+					ft_putnbrs(buf[i]);
+				else
+					ft_putnbrl(buf[i]);
+			}*/
+			ft_putendl(line);
 		}
 	}
 	else

@@ -37,6 +37,7 @@
 
 # Vim files
 *.swp
+*.swo
 
 # Doxygen
 *.log

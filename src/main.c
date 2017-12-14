@@ -7,6 +7,7 @@
 #include "line_input.h"
 #include <term.h>
 #include <stdlib.h>
+#define PROMPT "$>"
 
 static void	set_term(struct termios new)
 {
@@ -45,5 +46,7 @@ int	main(void)
 	}
 	line = NULL;
 	reset_term(save);
+	while (1)
+		;
 	return (0);
 }
