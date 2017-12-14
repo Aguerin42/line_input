@@ -32,5 +32,6 @@ char	*line_input(size_t pt_len, t_list *history);
 */
 
 int		insert_char(char **line, char c, t_line *line_info);
+int		delete_char(char **line, char t, t_line *line_info);
 
 #endif

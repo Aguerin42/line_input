@@ -30,9 +30,10 @@ static void		check_key(char **line, char buf[], t_line *line_info)
 	if (line)
 	{
 		if ((buf[0] >= 32 && buf [0] <= 126) && !buf[1] && !buf[2])
-		{
 			insert_char(line, buf[0], line_info);
-		}
+		else if (buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
+				&& buf[2] == 51 && buf[3] == 126 && !buf[4] && !buf[5]))
+			delete_char(line, buf[0], line_info);
 	}
 	(void)line_info;
 }
@@ -77,6 +78,8 @@ char			*line_input(size_t prompt_len, t_list *history)
 					ft_putnbrl(buf[i]);
 			}*/
 			ft_putendl(line);
+			ft_putnbrs(line_info.len);
+			ft_putnbrs(line_info.cursor_i);
 		}
 	}
 	else
