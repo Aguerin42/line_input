@@ -4,6 +4,7 @@
 # include "libft.h"
 # include <unistd.h>
 # include <term.h>
+# include <sys/ioctl.h>
 
 # define INPUT_BUF_SIZE	4096
 
@@ -19,6 +20,7 @@ typedef struct	s_line
 	size_t	cursor_x;	/*!< Colonne du curseur sur la ligne */
 	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne */
 	size_t	prompt;		/*!< Longueur du prompt */
+	size_t	nb_line;	/*!< Nombre de ligne nécessaires pour l'affichage */
 }				t_line;
 
 /*
