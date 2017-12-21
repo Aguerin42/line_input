@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #define PROMPT "$>"
 
-void		debug(t_line line)
+void		debug(t_line line, char buf[])
 {
 	ft_putstr_fd("\nalloc : ", 2);
 	ft_putnbr_fd(line.size, 2);
@@ -25,6 +25,14 @@ void		debug(t_line line)
 	ft_putnbr_fd(line.nb_line, 2);
 	ft_putstr_fd("\nwin_col : ", 2);
 	ft_putnbr_fd(line.win_col, 2);
+	ft_putstr_fd("\n", 2);
+	for(int	i = 0; i < 6; i++)
+	{
+		ft_putnbr_fd(buf[i], 2);
+		ft_putstr_fd(" ", 2);
+		if (i == 5)
+			ft_putstr_fd("\n", 2);
+	}
 	ft_putstr_fd("\n", 2);
 }
 
@@ -46,9 +54,8 @@ static void	reset_term(struct termios save)
 **	\brief	Entrée du programme
 */
 
-int	main(void)
+int			main(void)
 {
-//	extern char		**environ;
 	char			*line;
 	struct termios	save;
 	struct termios	new;
@@ -60,12 +67,13 @@ int	main(void)
 	ft_putstrs(PROMPT);
 	if ((line = line_input(ft_strlen(PROMPT) + 1, NULL)))
 	{
+		ft_putendl("");
 		ft_putendl(line);
 		ft_strdel(&line);
 	}
 	line = NULL;
 	reset_term(save);
-	while (1)
-		;
+//	while (1)
+//		;
 	return (0);
 }

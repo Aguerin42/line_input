@@ -28,19 +28,27 @@ typedef struct	s_line
 **	line_input.c
 */
 
-char	*line_input(size_t pt_len, const t_list *history);
+int				nb_line(size_t len, size_t col);
+char			*line_input(size_t pt_len, const t_list *history);
 
 /*
 **	line_cursor_motion.c
 */
 
-int		move_cursor_on_line(char m, t_line *line_info);
+int				move_cursor_on_line(char m, t_line *line_info);
+void			replace_cursor(t_line line_info);
 
 /*
 **	line_edit.c
 */
 
-int		insert_char(char **line, char c, t_line *line_info);
-int		delete_char(char **line, char t, t_line *line_info);
+int				insert_char(char **line, char c, t_line *line_info);
+int				delete_char(char **line, char t, t_line *line_info);
+
+/*
+**	line_print.c
+*/
+
+void			print_line(char *line, t_line line_info);
 
 #endif

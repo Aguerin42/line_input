@@ -8,9 +8,9 @@ OS = $(shell uname -s)
 CC = @gcc
 CFLAGS = -Wall -Werror -Wextra
 ifeq ($(OS), Linux)
-	CFLAGSUP = -Wno-sign-compare -Wno-empty-body -g -fsanitize=address
+	CFLAGSUP = -Wno-sign-compare -Wno-empty-body #-g -fsanitize=address
 else
-	CFLAGSUP = -Wno-sign-compare -g -fsanitize=address
+	CFLAGSUP = -Wno-sign-compare # -g -fsanitize=address
 endif
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
 CLIB = -L $(LIBFT) -lft -ltermcap
@@ -21,7 +21,7 @@ INC_FILE = line_input.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = main.c line_input.c line_cursor_motion.c line_edit.c 
+SRC_FILE = main.c line_input.c line_cursor_motion.c line_edit.c line_print.c 
 
 # Variables
 PROJET = input

@@ -1,6 +1,6 @@
 #include "line_input.h"
 
-void		debug(t_line line);
+void			debug(t_line line, char buf[]);
 
 /*
 **	\brief	Calcul du nombre de lignes nécessaires à l'affichage
@@ -9,14 +9,13 @@ void		debug(t_line line);
 **	`line` en fonction de la largeur de la fenêtre et de la taille du prompt.
 **
 **	\param	line -		Ligne de commande
-**	\param	line_i -	Structure (s_line) contenant les informations sur line et
-**						la taille du prompt
+**	\param	line_i -	Structure (s_line) contenant les informations sur line
+**						et la taille du prompt
 **
 **	\return	Nombre de lignes nécaissaires
 */
 
-
-int		nb_line(size_t len, size_t col)
+int				nb_line(size_t len, size_t col)
 {
 	if (len <= col)
 		return (1);
@@ -48,46 +47,6 @@ static t_line	init_line_info(size_t size, size_t prompt_len)
 }
 
 /*
-**	\brief	Vérification de la touche tappée
-*/
-
-static int	check_key(char **line, char buf[], t_line *line_info, const t_list *history)
-{
-	if (line && line_info)
-	{
-		if ((buf[0] >= 32 && buf [0] <= 126) && !buf[1] && !buf[2])
-			return (insert_char(line, buf[0], line_info));
-		else if (buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
-				&& buf[2] == 51 && buf[3] == 126 && !buf[4] && !buf[5]))
-			return (delete_char(line, buf[0], line_info));
-		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
-				(buf[2] == 68 || buf[2] == 67))
-			move_cursor_on_line(buf[2], line_info);
-		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
-				(buf[2] == 66 || buf[2] == 69))
-				(void)history;
-
-	}
-	return (1);
-}
-
-void			print_line(char *line, t_line line_info)
-{
-	if (line)
-	{
-		while (--line_info.cursor_y > 0)
-		{
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
-			ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
-			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-		}
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info.prompt));
-		ft_putstr(tgetstr("cd", NULL));
-		ft_putstr(line);
-	}
-}
-
-/**
 **	\brief	Gestion de la ligne de commande
 **
 **	La fonction s'occupe de la gestion de la ligne de commande. Elle permet de
@@ -104,47 +63,46 @@ void			print_line(char *line, t_line line_info)
 **							n'existe pas
 */
 
-void			update_info(t_line *line_info, const char *line)
+static void		update_info(t_line *line_i, const char *line)
 {
 	struct winsize	win;
 
 	ioctl(0, TIOCGWINSZ, &win);
-	if (line && line_info)
+	if (line && line_i)
 	{
-		line_info->win_col = win.ws_col;
-		line_info->len = ft_strlen(line);
-		line_info->nb_line = nb_line(line_info->len + line_info->prompt, win.ws_col);
-		line_info->cursor_x = line_info->win_col ? (line_info->cursor_i + line_info->prompt) % line_info->win_col : 0;
-		line_info->cursor_y = nb_line(line_info->cursor_i + line_info->prompt + 1, line_info->win_col);
+		!win.ws_col ? win.ws_col = 1 : 0;
+		line_i->win_col = win.ws_col;
+		line_i->len = ft_strlen(line);
+		line_i->nb_line = nb_line(line_i->len + line_i->prompt, win.ws_col);
+		line_i->cursor_x =
+			(line_i->cursor_i + line_i->prompt) % line_i->win_col;
+		line_i->cursor_y =
+			nb_line(line_i->cursor_i + line_i->prompt + 1, line_i->win_col);
 	}
 }
 
-void	replace_cursor(t_line line_info)
+/*
+**	\brief	Vérification de la touche tappée
+*/
+
+static int		check_key(char **line, char buf[], t_line *line_info,
+														const t_list *history)
 {
-	int	x;
-	int	y;
-	
-	x = line_info.win_col ? (line_info.len + line_info.prompt) % line_info.win_col : 0;
-	y = nb_line(line_info.len + line_info.prompt + 1, line_info.win_col);
-	ft_putendl_fd("", 2);
-	ft_putnbr_fd(x, 2);
-	ft_putstr_fd(" ", 2);
-	ft_putnbr_fd(y, 2);
-	ft_putendl_fd("", 2);
-	if (!((line_info.len + line_info.prompt) % line_info.win_col))
+	if (line && line_info)
 	{
-		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1] && !buf[2])
+			return (insert_char(line, buf[0], line_info));
+		else if (buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
+				&& buf[2] == 51 && buf[3] == 126 && !buf[4] && !buf[5]))
+			return (delete_char(line, buf[0], line_info));
+		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
+				(buf[2] == 68 || buf[2] == 67))
+			move_cursor_on_line(buf[2], line_info);
+		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
+				(buf[2] == 66 || buf[2] == 69))
+		(void)history;
 	}
-	while (--y >= (int)line_info.cursor_y)
-		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-	if (x > (int)line_info.cursor_x)
-		while (--x >= (int)line_info.cursor_x)
-			ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
-	else
-		while (++x <= (int)line_info.cursor_x)
-			ft_putstr(tgoto(tgetstr("nd", NULL), 0, 0));
-	ft_putendl_fd("--", 2);
+	return (1);
 }
 
 char			*line_input(size_t prompt_len, const t_list *history)
@@ -160,23 +118,17 @@ char			*line_input(size_t prompt_len, const t_list *history)
 		while (buf[0] != 10)
 		{
 			update_info(&line_info, line);
-			debug(line_info);
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
+			debug(line_info, buf);
 			if (!check_key(&line, buf, &line_info, history))
 			{
 				print_line(line, line_info);
 				update_info(&line_info, line);
 				replace_cursor(line_info);
 			}
-			ft_putnbr_fd(line_info.nb_line, 2);
-		/*	for(int	i = 0; i < 6; i++)
-			{
-				if (i != 5)
-					ft_putnbrs(buf[i]);
-				else
-					ft_putnbrl(buf[i]);
-			}*/
+			else if (line_info.size == 0)
+				return (NULL);
 		}
 	}
 	else
