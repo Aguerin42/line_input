@@ -9,6 +9,25 @@
 #include <stdlib.h>
 #define PROMPT "$>"
 
+void		debug(t_line line)
+{
+	ft_putstr_fd("\nalloc : ", 2);
+	ft_putnbr_fd(line.size, 2);
+	ft_putstr_fd("\nlen : ", 2);
+	ft_putnbr_fd(line.len, 2);
+	ft_putstr_fd("\ncursor_i : ", 2);
+	ft_putnbr_fd(line.cursor_i, 2);
+	ft_putstr_fd("\ncursor_x : ", 2);
+	ft_putnbr_fd(line.cursor_x, 2);
+	ft_putstr_fd("\ncursor_y : ", 2);
+	ft_putnbr_fd(line.cursor_y, 2);
+	ft_putstr_fd("\nnb_line : ", 2);
+	ft_putnbr_fd(line.nb_line, 2);
+	ft_putstr_fd("\nwin_col : ", 2);
+	ft_putnbr_fd(line.win_col, 2);
+	ft_putstr_fd("\n", 2);
+}
+
 static void	set_term(struct termios new)
 {
 	new.c_lflag &= ~(ICANON);

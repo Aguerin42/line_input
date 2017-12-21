@@ -1,5 +1,7 @@
 #include "line_input.h"
 
+void		debug(t_line line);
+
 /*
 **	\brief	Calcul du nombre de lignes nécessaires à l'affichage
 **
@@ -36,11 +38,12 @@ static t_line	init_line_info(size_t size, size_t prompt_len)
 	t_line	line_info;
 
 	line_info.size = size;
+	line_info.prompt = prompt_len;
 	line_info.len = 0;
 	line_info.cursor_i = 0;
-	line_info.cursor_x = 0;
-	line_info.cursor_y = 0;
-	line_info.prompt = prompt_len;
+	line_info.cursor_x = prompt_len;
+	line_info.cursor_y = 1;
+	line_info.nb_line = 0;
 	return (line_info);
 }
 
@@ -48,7 +51,7 @@ static t_line	init_line_info(size_t size, size_t prompt_len)
 **	\brief	Vérification de la touche tappée
 */
 
-static int	check_key(char **line, char buf[], t_line *line_info)
+static int	check_key(char **line, char buf[], t_line *line_info, const t_list *history)
 {
 	if (line && line_info)
 	{
@@ -60,6 +63,10 @@ static int	check_key(char **line, char buf[], t_line *line_info)
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
 				(buf[2] == 68 || buf[2] == 67))
 			move_cursor_on_line(buf[2], line_info);
+		else if ((buf[0] == 27 && buf[1] == 91 && !buf[4] && !buf[5]) &&
+				(buf[2] == 66 || buf[2] == 69))
+				(void)history;
+
 	}
 	return (1);
 }
@@ -75,7 +82,7 @@ void			print_line(char *line, t_line line_info)
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
 		}
 		ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info.prompt));
-		ft_putstr(tgetstr("ce", NULL));
+		ft_putstr(tgetstr("cd", NULL));
 		ft_putstr(line);
 	}
 }
@@ -104,14 +111,43 @@ void			update_info(t_line *line_info, const char *line)
 	ioctl(0, TIOCGWINSZ, &win);
 	if (line && line_info)
 	{
+		line_info->win_col = win.ws_col;
 		line_info->len = ft_strlen(line);
 		line_info->nb_line = nb_line(line_info->len + line_info->prompt, win.ws_col);
-		line_info->cursor_x = win.ws_col ? (line_info->cursor_i + line_info->prompt) % win.ws_col : 0;
-		line_info->cursor_y = nb_line(line_info->cursor_i + line_info->prompt, win.ws_col);
+		line_info->cursor_x = line_info->win_col ? (line_info->cursor_i + line_info->prompt) % line_info->win_col : 0;
+		line_info->cursor_y = nb_line(line_info->cursor_i + line_info->prompt + 1, line_info->win_col);
 	}
 }
 
-char			*line_input(size_t prompt_len, t_list *history)
+void	replace_cursor(t_line line_info)
+{
+	int	x;
+	int	y;
+	
+	x = line_info.win_col ? (line_info.len + line_info.prompt) % line_info.win_col : 0;
+	y = nb_line(line_info.len + line_info.prompt + 1, line_info.win_col);
+	ft_putendl_fd("", 2);
+	ft_putnbr_fd(x, 2);
+	ft_putstr_fd(" ", 2);
+	ft_putnbr_fd(y, 2);
+	ft_putendl_fd("", 2);
+	if (!((line_info.len + line_info.prompt) % line_info.win_col))
+	{
+		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+	}
+	while (--y >= (int)line_info.cursor_y)
+		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
+	if (x > (int)line_info.cursor_x)
+		while (--x >= (int)line_info.cursor_x)
+			ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+	else
+		while (++x <= (int)line_info.cursor_x)
+			ft_putstr(tgoto(tgetstr("nd", NULL), 0, 0));
+	ft_putendl_fd("--", 2);
+}
+
+char			*line_input(size_t prompt_len, const t_list *history)
 {
 	char	*line;
 	char	buf[7];
@@ -123,16 +159,17 @@ char			*line_input(size_t prompt_len, t_list *history)
 		buf[0] = 0;
 		while (buf[0] != 10)
 		{
+			update_info(&line_info, line);
+			debug(line_info);
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
-			update_info(&line_info, line);
-			ft_putnbr_fd(line_info.nb_line, 2);
-			if (!check_key(&line, buf, &line_info))
+			if (!check_key(&line, buf, &line_info, history))
 			{
 				print_line(line, line_info);
-				line_info.cursor_y = line_info.nb_line;
-				line_info.cursor_i = line_info.len;
+				update_info(&line_info, line);
+				replace_cursor(line_info);
 			}
+			ft_putnbr_fd(line_info.nb_line, 2);
 		/*	for(int	i = 0; i < 6; i++)
 			{
 				if (i != 5)
@@ -140,12 +177,9 @@ char			*line_input(size_t prompt_len, t_list *history)
 				else
 					ft_putnbrl(buf[i]);
 			}*/
-			//ft_putnbrs(line_info.len);
-			//ft_putnbrs(line_info.cursor_i);
 		}
 	}
 	else
 		ft_putendl_fd("\nline_input : allocation error...", 2);
-	(void)history;
 	return (line);
 }

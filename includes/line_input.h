@@ -6,7 +6,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 
-# define INPUT_BUF_SIZE	4096
+# define INPUT_BUF_SIZE	50 // :4096
 
 /**
 **	\brief	Informations sur la ligne
@@ -21,13 +21,14 @@ typedef struct	s_line
 	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne */
 	size_t	prompt;		/*!< Longueur du prompt */
 	size_t	nb_line;	/*!< Nombre de ligne nécessaires pour l'affichage */
+	size_t	win_col;	/*!< Nombre de colonnes de la fenêtre */
 }				t_line;
 
 /*
 **	line_input.c
 */
 
-char	*line_input(size_t pt_len, t_list *history);
+char	*line_input(size_t pt_len, const t_list *history);
 
 /*
 **	line_cursor_motion.c

@@ -40,7 +40,7 @@ $(OBJ): $(INC)
 
 $(NAME): Makefile $(OBJ) $(LIB)
 	@echo "$(CYAN)Compilation de $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) $(CLIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(CFLAGSUP) $(OBJ) $(CLIB) -o $(NAME)
 
 clean: del cleanlib
 

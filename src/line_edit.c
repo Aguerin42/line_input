@@ -38,12 +38,14 @@ int			insert_char(char **line, char c, t_line *line_info)
 	if (line && *line && line_info && (c >= 32 && c <= 126) && line_info->len <= 262144)
 	{
 		if (line_info->len == line_info->size)
+		{
 			*line = (char*)ft_memrealloc(*line, line_info->size,\
-											line_info->size += INPUT_BUF_SIZE);
+											line_info->size + INPUT_BUF_SIZE);
+			line_info->size += INPUT_BUF_SIZE;
+		}
 		if (line_info->cursor_i <= line_info->len)
 			ft_memmove(&line[0][line_info->cursor_i + 1], &line[0][line_info->cursor_i], line_info->size - line_info->cursor_i);
 		line[0][line_info->cursor_i++] = c;
-		line_info->len += 1;
 		return (0);
 	}
 	return (1);
@@ -65,7 +67,6 @@ int			delete_char(char **line, char t, t_line *line_info)
 			shift_char_left(&line[0][line_info->cursor_i], 1);
 		else
 			return (1);
-		line_info->len -= 1;
 		return (0);
 	}
 	return (1);
