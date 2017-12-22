@@ -92,9 +92,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 	{
 		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
 			return (insert_char(line, buf[0], line_info));
-		else if ((buf[0] == 127 || (buf[0] == 27 && buf[1] == 91\
-					&& buf[2] == 51 && buf[3] == 126 && !buf[4])) ||
-					(buf[0] == 4 && line_info->len))
+		else if (buf[0] == 127 || (buf[0] == 27 && buf[1] == 91\
+					&& buf[2] == 51 && buf[3] == 126 && !buf[4]))
 			return (delete_char(line, buf[0], line_info));
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[3]) &&
 				(buf[2] == 68 || buf[2] == 67 || buf[2] == 72 || buf[2] == 70))

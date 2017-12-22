@@ -61,3 +61,20 @@ int			delete_char(char **line, char t, t_line *line_info)
 	}
 	return (1);
 }
+
+int			swap_char(char **line, t_line *line_info)
+{
+	char	c;
+
+	if (line && line_info && line_info->cursor_i > 0)
+	{
+		if (line_info->cursor_i == line_info->len)
+			line_info->cursor_i--;
+		c = line[0][line_info->cursor_i];
+		line[0][line_info->cursor_i] = line[0][line_info->cursor_i - 1];
+		line[0][line_info->cursor_i - 1] = c;
+		line_info->cursor_i++;
+		return (0);
+	}
+	return (1);
+}
