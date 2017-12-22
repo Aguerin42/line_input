@@ -92,7 +92,7 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 	{
 		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
 			return (insert_char(line, buf[0], line_info));
-		else if ((buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
+		else if ((buf[0] == 127 || (buf[0] == 27 && buf[1] == 91\
 					&& buf[2] == 51 && buf[3] == 126 && !buf[4])) ||
 					(buf[0] == 4 && line_info->len))
 			return (delete_char(line, buf[0], line_info));
@@ -105,11 +105,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
 					buf[4] == 53)
 			return (move_to_word(buf[5], *line, line_info));
-		else if (buf[0] == 4 && !buf[1] && !line_info->len)
-		{
-			ft_strcpy(*line, "exit");
-			buf[0] = 10;
-		}
+		else if (buf[0] && !buf[1])
+			return (ctrl_key(buf, line, line_info));
 	}
 	return (1);
 }

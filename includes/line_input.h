@@ -41,6 +41,12 @@ int				nb_line(size_t len, size_t col);
 char			*line_input(size_t pt_len, const t_list *history);
 
 /*
+**	line_ctrl.c
+*/
+
+int				ctrl_key(char buf[], char **line, t_line *line_info);
+
+/*
 **	line_cursor_motion.c
 */
 

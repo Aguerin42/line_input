@@ -15,3 +15,8 @@ Le programme permet l'édition d'une ligne de commande. L'utilisateur peut se d�
 	+ `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
 	+ `end` ou `fn`+`flèche de droite` pour aller en début de ligne
 - [x] Gestion de `Ctrl-d`
+
+## **Sources**
+
+- [Opengroup.org - The Open Group Base Specifications Issue 7](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html)
+- [marionpatrick.free.fr - Manuel des manuels](http://marionpatrick.free.fr/man_html/html/index.html)
