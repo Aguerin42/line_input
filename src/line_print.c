@@ -1,6 +1,6 @@
 #include "line_input.h"
 
-/**
+/*
 **	\brief	Affichage de la ligne de commande
 **
 **	La fonction supprime les lignes affichées et affiche la nouvelle, après le

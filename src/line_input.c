@@ -93,8 +93,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
 			return (insert_char(line, buf[0], line_info));
 		else if ((buf[0] == 127 || buf[0] == 8 || (buf[0] == 27 && buf[1] == 91\
-					 && buf[2] == 51 && buf[3] == 126 && !buf[4])) ||
-				(buf[0] == 4 && line_info->len))
+					&& buf[2] == 51 && buf[3] == 126 && !buf[4])) ||
+					(buf[0] == 4 && line_info->len))
 			return (delete_char(line, buf[0], line_info));
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[3]) &&
 				(buf[2] == 68 || buf[2] == 67 || buf[2] == 72 || buf[2] == 70))
@@ -102,6 +102,9 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[3]) &&
 				(buf[2] == 66 || buf[2] == 69))
 			(void)history;
+		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
+					buf[4] == 53)
+			return (move_to_word(buf[5], *line, line_info));
 		else if (buf[0] == 4 && !buf[1] && !line_info->len)
 		{
 			ft_strcpy(*line, "exit");
@@ -121,7 +124,7 @@ char			*line_input(size_t prompt_len, const t_list *history)
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt_len);
 		buf[0] = 0;
-		while (buf[0] != 10)
+		while (buf[0] != 10 && line_info.size)
 		{
 			update_info(&line_info, line);
 			ft_bzero(buf, 7);
@@ -133,11 +136,9 @@ char			*line_input(size_t prompt_len, const t_list *history)
 				update_info(&line_info, line);
 				replace_cursor(line_info);
 			}
-			else if (line_info.size == 0)
-				return (NULL);
 		}
 	}
 	else
-		ft_putendl_fd("\nline_input : allocation error...", 2);
+		ft_putendl_fd("\nline_input : allocation error.", 2);
 	return (line);
 }

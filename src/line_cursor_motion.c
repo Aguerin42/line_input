@@ -38,7 +38,7 @@ static void	move_cursor_right(t_line *line_info)
 	}
 }
 
-/**
+/*
 **	\brief	Déplacement du curseur sur la chaîne
 */
 
@@ -64,7 +64,36 @@ int			move_cursor_on_line(char m, t_line *line_info)
 	return (1);
 }
 
-/**
+int			move_to_word(char m, char *line, t_line *line_info)
+{
+	int	i;
+
+	if (line_info && (m == 67 || m == 68))
+	{
+		i = line_info->cursor_i;
+		if (m == 67)
+		{
+			while (line[i] && ft_isalnum(line[i]))
+				++i;
+			while (line[i] && !ft_isalnum(line[i]))
+				++i;
+		}
+		else if (m == 68)
+		{
+			if (i > 0 && ft_isalnum(line[i]) && !ft_isalnum(line[i - 1]))
+				--i;
+			while (i > 0 && !ft_isalnum(line[i]))
+				--i;
+			while (i > 0 && ft_isalnum(line[i - 1]))
+				--i;
+		}
+		line_info->cursor_i = i;
+		return (0);
+	}
+	return (1);
+}
+
+/*
 **	\brief Replacement du curseur après affichage
 */
 

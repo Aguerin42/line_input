@@ -6,22 +6,31 @@
 # include <term.h>
 # include <sys/ioctl.h>
 
-# define INPUT_BUF_SIZE	50 // :4096
+# define INPUT_BUF_SIZE	4096
 
-/**
+/*
 **	\brief	Informations sur la ligne
+**
+**	size		Taille de l'allocation (sans compter le '\0')
+**	len			Taille de la chaîne
+**	cursor_i	Index du curseur dans la chaîne (>= 0)
+**	cursor_x	Colonne du curseur sur la ligne
+**	cursor_y	Ligne du curseur sur la ligne
+**	prompt		Longueur du prompt
+**	nb_line		Nombre de ligne nécessaires pour l'affichage
+**	win_col		Nombre de colonnes de la fenêtre
 */
 
 typedef struct	s_line
 {
-	size_t	size;		/*!< Taille de l'allocation (sans compter le '\0') */
-	size_t	len;		/*!< Taille de la chaîne */
-	size_t	cursor_i;	/*!< Index du curseur dans la chaîne (>= 0) */
-	size_t	cursor_x;	/*!< Colonne du curseur sur la ligne */
-	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne */
-	size_t	prompt;		/*!< Longueur du prompt */
-	size_t	nb_line;	/*!< Nombre de ligne nécessaires pour l'affichage */
-	size_t	win_col;	/*!< Nombre de colonnes de la fenêtre */
+	size_t	size;
+	size_t	len;
+	size_t	cursor_i;
+	size_t	cursor_x;
+	size_t	cursor_y;
+	size_t	prompt;
+	size_t	nb_line;
+	size_t	win_col;
 }				t_line;
 
 /*
@@ -36,6 +45,7 @@ char			*line_input(size_t pt_len, const t_list *history);
 */
 
 int				move_cursor_on_line(char m, t_line *line_info);
+int				move_to_word(char m, char *line, t_line *line_info);
 void			replace_cursor(t_line line_info);
 
 /*
