@@ -50,10 +50,18 @@ int			move_cursor_on_line(char m, t_line *line_info)
 			move_cursor_left(line_info);
 		else if (m == 67 && line_info->cursor_i < line_info->len)
 			move_cursor_right(line_info);
-		else
-			return (1);
+		else if (m == 72)
+		{
+			line_info->cursor_i = 0;
+			return (0);
+		}
+		else if (m == 70)
+		{
+			line_info->cursor_i = line_info->len;
+			return (0);
+		}
 	}
-	return (0);
+	return (1);
 }
 
 /**
