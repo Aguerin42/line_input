@@ -38,7 +38,7 @@ typedef struct	s_line
 */
 
 int				nb_line(size_t len, size_t col);
-char			*line_input(size_t pt_len, const t_list *history);
+char			*line_input(char *prompt, const t_list *history);
 
 /*
 **	line_ctrl.c

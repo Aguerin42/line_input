@@ -12,9 +12,11 @@ Le programme permet l'édition d'une ligne de commande. L'utilisateur peut se d�
 	+ `Ctrl`+`flèche de gauche` pour aller au mot précédent
 	+ `Ctrl`+`flèche de droite` pour aller au mot suivant
 - [x] Déplacement rapide en début ou fin de ligne
-	+ `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
-	+ `end` ou `fn`+`flèche de droite` pour aller en début de ligne
+	+ `Ctrl-a`, `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
+	+ `Ctrl-e`, `end` ou `fn`+`flèche de droite` pour aller en début de ligne
 - [x] Gestion de `Ctrl-d`
+- [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
+- [x] Effacement de l'écran avec `Ctrl-l`
 
 ## **Sources**
 

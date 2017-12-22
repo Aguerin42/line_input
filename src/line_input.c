@@ -32,15 +32,15 @@ int				nb_line(size_t len, size_t col)
 **	\param	size -	taille de la première allocation (sans compter le '\0')
 */
 
-static t_line	init_line_info(size_t size, size_t prompt_len)
+static t_line	init_line_info(size_t size, char *prompt)
 {
 	t_line	line_info;
 
 	line_info.size = size;
-	line_info.prompt = prompt_len;
+	line_info.prompt = ft_strlen(prompt) + 1;
 	line_info.len = 0;
 	line_info.cursor_i = 0;
-	line_info.cursor_x = prompt_len;
+	line_info.cursor_x = line_info.prompt;
 	line_info.cursor_y = 1;
 	line_info.nb_line = 0;
 	return (line_info);
@@ -110,7 +110,7 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 	return (1);
 }
 
-char			*line_input(size_t prompt_len, const t_list *history)
+char			*line_input(char *prompt, const t_list *history)
 {
 	char	*line;
 	char	buf[7];
@@ -118,7 +118,7 @@ char			*line_input(size_t prompt_len, const t_list *history)
 
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
-		line_info = init_line_info(INPUT_BUF_SIZE, prompt_len);
+		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 		buf[0] = 0;
 		while (buf[0] != 10 && line_info.size)
 		{
@@ -128,7 +128,13 @@ char			*line_input(size_t prompt_len, const t_list *history)
 			debug(line_info, buf);
 			if (!check_key(&line, buf, &line_info, history))
 			{
-				print_line(line, line_info);
+				if (buf[0] == 12)
+				{
+					ft_putstrs(prompt);
+					ft_putstr(line);
+				}
+				else
+					print_line(line, line_info);
 				update_info(&line_info, line);
 				replace_cursor(line_info);
 			}

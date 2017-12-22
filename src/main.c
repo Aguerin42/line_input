@@ -65,7 +65,7 @@ int			main(void)
 	tcgetattr(0, &new);
 	set_term(new);
 	ft_putstrs(PROMPT);
-	if ((line = line_input(ft_strlen(PROMPT) + 1, NULL)))
+	if ((line = line_input(PROMPT, NULL)))
 	{
 		ft_putendl("");
 		ft_putendl(line);

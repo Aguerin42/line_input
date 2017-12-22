@@ -9,7 +9,9 @@ int	ctrl_key(char buf[], char **line, t_line *line_info)
 	else if (buf[0] == 11)
 		;
 	else if (buf[0] == 12)
-		;
+	{
+		ft_putstr(tgoto(tgetstr("cl", NULL), 0, 0));
+	}
 	else if (buf[0] == 20)
 		return (swap_char(line, line_info));
 	else if (buf[0] == 21)
