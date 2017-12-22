@@ -51,9 +51,9 @@ int			delete_char(char **line, char t, t_line *line_info)
 						line_info->size - line_info->cursor_i);
 			line_info->cursor_i--;
 		}
-		else if (t == 27 && line_info->cursor_i < line_info->len)
-			ft_memmove(&line[0][line_info->cursor_i - 1],\
-						&line[0][line_info->cursor_i],\
+		else if ((t == 27 || t == 4) && line_info->cursor_i < line_info->len)
+			ft_memmove(&line[0][line_info->cursor_i],\
+						&line[0][line_info->cursor_i + 1],\
 						line_info->size - line_info->cursor_i);
 		else
 			return (1);

@@ -12,4 +12,4 @@ Le programme permet l'édition d'une ligne de commande. L'utilisateur peut se d�
 - [x] Déplacement rapide en début ou fin de ligne
 	+ `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
 	+ `end` ou `fn`+`flèche de droite` pour aller en début de ligne
-- [ ] Gestion de `Ctrl-d`
+- [x] Gestion de `Ctrl-d`
