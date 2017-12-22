@@ -51,3 +51,9 @@ Docs/
 *.xpl
 *.bidon
 *.igno
+
+# line_input
+main.c
+Makefile
+libft
+auteur

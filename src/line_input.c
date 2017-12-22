@@ -1,7 +1,5 @@
 #include "line_input.h"
 
-void			debug(t_line line, char buf[]);
-
 /*
 **	\brief	Calcul du nombre de lignes nécessaires à l'affichage
 **
@@ -86,7 +84,7 @@ static void		update_info(t_line *line_i, const char *line)
 */
 
 static int		check_key(char **line, char buf[], t_line *line_info,
-														const t_list *history)
+														t_list *history)
 {
 	if (line && line_info)
 	{
@@ -99,18 +97,18 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 				(buf[2] == 68 || buf[2] == 67 || buf[2] == 72 || buf[2] == 70))
 			return (move_cursor_on_line(buf[2], line_info));
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[3]) &&
-				(buf[2] == 66 || buf[2] == 69))
-			(void)history;
+				(buf[2] == 65 || buf[2] == 66))
+			return (manage_history(line, buf[2], line_info, history));
 		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
 					buf[4] == 53)
 			return (move_to_word(buf[5], *line, line_info));
 		else if (buf[0] && !buf[1])
-			return (ctrl_key(buf, line, line_info));
+			return (ctrl_key(buf, line, line_info, history));
 	}
 	return (1);
 }
 
-char			*line_input(char *prompt, const t_list *history)
+char			*line_input(char *prompt, t_list *history)
 {
 	char	*line;
 	char	buf[7];
@@ -125,7 +123,6 @@ char			*line_input(char *prompt, const t_list *history)
 			update_info(&line_info, line);
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
-			debug(line_info, buf);
 			if (!check_key(&line, buf, &line_info, history))
 			{
 				if (buf[0] == 12)

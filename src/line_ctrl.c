@@ -1,6 +1,6 @@
 #include "line_input.h"
 
-int	ctrl_key(char buf[], char **line, t_line *line_info)
+int	ctrl_key(char buf[], char **line, t_line *line_info, t_list *history)
 {
 	if (buf[0] == 1 || buf[0] == 5)
 		return (move_cursor_on_line(buf[0], line_info));
@@ -12,6 +12,10 @@ int	ctrl_key(char buf[], char **line, t_line *line_info)
 	{
 		ft_putstr(tgoto(tgetstr("cl", NULL), 0, 0));
 	}
+	else if (buf[0] == 14)
+		return (manage_history(line, 66, line_info, history));
+	else if (buf[0] == 16)
+		return (manage_history(line, 65, line_info, history));
 	else if (buf[0] == 20)
 		return (swap_char(line, line_info));
 	else if (buf[0] == 21)

@@ -38,13 +38,14 @@ typedef struct	s_line
 */
 
 int				nb_line(size_t len, size_t col);
-char			*line_input(char *prompt, const t_list *history);
+char			*line_input(char *prompt, t_list *history);
 
 /*
 **	line_ctrl.c
 */
 
-int				ctrl_key(char buf[], char **line, t_line *line_info);
+int				ctrl_key(char buf[], char **line, t_line *line_info,\
+						t_list *history);
 
 /*
 **	line_cursor_motion.c
@@ -61,6 +62,13 @@ void			replace_cursor(t_line line_info);
 int				insert_char(char **line, char c, t_line *line_info);
 int				delete_char(char **line, char t, t_line *line_info);
 int				swap_char(char **line, t_line *line_info);
+
+/*
+**	line_history.c
+*/
+
+int				manage_history(char **line, char m, t_line *line_info,\
+														t_list *history);
 
 /*
 **	line_print.c
