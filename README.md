@@ -6,7 +6,7 @@ La fonction `line_input` est prototypée de la manière suivante :
 
 	char *line_input(char *prompt, t_list *history)
 
-- La variable `prompt` est la chaîne représentant l'invite de commande du Shell. La fonction se sert de cette variable pour que l'affichage soit correct et pour le réafficher en cas d'effacement de l'écran.
+- La variable `prompt` est la chaîne représentant l'invite de commande du Shell.
 - La variable `history` contient l'historique des précédentes commandes.
 
 Ces deux variables peuvent être `NULL`.
