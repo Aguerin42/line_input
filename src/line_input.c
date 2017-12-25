@@ -102,6 +102,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
 					buf[4] == 53)
 			return (move_to_word(buf[5], *line, line_info));
+		else if (buf[0] == 10 && !buf[1])
+			return (move_cursor_on_line(70, line_info));
 		else if (buf[0] && !buf[1])
 			return (ctrl_key(buf, line, line_info, history));
 	}
