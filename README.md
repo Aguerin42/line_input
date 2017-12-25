@@ -31,7 +31,17 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
 - [x] Effacement de l'écran avec `Ctrl-l`
 
+## Utilisation et compilation
+
+*line_input* utilise des fonctions de la [Libft][] et a besoin de son header pour pouvoir être compilé. Il faut fournir au _Makefile_ le chemin vers le dossier le contenant à l'aide de la variable *LIBFT_INC*.
+
+	$> make LIBFT_INC=../libft/includes all
+
+Le programme devra être compilé avec la bibliothèque `termcap`.
+
 ## **Sources**
 
 - [Opengroup.org - The Open Group Base Specifications Issue 7](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html)
 - [marionpatrick.free.fr - Manuel des manuels](http://marionpatrick.free.fr/man_html/html/index.html)
+
+[Libft]: https://github.com/aguerin42/libft.git
