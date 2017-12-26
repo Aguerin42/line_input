@@ -16,7 +16,9 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 ## Fonctionnalités
 
 - [x] Édition de la ligne à l'emplacement du curseur
-- [x] Déplacement du curseur vers la gauche et la droite sur plusieurs lignes
+- [x] Déplacement du curseur
+	- la gauche et la droite sur plusieurs lignes
+	- vers le haut et le bas avec `Ctrl`-`flèche haute/basse` 
 - [x] Navigation dans l'historique
 	+ `Ctrl-p` ou `flèche haute` pour voir les commandes précédentes
 	+ `Ctrl-n` ou `flèche basse` pour voir les commandes suivantes

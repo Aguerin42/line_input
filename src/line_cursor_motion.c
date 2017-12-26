@@ -64,11 +64,11 @@ int			move_cursor_on_line(char m, t_line *line_info)
 	return (1);
 }
 
-int			move_to_word(char m, char *line, t_line *line_info)
+int			move_ctrl_arrow(char m, char *line, t_line *line_info)
 {
 	int	i;
 
-	if (line_info && (m == 67 || m == 68))
+	if (line_info && (m == 67 || m == 68 || m == 65 || m == 66))
 	{
 		i = line_info->cursor_i;
 		if (m == 67)
@@ -87,6 +87,11 @@ int			move_to_word(char m, char *line, t_line *line_info)
 			while (i > 0 && ft_isalnum(line[i - 1]))
 				--i;
 		}
+		else if (m == 65)
+			i = (i >= (int)line_info->win_col) ? i - line_info->win_col : 0;
+		else if (m == 66)
+			i = (i + (int)line_info->win_col <= (int)line_info->len) ?\
+								i + line_info->win_col : line_info->len;
 		line_info->cursor_i = i;
 		return (0);
 	}

@@ -52,7 +52,7 @@ int				ctrl_key(char buf[], char **line, t_line *line_info,\
 */
 
 int				move_cursor_on_line(char m, t_line *line_info);
-int				move_to_word(char m, char *line, t_line *line_info);
+int				move_ctrl_arrow(char m, char *line, t_line *line_info);
 void			replace_cursor(t_line line_info);
 
 /*
