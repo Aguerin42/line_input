@@ -110,34 +110,75 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 	return (1);
 }
 
+
+char			*read_simple(char *line, t_line line_info, char buf[])
+{
+	if (line)
+	{
+		while (buf[0] != 10 && line_info.size)
+		{
+			ft_bzero(buf, 7);
+			read(0, buf, 6);
+			insert_char(&line, buf[0], &line_info);
+		}
+	}
+	return (line);
+}
+
+static void		set_term(void)
+{
+	struct termios	new;
+
+	tcgetattr(0, &new);
+	new.c_lflag &= ~(ICANON);
+	new.c_lflag &= ~(ECHO);
+	new.c_cc[VTIME] = 0;
+	new.c_cc[VMIN] = 1;
+	tcsetattr(0, TCSADRAIN, &new);
+}
+
+static void		reset_term(struct termios save)
+{
+	tcsetattr(0, 0, &save);
+}
+
 char			*line_input(char *prompt, t_list *history)
 {
-	char	*line;
-	char	buf[7];
-	t_line	line_info;
+	char			*line;
+	char			buf[7];
+	t_line			line_info;
+	struct termios	save;
 
 	ft_putstrs(prompt);
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 		buf[0] = 0;
-		while (buf[0] != 10 && line_info.size)
+		if (!(tgetent(NULL, getenv("TERM"))))
+			line = read_simple(line, line_info, buf);
+		else
 		{
-			update_info(&line_info, line);
-			ft_bzero(buf, 7);
-			read(0, buf, 6);
-			if (!check_key(&line, buf, &line_info, history))
+			tcgetattr(0, &save);
+			set_term();
+			while (buf[0] != 10 && line_info.size)
 			{
-				if (buf[0] == 12)
-				{
-					ft_putstrs(prompt);
-					ft_putstr(line);
-				}
-				else
-					print_line(line, line_info);
 				update_info(&line_info, line);
-				replace_cursor(line_info);
+				ft_bzero(buf, 7);
+				read(0, buf, 6);
+				if (!check_key(&line, buf, &line_info, history))
+				{
+					if (buf[0] == 12)
+					{
+						ft_putstrs(prompt);
+						ft_putstr(line);
+					}
+					else
+						print_line(line, line_info);
+					update_info(&line_info, line);
+					replace_cursor(line_info);
+				}
 			}
+			reset_term(save);
 		}
 	}
 	else

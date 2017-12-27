@@ -2,6 +2,7 @@
 # define LINE_INPUT_H
 
 # include "libft.h"
+# include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
 # include <sys/ioctl.h>
