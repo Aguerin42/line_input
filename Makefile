@@ -40,9 +40,10 @@ fclean: clean
 re: fclean all
 
 doxygen:
-	@echo "Pas de documentation pour $(PROJECT)"
+	@echo "$(JAUNE)Pas de documentation pour $(PROJECT)$(RESET)"
 
-cleandoxy: doxygen
+cleandoxy:
+	@echo "$(JAUNE)Pas de documentation pour $(PROJECT)$(RESET)"
 
 # Couleurs
 RESET = \033[0m
