@@ -1,6 +1,6 @@
-# line_edit
+# line_input
 
-Le programme permet l'édition d'une ligne de commande. L'utilisateur peut se déplacer dans celle-ci et l'éditer à l'endroit voulu.
+La fonction permet l'édition d'une ligne de commande. L'utilisateur peut se déplacer dans celle-ci et l'éditer à l'endroit voulu.
 
 La fonction `line_input` est prototypée de la manière suivante :
 
