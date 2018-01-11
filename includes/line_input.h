@@ -2,10 +2,12 @@
 # define LINE_INPUT_H
 
 # include "libft.h"
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# include <signal.h>
 
 # define INPUT_BUF_SIZE	4096
 
@@ -75,6 +77,6 @@ int				manage_history(char **line, char m, t_line *line_info,\
 **	line_print.c
 */
 
-void			print_line(char *line, t_line line_info);
+void			print_line(char *line, t_line line_info, char *prompt);
 
 #endif

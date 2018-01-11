@@ -44,29 +44,12 @@ static t_line	init_line_info(size_t size, char *prompt)
 	return (line_info);
 }
 
-/*
-**	\brief	Gestion de la ligne de commande
-**
-**	La fonction s'occupe de la gestion de la ligne de commande. Elle permet de
-**	se déplacer dans celle-ci avec les flèches, de l'éditer et d'accéder
-**	aux autres lignes de l'historique s'il est disponible.
-**	Lorsque l'utilisateur appuie sur _entrée_, la fonction renvoie la chaîne
-**	contenant les commandes.
-**
-**	Avant l'appel à la fonction, le terminal devra être en mode non canonique et
-**	non echo.
-**
-**	\param	prompt_len -	longueur du prompt
-**	\param	history -		liste pour historique, peut être `NULL` si celui-ci
-**							n'existe pas
-*/
-
 static void		update_info(t_line *line_i, const char *line)
 {
 	struct winsize	win;
 
 	ioctl(0, TIOCGWINSZ, &win);
-	if (line && line_i)
+	if (line_i)
 	{
 		!win.ws_col ? win.ws_col = 1 : 0;
 		line_i->win_col = win.ws_col;
@@ -142,6 +125,39 @@ static void		reset_term(struct termios save)
 	tcsetattr(0, 0, &save);
 }
 
+t_line	get_line_info(size_t size, char *prompt, int set)
+{
+	static t_line	line_info;
+
+	if (set)
+		line_info = init_line_info(size, prompt);
+	return (line_info);
+}
+
+void	ctrlc(int signal)
+{
+	t_line	line;
+	(void)signal;
+	ft_putnbr_fd(line.cursor_i, 2);
+}
+
+/*
+**	\brief	Gestion de la ligne de commande
+**
+**	La fonction s'occupe de la gestion de la ligne de commande. Elle permet de
+**	se déplacer dans celle-ci avec les flèches, de l'éditer et d'accéder
+**	aux autres lignes de l'historique s'il est disponible.
+**	Lorsque l'utilisateur appuie sur _entrée_, la fonction renvoie la chaîne
+**	contenant les commandes.
+**
+**	Avant l'appel à la fonction, le terminal devra être en mode non canonique et
+**	non echo.
+**
+**	\param	prompt -		prompt à afficher
+**	\param	history -		liste pour historique, peut être `NULL` si celui-ci
+**							n'existe pas
+*/
+
 char			*line_input(char *prompt, t_list *history)
 {
 	char			*line;
@@ -149,15 +165,16 @@ char			*line_input(char *prompt, t_list *history)
 	t_line			line_info;
 	struct termios	save;
 
+//	signal(SIGINT, ctrlc);
 	ft_putstrs(prompt);
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
-	{
-		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
-		buf[0] = 0;
+	//	line_info = get_line_info(INPUT_BUF_SIZE, prompt, 1);
 		if (!(tgetent(NULL, getenv("TERM"))))
-			line = read_simple(line, line_info, buf);
+			get_next_line(0, &line);
 		else
 		{
+			buf[0] = 0;
+			line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 			tcgetattr(0, &save);
 			set_term();
 			while (buf[0] != 10 && line_info.size)
@@ -167,20 +184,13 @@ char			*line_input(char *prompt, t_list *history)
 				read(0, buf, 6);
 				if (!check_key(&line, buf, &line_info, history))
 				{
-					if (buf[0] == 12)
-					{
-						ft_putstrs(prompt);
-						ft_putstr(line);
-					}
-					else
-						print_line(line, line_info);
+					print_line(line, line_info, prompt);
 					update_info(&line_info, line);
 					replace_cursor(line_info);
 				}
 			}
 			reset_term(save);
 		}
-	}
 	else
 		ft_putendl_fd("\nline_input : allocation error.", 2);
 	return (line);

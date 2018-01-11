@@ -10,18 +10,15 @@
 **	\param	line_info - Information sur la ligne et la position du curseur
 */
 
-void	print_line(char *line, t_line line_info)
+void	print_line(char *line, t_line line_info, char *prompt)
 {
 	if (line)
 	{
+		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
 		while (--line_info.cursor_y > 0)
-		{
-			ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
-			ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-		}
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info.prompt));
-		ft_putstr(tgetstr("cd", NULL));
+		ft_putstrs(prompt);
 		ft_putstr(line);
 	}
 }
