@@ -154,6 +154,7 @@ char	*get_prompt(char *prompt)
 
 void	ctrlc(int signal)
 {
+	int		term;
 	char	*prompt;
 	char	**line;
 	t_line	*line_info;
@@ -166,10 +167,12 @@ void	ctrlc(int signal)
 		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
 	if ((*line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
+		term = line_info->term;
 		ft_putendl("");
 		prompt = get_prompt(NULL);
 		ft_putstrs(prompt);
 		*line_info = init_line_info(INPUT_BUF_SIZE, prompt);
+		line_info->term = term;
 		update_info(line_info, *line);
 	}
 	else if (line_info && line_info->size)
@@ -188,8 +191,10 @@ void	ctrlc(int signal)
 **	Lorsque l'utilisateur appuie sur _entrée_, la fonction renvoie la chaîne
 **	contenant les commandes.
 **
-**	Avant l'appel à la fonction, le terminal devra être en mode non canonique et
-**	non echo.
+**	La fonction intercepte le signal SIGINT et le rétablit à son comportement
+**	par défaut avant de retourner la commande. Si la fonction appelante a
+**	également besoin d'intercepter ce signal, elle devra le rétablir après
+**	l'appel à _line_input_.
 **
 **	\param	prompt -		prompt à afficher
 **	\param	history -		liste pour historique, peut être `NULL` si celui-ci
@@ -213,22 +218,41 @@ char			*line_input(char *prompt, t_list *history)
 		get_line_info(&line_info);
 		get_line(&line);
 		get_prompt(prompt);
-		line_info.term ? (void)tcgetattr(0, &save) : NULL;
-		line_info.term ? set_term() : NULL;
+		tcgetattr(0, &save);
+		set_term();
 		while (buf[0] != 10 && line_info.size)
 		{
 			update_info(&line_info, line);
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
-			if (line_info.size && line_info.term &&
-				!check_key(&line, buf, &line_info, history))
+			if (line_info.size && line_info.term)
 			{
-				print_line(line, line_info, prompt);
+				if (!check_key(&line, buf, &line_info, history))
+				{
+					print_line(line, line_info, prompt);
+					update_info(&line_info, line);
+					replace_cursor(line_info);
+				}
+			}
+			else if (!buf[1] && buf[0] > 31 && buf[0] < 127)
+			{
+				ft_putchar(buf[0]);
+				insert_char(&line, buf[0], &line_info);
 				update_info(&line_info, line);
-				replace_cursor(line_info);
+			}
+			else if (!buf[1] && buf[0] == 127)
+			{
+				if (line_info.cursor_i > 0)
+				{
+					ft_putchar(8);
+					ft_putchar(' ');
+					ft_putchar(8);
+					delete_char(&line, buf[0], &line_info);
+					update_info(&line_info, line);
+				}
 			}
 		}
-		line_info.term ? reset_term(save) : NULL;
+		reset_term(save);
 	}
 	else if (!line)
 		ft_putendl_fd("\nline_input: allocation error.", 2);
