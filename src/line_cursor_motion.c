@@ -117,10 +117,5 @@ void		replace_cursor(t_line line_info)
 	}
 	while (--y >= (int)line_info.cursor_y)
 		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-	if (x > (int)line_info.cursor_x)
-		while (--x >= (int)line_info.cursor_x)
-			ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
-	else
-		while (++x <= (int)line_info.cursor_x)
-			ft_putstr(tgoto(tgetstr("nd", NULL), 0, 0));
+	ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info.cursor_x));
 }
