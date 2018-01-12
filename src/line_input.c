@@ -69,7 +69,7 @@ static void		update_info(t_line *line_i, const char *line)
 static int		check_key(char **line, char buf[], t_line *line_info,
 														t_list *history)
 {
-	if (line && line_info)
+	if (line && line_info && line_info->size)
 	{
 		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
 			return (insert_char(line, buf[0], line_info));
@@ -125,20 +125,58 @@ static void		reset_term(struct termios save)
 	tcsetattr(0, 0, &save);
 }
 
-t_line	get_line_info(size_t size, char *prompt, int set)
+t_line	*get_line_info(t_line *info)
 {
-	static t_line	line_info;
+	static t_line	*line_info = NULL;
 
-	if (set)
-		line_info = init_line_info(size, prompt);
+	if (info)
+		line_info = info;
 	return (line_info);
+}
+
+char	**get_line(char **line)
+{
+	static char	**save_line = NULL;
+
+	if (line)
+		save_line = line;
+	return (save_line);
+}
+
+char	*get_prompt(char *prompt)
+{
+	static char	*save_prompt = NULL;
+
+	if (prompt)
+		save_prompt = prompt;
+	return (save_prompt);
 }
 
 void	ctrlc(int signal)
 {
-	t_line	line;
+	char	*prompt;
+	char	**line;
+	t_line	*line_info;
+
 	(void)signal;
-	ft_putnbr_fd(line.cursor_i, 2);
+	line_info = get_line_info(NULL);
+	if ((line = get_line(NULL)))
+		ft_strdel(line);
+	while (line_info->cursor_y++ < line_info->nb_line)
+		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+	if ((*line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
+	{
+		ft_putendl("");
+		prompt = get_prompt(NULL);
+		ft_putstrs(prompt);
+		*line_info = init_line_info(INPUT_BUF_SIZE, prompt);
+		update_info(line_info, *line);
+	}
+	else if (line_info && line_info->size)
+	{
+		line_info->size = 0;
+		ft_putendl_fd("\nline_input: allocation error", 2);
+	}
 }
 
 /*
@@ -165,33 +203,35 @@ char			*line_input(char *prompt, t_list *history)
 	t_line			line_info;
 	struct termios	save;
 
-//	signal(SIGINT, ctrlc);
+	signal(SIGINT, ctrlc);
 	ft_putstrs(prompt);
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
-	//	line_info = get_line_info(INPUT_BUF_SIZE, prompt, 1);
-		if (!(tgetent(NULL, getenv("TERM"))))
-			get_next_line(0, &line);
-		else
+	{
+		buf[0] = 0;
+		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
+		line_info.term = tgetent(NULL, getenv("TERM")) <= 0 ? 0 : 1;
+		get_line_info(&line_info);
+		get_line(&line);
+		get_prompt(prompt);
+		line_info.term ? (void)tcgetattr(0, &save) : NULL;
+		line_info.term ? set_term() : NULL;
+		while (buf[0] != 10 && line_info.size)
 		{
-			buf[0] = 0;
-			line_info = init_line_info(INPUT_BUF_SIZE, prompt);
-			tcgetattr(0, &save);
-			set_term();
-			while (buf[0] != 10 && line_info.size)
+			update_info(&line_info, line);
+			ft_bzero(buf, 7);
+			read(0, buf, 6);
+			if (line_info.size && line_info.term &&
+				!check_key(&line, buf, &line_info, history))
 			{
+				print_line(line, line_info, prompt);
 				update_info(&line_info, line);
-				ft_bzero(buf, 7);
-				read(0, buf, 6);
-				if (!check_key(&line, buf, &line_info, history))
-				{
-					print_line(line, line_info, prompt);
-					update_info(&line_info, line);
-					replace_cursor(line_info);
-				}
+				replace_cursor(line_info);
 			}
-			reset_term(save);
 		}
-	else
-		ft_putendl_fd("\nline_input : allocation error.", 2);
+		line_info.term ? reset_term(save) : NULL;
+	}
+	else if (!line)
+		ft_putendl_fd("\nline_input: allocation error.", 2);
+	signal(SIGINT, SIG_DFL);
 	return (line);
 }

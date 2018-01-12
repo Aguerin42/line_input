@@ -30,6 +30,7 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 	+ `Ctrl-a`, `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
 	+ `Ctrl-e`, `end` ou `fn`+`flèche de droite` pour aller en début de ligne
 - [x] Gestion de `Ctrl-d`
+- [x] Gestion de `Ctrl-c`
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
 - [x] Effacement de l'écran avec `Ctrl-l`
 

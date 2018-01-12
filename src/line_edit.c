@@ -11,7 +11,7 @@
 
 int			insert_char(char **line, char c, t_line *line_info)
 {
-	if (line && *line && line_info && (c >= 32 && c <= 126) &&\
+	if (line && *line && line_info && line_info->size && (c >= 32 && c <= 126) &&\
 			line_info->len <= 262144)
 	{
 		if (line_info->len == line_info->size)
@@ -42,7 +42,7 @@ int			insert_char(char **line, char c, t_line *line_info)
 
 int			delete_char(char **line, char t, t_line *line_info)
 {
-	if (line && *line && line_info && line_info->len > 0)
+	if (line && *line && line_info && line_info->size && line_info->len > 0)
 	{
 		if ((t == 127 || t == 8) && line_info->cursor_i > 0)
 		{

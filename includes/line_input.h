@@ -34,6 +34,7 @@ typedef struct	s_line
 	size_t	prompt;
 	size_t	nb_line;
 	size_t	win_col;
+	int		term;
 }				t_line;
 
 /*
