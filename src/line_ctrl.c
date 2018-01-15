@@ -9,9 +9,7 @@ int	ctrl_key(char buf[], char **line, t_line *line_info, t_list *history)
 	else if (buf[0] == 11)
 		;
 	else if (buf[0] == 12)
-	{
 		ft_putstr(tgoto(tgetstr("cl", NULL), 0, 0));
-	}
 	else if (buf[0] == 14)
 		return (manage_history(line, 66, line_info, history));
 	else if (buf[0] == 16)

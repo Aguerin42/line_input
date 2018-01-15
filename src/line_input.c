@@ -227,6 +227,17 @@ char			*line_input(char *prompt, t_list *history)
 		while (buf[0] != 10 && line_info.size)
 		{
 			update_info(&line_info, line);
+		ft_putstr_fd("len: ", 2);
+		ft_putnbr_fd(line_info.len, 2);
+		ft_putstr_fd(" i: ", 2);
+		ft_putnbr_fd(line_info.cursor_i, 2);
+		ft_putstr_fd(" x: ", 2);
+		ft_putnbr_fd(line_info.cursor_x, 2);
+		ft_putstr_fd(" line: ", 2);
+		ft_putnbr_fd(line_info.cursor_y, 2);
+		ft_putstr_fd(" col: ", 2);
+		ft_putnbr_fd(line_info.win_col, 2);
+		ft_putchar_fd('\n',2 );
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
 			if (line_info.size && line_info.term)
@@ -255,7 +266,7 @@ char			*line_input(char *prompt, t_list *history)
 					update_info(&line_info, line);
 				}
 			}
-			ft_putchar_fd('\n', 2);
+	/*		ft_putchar_fd('\n', 2);
 			ft_putnbr_fd(buf[0], 2);
 			ft_putchar_fd(' ', 2);
 			ft_putnbr_fd(buf[1], 2);
@@ -271,7 +282,7 @@ char			*line_input(char *prompt, t_list *history)
 			ft_putchar_fd(' ', 2);
 			ft_putchar_fd(' ', 2);
 			ft_putnbr_fd(line_info.cursor_s, 2);
-			ft_putchar_fd('\n', 2);
+			ft_putchar_fd('\n', 2);*/
 		}
 		reset_term(save);
 	}

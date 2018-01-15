@@ -25,17 +25,27 @@ int	selection(char m, char *line, t_line *line_info)
 					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
 					line_info->cursor_i--;
 				}
-				ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+				if (!line_info->cursor_x)
+				{
+					ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
+					ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info->win_col -1));
+				}
+				else if (line_info->cursor_x != line_info->win_col - 1)
+					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
 				line_info->cursor_i--;
 			}
 		}
 		else if (m == 67)
 		{
-			if (line_info->cursor_i < line_info->len - 1)
+			if ((int)line_info->cursor_i < (int)line_info->len - 1)
 			{
 				ft_putstr(tgetstr("mr", NULL));
 				ft_putchar(line[line_info->cursor_i]);
-				line_info->cursor_i++;
+				if (++line_info->cursor_i + line_info->prompt == line_info->win_col)
+				{
+					ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+					ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+				}
 			}
 		}
 		if (line_info->cursor_s == -1)

@@ -32,7 +32,7 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 - [x] Gestion de `Ctrl-d` : efface le caractère sous le curseur, quitte s'il n'y a plus de caractère et renvoie `exit`
 - [x] Gestion de `Ctrl-c`
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
-- [ ] Effacement de l'écran avec `Ctrl-l` ou la commande `clear`
+- [x] Effacement de l'écran avec `Ctrl-l`
 
 ## Utilisation et compilation
 
