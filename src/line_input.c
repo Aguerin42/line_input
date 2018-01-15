@@ -40,6 +40,7 @@ static t_line	init_line_info(size_t size, char *prompt)
 	line_info.cursor_i = 0;
 	line_info.cursor_x = line_info.prompt;
 	line_info.cursor_y = 1;
+	line_info.cursor_s = -1;
 	line_info.nb_line = 0;
 	return (line_info);
 }
@@ -85,6 +86,9 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
 					buf[4] == 53)
 			return (move_ctrl_arrow(buf[5], *line, line_info));
+		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
+					buf[4] == 54)
+			return (selection(buf[5], *line, line_info));
 		else if (buf[0] == 10 && !buf[1])
 			return (move_cursor_on_line(70, line_info));
 		else if (buf[0] && !buf[1])
@@ -251,6 +255,23 @@ char			*line_input(char *prompt, t_list *history)
 					update_info(&line_info, line);
 				}
 			}
+			ft_putchar_fd('\n', 2);
+			ft_putnbr_fd(buf[0], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(buf[1], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(buf[2], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(buf[3], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(buf[4], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(buf[5], 2);
+			ft_putchar_fd(' ', 2);
+			ft_putchar_fd(' ', 2);
+			ft_putchar_fd(' ', 2);
+			ft_putnbr_fd(line_info.cursor_s, 2);
+			ft_putchar_fd('\n', 2);
 		}
 		reset_term(save);
 	}

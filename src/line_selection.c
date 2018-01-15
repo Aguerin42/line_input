@@ -1,0 +1,47 @@
+#include "line_input.h"
+
+int	selection(char m, char *line, t_line *line_info)
+{
+	int	e;
+
+	if (line && line_info && (m == 67 || m == 68))
+	{	
+		if (m == 68)
+		{
+			if (line_info->cursor_i > 0)
+			{
+				ft_putstr(tgetstr("mr", NULL));
+				if (line_info->cursor_i == line_info->len)
+				{
+					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+					line_info->cursor_i--;
+					e = 1;
+				}
+				else
+					e = 0;
+				ft_putchar(line[line_info->cursor_i++]);
+				if (!e)
+				{
+					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+					line_info->cursor_i--;
+				}
+				ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+				line_info->cursor_i--;
+			}
+		}
+		else if (m == 67)
+		{
+			if (line_info->cursor_i < line_info->len - 1)
+			{
+				ft_putstr(tgetstr("mr", NULL));
+				ft_putchar(line[line_info->cursor_i]);
+				line_info->cursor_i++;
+			}
+		}
+		if (line_info->cursor_s == -1)
+			line_info->cursor_s = (m == 67) ? line_info->cursor_i - 1 :
+												line_info->cursor_i + 1;
+		ft_putstr(tgetstr("me", NULL));
+	}
+	return (1);
+}

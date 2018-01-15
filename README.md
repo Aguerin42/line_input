@@ -29,10 +29,10 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 - [x] Déplacement rapide en début ou fin de ligne
 	+ `Ctrl-a`, `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
 	+ `Ctrl-e`, `end` ou `fn`+`flèche de droite` pour aller en début de ligne
-- [x] Gestion de `Ctrl-d`
+- [x] Gestion de `Ctrl-d` : efface le caractère sous le curseur, quitte s'il n'y a plus de caractère et renvoie `exit`
 - [x] Gestion de `Ctrl-c`
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
-- [x] Effacement de l'écran avec `Ctrl-l`
+- [ ] Effacement de l'écran avec `Ctrl-l` ou la commande `clear`
 
 ## Utilisation et compilation
 

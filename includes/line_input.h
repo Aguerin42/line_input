@@ -22,6 +22,8 @@
 **	prompt		Longueur du prompt
 **	nb_line		Nombre de ligne nécessaires pour l'affichage
 **	win_col		Nombre de colonnes de la fenêtre
+**	cursor_s	Indice du début/de la fin de la sélection par rapport au curseur
+**	term		Booléen indiquant si l'environnement a pu être récupéré ou non
 */
 
 typedef struct	s_line
@@ -34,6 +36,7 @@ typedef struct	s_line
 	size_t	prompt;
 	size_t	nb_line;
 	size_t	win_col;
+	int		cursor_s;
 	int		term;
 }				t_line;
 
@@ -79,5 +82,11 @@ int				manage_history(char **line, char m, t_line *line_info,\
 */
 
 void			print_line(char *line, t_line line_info, char *prompt);
+
+/*
+**	line_selection.c
+*/
+
+int				selection(char m, char *line, t_line *line_info);
 
 #endif

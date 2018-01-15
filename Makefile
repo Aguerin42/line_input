@@ -12,7 +12,7 @@ INC_FILE = line_input.h
 INC = $(addprefix includes/, $(INC_FILE))
 
 # Sources
-SRC_FILE = line_ctrl.c line_cursor_motion.c line_edit.c line_history.c line_input.c line_print.c
+SRC_FILE = line_ctrl.c line_cursor_motion.c line_edit.c line_history.c line_input.c line_print.c line_selection.c
 SRC = $(addprefix src/, $(SRC_FILE))
 
 # Objets
