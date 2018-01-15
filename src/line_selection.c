@@ -13,7 +13,13 @@ int	selection(char m, char *line, t_line *line_info)
 				ft_putstr(tgetstr("mr", NULL));
 				if (line_info->cursor_i == line_info->len)
 				{
-					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+					if (!line_info->cursor_x)
+					{
+						ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
+						ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info->win_col -1));
+					}
+					else
+						ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
 					line_info->cursor_i--;
 					e = 1;
 				}
@@ -25,7 +31,7 @@ int	selection(char m, char *line, t_line *line_info)
 					ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
 					line_info->cursor_i--;
 				}
-				if (!line_info->cursor_x)
+				if (!line_info->cursor_x && !e)
 				{
 					ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
 					ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info->win_col -1));
@@ -48,9 +54,6 @@ int	selection(char m, char *line, t_line *line_info)
 				}
 			}
 		}
-		if (line_info->cursor_s == -1)
-			line_info->cursor_s = (m == 67) ? line_info->cursor_i - 1 :
-												line_info->cursor_i + 1;
 		ft_putstr(tgetstr("me", NULL));
 	}
 	return (1);
