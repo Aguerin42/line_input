@@ -60,6 +60,8 @@ int			move_cursor_on_line(char m, t_line *line_info)
 			line_info->cursor_i = line_info->len;
 			return (0);
 		}
+		if (line_info->cursor_s > -1)
+			return (0);
 	}
 	return (1);
 }

@@ -25,6 +25,7 @@ int	selection(char m, char *line, t_line *line_info)
 				}
 				else
 					e = 0;
+				line_info->cursor_s = line_info->cursor_i;
 				ft_putchar(line[line_info->cursor_i++]);
 				if (!e)
 				{
@@ -47,6 +48,7 @@ int	selection(char m, char *line, t_line *line_info)
 			{
 				ft_putstr(tgetstr("mr", NULL));
 				ft_putchar(line[line_info->cursor_i]);
+				line_info->cursor_s = line_info->cursor_i;
 				if (++line_info->cursor_i + line_info->prompt == line_info->win_col)
 				{
 					ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));

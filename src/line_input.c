@@ -237,6 +237,8 @@ char			*line_input(char *prompt, t_list *history)
 		ft_putnbr_fd(line_info.cursor_y, 2);
 		ft_putstr_fd(" col: ", 2);
 		ft_putnbr_fd(line_info.win_col, 2);
+		ft_putstr_fd(" s: ", 2);
+		ft_putnbr_fd(line_info.cursor_s, 2);
 		ft_putchar_fd('\n',2 );
 			ft_bzero(buf, 7);
 			read(0, buf, 6);
