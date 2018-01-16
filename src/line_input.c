@@ -45,7 +45,7 @@ static t_line	init_line_info(size_t size, char *prompt)
 	return (line_info);
 }
 
-static void		update_info(t_line *line_i, const char *line)
+void		update_info(t_line *line_i, const char *line)
 {
 	struct winsize	win;
 
@@ -87,8 +87,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 					buf[4] == 53)
 			return (move_ctrl_arrow(buf[5], *line, line_info));
 		else if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
-					buf[4] == 54)
-			return (selection(buf[5], *line, line_info));
+					(buf[4] == 50 || buf[4] == 54))
+			return (selection(buf[4], buf[5], *line, line_info));
 		else if (buf[0] == 10 && !buf[1])
 			return (move_cursor_on_line(70, line_info));
 		else if (buf[0] && !buf[1])
@@ -246,6 +246,7 @@ char			*line_input(char *prompt, t_list *history)
 			{
 				if (!check_key(&line, buf, &line_info, history))
 				{
+					line_info.cursor_s = -1;
 					print_line(line, line_info, prompt);
 					update_info(&line_info, line);
 					replace_cursor(line_info);
@@ -268,7 +269,7 @@ char			*line_input(char *prompt, t_list *history)
 					update_info(&line_info, line);
 				}
 			}
-	/*		ft_putchar_fd('\n', 2);
+			ft_putchar_fd('\n', 2);
 			ft_putnbr_fd(buf[0], 2);
 			ft_putchar_fd(' ', 2);
 			ft_putnbr_fd(buf[1], 2);
@@ -284,7 +285,7 @@ char			*line_input(char *prompt, t_list *history)
 			ft_putchar_fd(' ', 2);
 			ft_putchar_fd(' ', 2);
 			ft_putnbr_fd(line_info.cursor_s, 2);
-			ft_putchar_fd('\n', 2);*/
+			ft_putchar_fd('\n', 2);
 		}
 		reset_term(save);
 	}

@@ -45,7 +45,10 @@ typedef struct	s_line
 */
 
 int				nb_line(size_t len, size_t col);
+void			update_info(t_line *line_i, const char *line);
 char			*line_input(char *prompt, t_list *history);
+
+char			*get_prompt(char *prompt);
 
 /*
 **	line_ctrl.c
@@ -87,6 +90,6 @@ void			print_line(char *line, t_line line_info, char *prompt);
 **	line_selection.c
 */
 
-int				selection(char m, char *line, t_line *line_info);
+int				selection(char n, char m, char *line, t_line *line_info);
 
 #endif

@@ -19,16 +19,22 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 - [x] Déplacement du curseur
 	- la gauche et la droite sur plusieurs lignes
 	- vers le haut et le bas avec `Ctrl`-`flèche haute/basse` 
-- [x] Navigation dans l'historique
-	+ `Ctrl-p` ou `flèche haute` pour voir les commandes précédentes
-	+ `Ctrl-n` ou `flèche basse` pour voir les commandes suivantes
-- [ ] Couper, copier, coller une partie de la ligne
 - [x] Déplacement rapide de mot en mot
 	+ `Ctrl-flèche gauche` pour aller au mot précédent
 	+ `Ctrl-flèche droite` pour aller au mot suivant
 - [x] Déplacement rapide en début ou fin de ligne
 	+ `Ctrl-a`, `home` ou `fn`+`flèche de gauche` pour aller en début de ligne
 	+ `Ctrl-e`, `end` ou `fn`+`flèche de droite` pour aller en début de ligne
+- [x] Sélection de tout ou partie de la ligne
+	+ [x] sélection lettre par lettre avec `Shift`-`flèche de gauche/droite`
+	+ [x] sélection de mot en mot avec `Shift`-`Ctrl`-`flèche de gauche/droite`
+	+ [x] sélection plus complète avec `Shift`-`combinaison de touche de déplacement rapide`
+	+ [ ] copier la sélection 
+	+ [ ] couper la sélection
+	+ [ ] coller la précédente sélection
+- [x] Navigation dans l'historique
+	+ `Ctrl-p` ou `flèche haute` pour voir les commandes précédentes
+	+ `Ctrl-n` ou `flèche basse` pour voir les commandes suivantes
 - [x] Gestion de `Ctrl-d` : efface le caractère sous le curseur, quitte s'il n'y a plus de caractère et renvoie `exit`
 - [x] Gestion de `Ctrl-c`
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
