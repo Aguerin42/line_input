@@ -106,11 +106,9 @@ int			move_ctrl_arrow(char m, char *line, t_line *line_info)
 
 void		replace_cursor(t_line line_info)
 {
-	int	x;
 	int	y;
 
 	!line_info.win_col ? line_info.win_col = 1 : 0;
-	x = (line_info.len + line_info.prompt) % line_info.win_col;
 	y = nb_line(line_info.len + line_info.prompt + 1, line_info.win_col);
 	if (!((line_info.len + line_info.prompt) % line_info.win_col))
 	{
