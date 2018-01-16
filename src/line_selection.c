@@ -18,11 +18,6 @@ static void	change_word(int i, char m, char *line, t_line *line_info)
 		while (i > 0 && ft_isalnum(line[i - 1]))
 			--i;
 	}
-	else if (m == 65)
-		i = (i >= (int)line_info->win_col) ? i - line_info->win_col : 0;
-	else if (m == 66)
-		i = (i + (int)line_info->win_col <= (int)line_info->len) ?\
-								i + line_info->win_col : line_info->len - 1;
 	line_info->cursor_i = i;
 }
 
@@ -36,6 +31,11 @@ static void	change_position(int i, char m, t_line *line_info)
 		i = 0;
 	else if (m == 70)
 		i = (line_info->len - 1);
+	else if (m == 65)
+		i = (i + (int)line_info->prompt >= (int)line_info->win_col) ? i - line_info->win_col : 0;
+	else if (m == 66)
+		i = (i + (int)line_info->win_col <= (int)line_info->len) ?
+								i + line_info->win_col : line_info->len - 1;
 	line_info->cursor_i = i;
 }
 
@@ -77,20 +77,13 @@ int			selection(char n, char m, char *line, t_line *line_info)
 		(m == 65 || m == 66 || m == 67 || m == 68 || m == 70 || m == 72))
 	{
 		i = line_info->cursor_i;
-		if (n == 50 || m == 72 || m == 70)
+		if (n == 50 || m == 72 || m == 70 || m == 65 || m == 66)
 			change_position(i, m, line_info);
 		else if (n == 54)
 			change_word(i, m, line, line_info);
 		if (i == (int)line_info->len && i > 0)
-		{
-			if (!((i-- + line_info->prompt) % line_info->win_col))
-			{
-				ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-				ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info->win_col - 1));
-			}
-			else
+			if (((i-- + line_info->prompt) % line_info->win_col))
 				ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
-		}
 		if (line_info->cursor_s == -1 && i != (int)line_info->cursor_i)
 			line_info->cursor_s = i;
 		print_selection(line, *line_info, get_prompt(NULL));
