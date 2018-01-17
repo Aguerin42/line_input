@@ -21,7 +21,7 @@ static void	change_word(int i, char m, char *line, t_line *line_info)
 	line_info->cursor_i = i;
 }
 
-static void	change_position(int i, char m, t_line *line_info)
+static void	change_position(int i, char n, char m, t_line *line_info)
 {
 	if (m == 68 && i > 0)
 		--i;
@@ -31,9 +31,9 @@ static void	change_position(int i, char m, t_line *line_info)
 		i = 0;
 	else if (m == 70)
 		i = (line_info->len - 1);
-	else if (m == 65)
+	else if (n == 54 && m == 65)
 		i = (i >= (int)line_info->win_col) ? i - line_info->win_col : 0;
-	else if (m == 66 && i < (int)line_info->len)
+	else if (n == 54 && m == 66 && i < (int)line_info->len)
 		i = (i + (int)line_info->win_col <= (int)line_info->len) ?
 								i + line_info->win_col : line_info->len - 1;
 	line_info->cursor_i = i;
@@ -78,7 +78,7 @@ int			selection(char n, char m, char *line, t_line *line_info)
 	{
 		i = line_info->cursor_i;
 		if (n == 50 || m == 72 || m == 70 || m == 65 || m == 66)
-			change_position(i, m, line_info);
+			change_position(i, n, m, line_info);
 		else if (n == 54)
 			change_word(i, m, line, line_info);
 		if (i == (int)line_info->len && i > 0 && m == 68)
