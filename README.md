@@ -17,20 +17,21 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 
 - [x] Édition de la ligne à l'emplacement du curseur
 - [x] Déplacement du curseur
-	- la gauche et la droite sur plusieurs lignes
-	- vers le haut et le bas avec `Ctrl`-`haut/bas` 
-- [x] Déplacement rapide de mot en mot
-	+ `Ctrl-gauche` pour aller au mot précédent
-	+ `Ctrl-droite` pour aller au mot suivant
-- [x] Déplacement rapide en début ou fin de ligne
-	+ `Ctrl-a`, `home` ou `fn`+`gauche` pour aller en début de ligne
-	+ `Ctrl-e`, `end` ou `fn`+`droite` pour aller en début de ligne
+	- vers la gauche et la droite sur plusieurs lignes
+- [x] Déplacement rapide
+	+ [x] de haut en bas
+		- `Ctrl`-`haut/bas` 
+	+ [x] de mot en mot
+		- `Ctrl`-`gauche/droite`
+	+ [x] en début ou fin de ligne
+		- `Ctrl-a`, `home` ou `fn`+`gauche` pour aller en début de ligne
+		- `Ctrl-e`, `end` ou `fn`+`droite` pour aller en début de ligne
 - [x] Sélection de tout ou partie de la ligne
 	+ [x] sélection lettre par lettre avec `Shift`-`gauche/droite`
-	+ [x] sélection de mot en mot avec `Shift`-`Ctrl`-`gauche/droite`
-	+ [x] sélection plus complète avec `Shift`-_`combinaison de touche de déplacement rapide`_
+	+ [x] sélection plus complète avec `Shift`-_`combinaison de touches de déplacement rapide`_
+- [ ] Modification de la sélection
 	+ [x] supprimer la sélection
-	+ [ ] remplacer la sélection par un caractère
+	+ [x] remplacer la sélection par un caractère
 	+ [ ] copier la sélection 
 	+ [ ] couper la sélection
 	+ [ ] coller la précédente sélection
@@ -53,6 +54,6 @@ Le programme devra être compilé avec la bibliothèque `termcap`.
 ## **Sources**
 
 - [Opengroup.org - The Open Group Base Specifications Issue 7](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html)
-- [marionpatrick.free.fr - Manuel des manuels](http://marionpatrick.free.fr/man_html/html/index.html)
+- [marionpatrick.free.fr - Tutoriel Shell](http://marionpatrick.free.fr/man_html/html/tuto_shell.html)
 
 [Libft]: https://github.com/aguerin42/libft.git

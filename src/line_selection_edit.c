@@ -1,5 +1,24 @@
 #include "line_input.h"
 
+/*
+**	\brief	Insertion d'un caractère à la place du ou des caratères sélectionnés
+*/
+
+int	insert_char_selection(char **line, char c, t_line *line_info)
+{
+	if (line && *line && line_info)
+	{
+		delete_selection(line, line_info);
+		insert_char(line, c, line_info);
+		return (0);
+	}
+	return (1);
+}
+
+/*
+**	\brief	Suppression du ou des caractères sélectionnés
+*/
+
 int	delete_selection(char **line, t_line *line_info)
 {
 	int	tmp;
