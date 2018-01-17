@@ -29,6 +29,8 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 	+ [x] sélection lettre par lettre avec `Shift`-`gauche/droite`
 	+ [x] sélection de mot en mot avec `Shift`-`Ctrl`-`gauche/droite`
 	+ [x] sélection plus complète avec `Shift`-_`combinaison de touche de déplacement rapide`_
+	+ [x] supprimer la sélection
+	+ [ ] remplacer la sélection par un caractère
 	+ [ ] copier la sélection 
 	+ [ ] couper la sélection
 	+ [ ] coller la précédente sélection

@@ -76,7 +76,12 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 			return (insert_char(line, buf[0], line_info));
 		else if (buf[0] == 127 || (buf[0] == 27 && buf[1] == 91\
 					&& buf[2] == 51 && buf[3] == 126 && !buf[4]))
-			return (delete_char(line, buf[0], line_info));
+		{
+			if (line_info->cursor_s == -1)
+				return (delete_char(line, buf[0], line_info));
+			else
+				return (delete_selection(line, line_info));
+		}
 		else if ((buf[0] == 27 && buf[1] == 91 && !buf[3]) &&
 				(buf[2] == 68 || buf[2] == 67 || buf[2] == 72 || buf[2] == 70))
 			return (move_cursor_on_line(buf[2], line_info));

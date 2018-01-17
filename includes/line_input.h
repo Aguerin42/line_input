@@ -92,4 +92,9 @@ void			print_line(char *line, t_line line_info, char *prompt);
 
 int				selection(char n, char m, char *line, t_line *line_info);
 
+/*
+**	line_selection_edit.c
+*/
+int				delete_selection(char **line, t_line *line_info);
+
 #endif
