@@ -11,6 +11,23 @@ char	*get_clipboard(char *content, int del)
 	return (clipboard);
 }
 
+int	paste_selection(char **line, t_line *line_info)
+{
+	int		i;
+	char	*paste;
+
+	if (line && *line && line_info && (paste = get_clipboard(NULL, 0)))
+	{
+		i = -1;
+		delete_selection(line, line_info);
+		ft_putnbr_fd(line_info->cursor_i, 2);
+		while (paste[++i])
+			insert_char(line, paste[i], line_info);
+		return (0);
+	}
+	return (1);
+}
+
 /*
 ** \brief	Copie ou découpe de la ligne de commande
 **
@@ -37,9 +54,7 @@ int	copy_cut_selection(char **line, int cut, t_line *line_info)
 			ft_swap(&i, &s);
 		if (s == (int)line_info->len)
 			s--;
-		ft_putnbr_fd(s - i + 1, 2);
 		get_clipboard((copy = ft_strsub(*line, i, s - i + 1)), 0);
-		ft_putendl_fd(get_clipboard(NULL, 0), 2);
 		if (copy)
 			ft_strdel(&copy);
 		if (cut)
@@ -71,7 +86,7 @@ int	delete_selection(char **line, t_line *line_info)
 {
 	int	tmp;
 
-	if (line && *line && line_info && line_info->len)
+	if (line && *line && line_info && line_info->len && line_info->cursor_s > -1)
 	{
 		if ((int)line_info->cursor_i > line_info->cursor_s)
 		{

@@ -33,8 +33,8 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 	+ [x] suppression de la sélection
 	+ [x] remplacement de la sélection par un caractère
 	+ [x] copie de la sélection avec `alt`-`c`
-	+ [ ] coupage la sélection avec `alt`-x`
-	+ [ ] collage de la précédente sélection avec `alt`-`v`
+	+ [x] coupage la sélection avec `alt`-x`
+	+ [x] collage de la précédente sélection avec `alt`-`v`
 - [x] Navigation dans l'historique
 	+ `Ctrl-p` ou `haut` pour voir les commandes précédentes
 	+ `Ctrl-n` ou `bas` pour voir les commandes suivantes
