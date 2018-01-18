@@ -100,7 +100,9 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 		else if (buf[0] && !buf[1])
 			return (ctrl_key(buf, line, line_info, history));
 		else if (buf[0] == -61 && buf[1] == -89 && !buf[2])
-			return (copy_selection(line, line_info));
+			return (copy_cut_selection(line, 0, line_info));
+		else if (buf[0] == -30 && buf[1] == -119 && buf[2] == -120 && !buf[3])
+			return (copy_cut_selection(line, 1, line_info));
 	}
 	return (1);
 }
@@ -295,6 +297,7 @@ char			*line_input(char *prompt, t_list *history)
 			ft_putnbr_fd(line_info.cursor_s, 2);
 			ft_putchar_fd('\n', 2);
 		}
+		get_clipboard(NULL, 1);
 		reset_term(save);
 	}
 	else if (!line)

@@ -96,7 +96,8 @@ int				selection(char n, char m, char *line, t_line *line_info);
 **	line_selection_edit.c
 */
 
-int				copy_selection(char **line, t_line	*line_info);
+char			*get_clipboard(char *content, int del);
+int				copy_cut_selection(char **line, int cut, t_line *line_info);
 int				insert_char_selection(char **line, char c, t_line *line_info);
 int				delete_selection(char **line, t_line *line_info);
 

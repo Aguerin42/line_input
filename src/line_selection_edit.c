@@ -1,6 +1,6 @@
 #include "line_input.h"
 
-static char	*clipboard(char *content, int del)
+char	*get_clipboard(char *content, int del)
 {
 	static char	*clipboard = NULL;
 
@@ -10,7 +10,20 @@ static char	*clipboard(char *content, int del)
 		clipboard = ft_strdup(content);
 	return (clipboard);
 }
-int	copy_selection(char **line, t_line	*line_info)
+
+/*
+** \brief	Copie ou découpe de la ligne de commande
+**
+**	\param	line -		ligne de commande
+**	\param	cut -		booléen pour indiquer si en plus de la copie la fonction
+**						doit aussi couper la sélection
+**	\param	line_info -	informations sur la ligne de commande
+**
+**	\return	**1** si l'affichage n'as pas besoin d'être mis à jour (copie) ou
+**			** 0** sinon.
+*/
+
+int	copy_cut_selection(char **line, int cut, t_line *line_info)
 {
 	int		i;
 	int		s;
@@ -25,10 +38,12 @@ int	copy_selection(char **line, t_line	*line_info)
 		if (s == (int)line_info->len)
 			s--;
 		ft_putnbr_fd(s - i + 1, 2);
-		clipboard((copy = ft_strsub(*line, i, s - i + 1)), 0);
-		ft_putendl_fd(clipboard(NULL, 0), 2);
+		get_clipboard((copy = ft_strsub(*line, i, s - i + 1)), 0);
+		ft_putendl_fd(get_clipboard(NULL, 0), 2);
 		if (copy)
 			ft_strdel(&copy);
+		if (cut)
+			return (delete_selection(line, line_info));
 	}
 	return (1);
 }
