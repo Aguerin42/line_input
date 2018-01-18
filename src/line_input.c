@@ -99,6 +99,8 @@ static int		check_key(char **line, char buf[], t_line *line_info,
 			return (move_cursor_on_line(70, line_info));
 		else if (buf[0] && !buf[1])
 			return (ctrl_key(buf, line, line_info, history));
+		else if (buf[0] == -61 && buf[1] == -89 && !buf[2])
+			return (copy_selection(line, line_info));
 	}
 	return (1);
 }

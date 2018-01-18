@@ -30,11 +30,11 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 	+ [x] sélection lettre par lettre avec `Shift`-`gauche/droite`
 	+ [x] sélection plus complète avec `Shift`-_`combinaison de touches de déplacement rapide`_
 - [ ] Modification de la sélection
-	+ [x] supprimer la sélection
-	+ [x] remplacer la sélection par un caractère
-	+ [ ] copier la sélection 
-	+ [ ] couper la sélection
-	+ [ ] coller la précédente sélection
+	+ [x] suppression de la sélection
+	+ [x] remplacement de la sélection par un caractère
+	+ [x] copie de la sélection avec `alt`-`c`
+	+ [ ] coupage la sélection avec `alt`-x`
+	+ [ ] collage de la précédente sélection avec `alt`-`v`
 - [x] Navigation dans l'historique
 	+ `Ctrl-p` ou `haut` pour voir les commandes précédentes
 	+ `Ctrl-n` ou `bas` pour voir les commandes suivantes
