@@ -9,7 +9,8 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 
-# define INPUT_BUF_SIZE	4096
+# define INPUT_BUF_SIZE 4096
+# define MAX_ALLOC 262144
 
 /*
 **	\brief	Informations sur la ligne

@@ -22,7 +22,10 @@ int	paste_selection(char **line, t_line *line_info)
 		delete_selection(line, line_info);
 		ft_putnbr_fd(line_info->cursor_i, 2);
 		while (paste[++i])
-			insert_char(line, paste[i], line_info);
+			if (!(insert_char(line, paste[i], line_info)))
+				line_info->len++;
+		ft_putstr_fd("i :", 2);
+		ft_putnbr_fd(i, 2);
 		return (0);
 	}
 	return (1);

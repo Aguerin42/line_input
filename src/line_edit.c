@@ -12,12 +12,12 @@
 int			insert_char(char **line, char c, t_line *line_info)
 {
 	if (line && *line && line_info && line_info->size && (c >= 32 && c <= 126) &&\
-			line_info->len <= 262144)
+			line_info->len < MAX_ALLOC - 1)
 	{
-		if (line_info->len == line_info->size)
+		if (line_info->len >= line_info->size - 1)
 		{
 			if (!(*line = (char*)ft_memrealloc(*line, line_info->size,\
-										line_info->size + INPUT_BUF_SIZE + 1)))
+										line_info->size + INPUT_BUF_SIZE)))
 			{
 				line_info->size = 0;
 				return (ft_putendl_fd("line_input: allocation error.", 2));
@@ -27,7 +27,7 @@ int			insert_char(char **line, char c, t_line *line_info)
 		if (line_info->cursor_i <= line_info->len)
 			ft_memmove(&line[0][line_info->cursor_i + 1],\
 						&line[0][line_info->cursor_i],\
-						line_info->size - line_info->cursor_i);
+						line_info->size - 1 - line_info->cursor_i);
 		line[0][line_info->cursor_i++] = c;
 		return (0);
 	}

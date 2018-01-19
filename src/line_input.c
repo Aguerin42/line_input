@@ -239,6 +239,8 @@ char			*line_input(char *prompt, t_list *history)
 		while (buf[0] != 10 && line_info.size)
 		{
 			update_info(&line_info, line);
+		ft_putstr_fd("size: ", 2);
+		ft_putnbr_fd(line_info.size, 2);
 		ft_putstr_fd("len: ", 2);
 		ft_putnbr_fd(line_info.len, 2);
 		ft_putstr_fd(" i: ", 2);
