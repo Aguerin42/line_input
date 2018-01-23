@@ -11,7 +11,7 @@ char	*get_clipboard(char *content, int del)
 	return (clipboard);
 }
 
-int	paste_selection(char **line, t_line *line_info)
+int		paste_selection(char **line, t_line *line_info)
 {
 	int		i;
 	char	*paste;
@@ -20,12 +20,9 @@ int	paste_selection(char **line, t_line *line_info)
 	{
 		i = -1;
 		delete_selection(line, line_info);
-		ft_putnbr_fd(line_info->cursor_i, 2);
 		while (paste[++i])
 			if (!(insert_char(line, paste[i], line_info)))
 				line_info->len++;
-		ft_putstr_fd("i :", 2);
-		ft_putnbr_fd(i, 2);
 		return (0);
 	}
 	return (1);
@@ -43,7 +40,7 @@ int	paste_selection(char **line, t_line *line_info)
 **			** 0** sinon.
 */
 
-int	copy_cut_selection(char **line, int cut, t_line *line_info)
+int		copy_cut_selection(char **line, int cut, t_line *line_info)
 {
 	int		i;
 	int		s;
@@ -70,7 +67,7 @@ int	copy_cut_selection(char **line, int cut, t_line *line_info)
 **	\brief	Insertion d'un caractère à la place du ou des caratères sélectionnés
 */
 
-int	insert_char_selection(char **line, char c, t_line *line_info)
+int		insert_char_selection(char **line, char c, t_line *line_info)
 {
 	if (line && *line && line_info)
 	{
@@ -85,11 +82,12 @@ int	insert_char_selection(char **line, char c, t_line *line_info)
 **	\brief	Suppression du ou des caractères sélectionnés
 */
 
-int	delete_selection(char **line, t_line *line_info)
+int		delete_selection(char **line, t_line *line_info)
 {
 	int	tmp;
 
-	if (line && *line && line_info && line_info->len && line_info->cursor_s > -1)
+	if (line && *line && line_info && line_info->len
+		&& line_info->cursor_s > -1)
 	{
 		if ((int)line_info->cursor_i > line_info->cursor_s)
 		{

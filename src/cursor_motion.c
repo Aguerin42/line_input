@@ -66,56 +66,41 @@ int			move_cursor_on_line(char m, t_line *line_info)
 	return (1);
 }
 
+static int	move_ctrl_arrow2(int i, char m, t_line *line_info)
+{
+	if (m == 65)
+		i = (i >= (int)line_info->win_col) ? i - line_info->win_col : 0;
+	else if (m == 66)
+		i = (i + (int)line_info->win_col <= (int)line_info->len) ?\
+							i + line_info->win_col : line_info->len;
+	return (i);
+}
+
 int			move_ctrl_arrow(char m, char *line, t_line *line_info)
 {
 	int	i;
 
-	if (line_info && (m == 67 || m == 68 || m == 65 || m == 66))
+	if (!line_info || !(m == 67 || m == 68 || m == 65 || m == 66))
+		return (1);
+	i = line_info->cursor_i;
+	if (m == 67)
 	{
-		i = line_info->cursor_i;
-		if (m == 67)
-		{
-			while (line[i] && ft_isalnum(line[i]))
-				++i;
-			while (line[i] && !ft_isalnum(line[i]))
-				++i;
-		}
-		else if (m == 68)
-		{
-			if (i > 0 && ft_isalnum(line[i]) && !ft_isalnum(line[i - 1]))
-				--i;
-			while (i > 0 && !ft_isalnum(line[i]))
-				--i;
-			while (i > 0 && ft_isalnum(line[i - 1]))
-				--i;
-		}
-		else if (m == 65)
-			i = (i >= (int)line_info->win_col) ? i - line_info->win_col : 0;
-		else if (m == 66)
-			i = (i + (int)line_info->win_col <= (int)line_info->len) ?\
-								i + line_info->win_col : line_info->len;
-		line_info->cursor_i = i;
-		return (0);
+		while (line[i] && ft_isalnum(line[i]))
+			++i;
+		while (line[i] && !ft_isalnum(line[i]))
+			++i;
 	}
-	return (1);
-}
-
-/*
-**	\brief Replacement du curseur après affichage
-*/
-
-void		replace_cursor(t_line line_info)
-{
-	int	y;
-
-	!line_info.win_col ? line_info.win_col = 1 : 0;
-	y = nb_line(line_info.len + line_info.prompt + 1, line_info.win_col);
-	if (!((line_info.len + line_info.prompt) % line_info.win_col))
+	else if (m == 68)
 	{
-		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+		if (i > 0 && ft_isalnum(line[i]) && !ft_isalnum(line[i - 1]))
+			--i;
+		while (i > 0 && !ft_isalnum(line[i]))
+			--i;
+		while (i > 0 && ft_isalnum(line[i - 1]))
+			--i;
 	}
-	while (--y >= (int)line_info.cursor_y)
-		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-	ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info.cursor_x));
+	else
+		i = move_ctrl_arrow2(i, m, line_info);
+	line_info->cursor_i = i;
+	return (0);
 }

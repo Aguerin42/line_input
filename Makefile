@@ -5,14 +5,14 @@ PROJECT = line_input
 # Options de compilation
 CC = @gcc
 CFLAGS = -Wall -Werror -Wextra
-CPPFLAGS = -I includes/ -I $(LIBFT_INC)
+CPPFLAGS = -I includes/ -I $(LIBFT_INC) -I $(LIBAG_INC)
 
 # Headers
 INC_FILE = line_input.h
 INC = $(addprefix includes/, $(INC_FILE))
 
 # Sources
-SRC_FILE = line_ctrl.c line_cursor_motion.c line_edit.c line_history.c line_input.c line_print.c line_selection.c line_selection_edit.c
+SRC_FILE = cursor_motion.c edit.c history.c input.c key.c print.c read.c selection.c selection_edit.c sigleton.c signal.c update.c
 SRC = $(addprefix src/, $(SRC_FILE))
 
 # Objets
@@ -21,7 +21,7 @@ OBJ = $(SRC:.c=.o)
 # Règles
 all: $(NAME)
 
-$(NAME) : Makefile $(OBJ)
+$(NAME) : Makefile $(LIBFT_INC) $(LIBAG_INC) $(OBJ)
 	@echo "$(MAGEN)Création de la bibliothèque $(NAME)"
 	@ar rc $(NAME) $(OBJ)
 	@echo "Création de l'index pour $(NAME)$(RESET)"

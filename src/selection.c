@@ -39,36 +39,20 @@ static void	change_position(int i, char n, char m, t_line *line_info)
 	line_info->cursor_i = i;
 }
 
-static void		swap_cur(t_line *line_info)
+static int	selection2(int i, t_line *line_info)
 {
-	int	tmp;
-
-	if (line_info)
+	if (((i-- + line_info->prompt) % line_info->win_col))
+		ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
+	else
 	{
-		tmp = line_info->cursor_s;
-		line_info->cursor_s = line_info->cursor_i;
-		line_info->cursor_i = tmp;
+		ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
+		ft_putstr(tgoto(tgetstr("ch", NULL), 0,
+		line_info->win_col - 1));
+		line_info->cursor_y--;
 	}
+	return (i);
 }
 
-void		print_selection(char *line, t_line line_info, char *prompt)
-{
-	if (line)
-	{
-		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
-		while (--line_info.cursor_y > 0)
-			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
-		if (line_info.cursor_s > (int)line_info.cursor_i)
-			swap_cur(&line_info);
-		ft_putstrs(prompt);
-		ft_putnstr(line, line_info.cursor_s);
-		ft_putstr(tgetstr("mr", NULL));
-		ft_putnstr(&line[line_info.cursor_s], line_info.cursor_i - line_info.cursor_s + 1);
-		ft_putstr(tgetstr("me", NULL));
-		ft_putstr(&line[line_info.cursor_i + 1]);	
-	}
-}
 int			selection(char n, char m, char *line, t_line *line_info)
 {
 	int	i;
@@ -82,16 +66,7 @@ int			selection(char n, char m, char *line, t_line *line_info)
 		else if (n == 54)
 			change_word(i, m, line, line_info);
 		if (i == (int)line_info->len && i > 0 && m == 68)
-		{
-			if (((i-- + line_info->prompt) % line_info->win_col))
-				ft_putstr(tgoto(tgetstr("le", NULL), 0, 0));
-			else
-			{
-				ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-				ft_putstr(tgoto(tgetstr("ch", NULL), 0, line_info->win_col - 1));
-				line_info->cursor_y--;
-			}
-		}
+			selection2(i, line_info);
 		if (line_info->cursor_s == -1 && i != (int)line_info->cursor_i)
 			line_info->cursor_s = i;
 		if (line_info->cursor_s >= 0)

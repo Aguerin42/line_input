@@ -45,9 +45,9 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 
 ## Utilisation et compilation
 
-*line_input* utilise des fonctions de la [Libft][] et a besoin de son header pour pouvoir être compilé. Il faut fournir au _Makefile_ le chemin vers le dossier le contenant à l'aide de la variable *LIBFT_INC*.
+*line_input* utilise des fonctions de la [libft][] et de la [libag][] et a besoin de leurs headers pour pouvoir être compilé. Il faut fournir au _Makefile_ le chemin vers les dossiers les contenant à l'aide de la variable *LIBFT_INC* et *LIBAG_INC*.
 
-	$> make LIBFT_INC=../libft/includes all
+	$> make LIBFT_INC=../libft/includes LIBAG_INC=../libag/includes all
 
 Le programme devra être compilé avec la bibliothèque `termcap`.
 

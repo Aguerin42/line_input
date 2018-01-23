@@ -2,7 +2,7 @@
 # define LINE_INPUT_H
 
 # include "libft.h"
-# include "get_next_line.h"
+# include "libag.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
@@ -15,11 +15,11 @@
 /*
 **	\brief	Informations sur la ligne
 **
-**	size		Taille de l'allocation (sans compter le '\0')
+**	size		Taille de l'allocation
 **	len			Taille de la chaîne
 **	cursor_i	Index du curseur dans la chaîne (>= 0)
 **	cursor_x	Colonne du curseur sur la ligne
-**	cursor_y	Ligne du curseur sur la ligne
+**	cursor_y	Ligne du curseur sur la ligne de commande
 **	prompt		Longueur du prompt
 **	nb_line		Nombre de ligne nécessaires pour l'affichage
 **	win_col		Nombre de colonnes de la fenêtre
@@ -42,32 +42,21 @@ typedef struct	s_line
 }				t_line;
 
 /*
-**	line_input.c
+**	input.c
 */
 
-int				nb_line(size_t len, size_t col);
-void			update_info(t_line *line_i, const char *line);
+t_line			init_line_info(size_t size, char *prompt);
 char			*line_input(char *prompt, t_list *history);
 
-char			*get_prompt(char *prompt);
-
 /*
-**	line_ctrl.c
-*/
-
-int				ctrl_key(char buf[], char **line, t_line *line_info,\
-						t_list *history);
-
-/*
-**	line_cursor_motion.c
+**	cursor_motion.c
 */
 
 int				move_cursor_on_line(char m, t_line *line_info);
 int				move_ctrl_arrow(char m, char *line, t_line *line_info);
-void			replace_cursor(t_line line_info);
 
 /*
-**	line_edit.c
+**	edit.c
 */
 
 int				insert_char(char **line, char c, t_line *line_info);
@@ -75,26 +64,43 @@ int				delete_char(char **line, char t, t_line *line_info);
 int				swap_char(char **line, t_line *line_info);
 
 /*
-**	line_history.c
+**	history.c
 */
 
-int				manage_history(char **line, char m, t_line *line_info,\
-														t_list *history);
+int				manage_history(char **line, char m, t_line *line_info,
+															t_list *history);
 
 /*
-**	line_print.c
+**	key.c
+*/
+
+int				check_key(char **line, char buf[], t_line *line_info,
+															t_list *history);
+int				ctrl_key(char buf[], char **line, t_line *line_info,
+															t_list *history);
+
+/*
+**	print.c
 */
 
 void			print_line(char *line, t_line line_info, char *prompt);
 
 /*
-**	line_selection.c
+**	read.c
+*/
+
+void			input(char **line, t_line *line_info, char *prompt,
+															t_list *history);
+
+/*
+**	selection.c
 */
 
 int				selection(char n, char m, char *line, t_line *line_info);
+void			print_selection(char *line, t_line line_info, char *prompt);
 
 /*
-**	line_selection_edit.c
+**	selection_edit.c
 */
 
 char			*get_clipboard(char *content, int del);
@@ -102,5 +108,27 @@ int				paste_selection(char **line, t_line *line_info);
 int				copy_cut_selection(char **line, int cut, t_line *line_info);
 int				insert_char_selection(char **line, char c, t_line *line_info);
 int				delete_selection(char **line, t_line *line_info);
+
+/*
+**	sigleton.c
+*/
+
+t_line			*get_line_info(t_line *info);
+char			**get_line(char **line);
+char			*get_prompt(char *prompt);
+
+/*
+**	signal.c
+*/
+
+void			launch_signal(void);
+
+/*
+**	update.c
+*/
+
+int				nb_line(size_t len, size_t col);
+void			update_info(t_line *line_i, const char *line);
+void			replace_cursor(t_line line_info);
 
 #endif

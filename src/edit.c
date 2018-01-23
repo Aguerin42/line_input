@@ -11,8 +11,8 @@
 
 int			insert_char(char **line, char c, t_line *line_info)
 {
-	if (line && *line && line_info && line_info->size && (c >= 32 && c <= 126) &&\
-			line_info->len < MAX_ALLOC - 1)
+	if (line && *line && line_info && line_info->size && (c >= 32 && c <= 126)
+		&& line_info->len < MAX_ALLOC - 1)
 	{
 		if (line_info->len >= line_info->size - 1)
 		{

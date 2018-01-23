@@ -22,7 +22,8 @@ static int	alter_line(char **line, t_line *line_info, char *new)
 	return (1);
 }
 
-int	manage_history(char **line, char m, t_line *line_info, t_list *history)
+int			manage_history(char **line, char m, t_line *line_info,
+																t_list *history)
 {
 	static t_list	*list = NULL;
 
