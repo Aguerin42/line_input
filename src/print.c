@@ -60,6 +60,7 @@ void		print_selection(char *line, t_line line_info, char *prompt)
 		ft_putnstr(&line[line_info.cursor_s],
 				line_info.cursor_i - line_info.cursor_s + 1);
 		ft_putstr(tgetstr("me", NULL));
-		ft_putstr(&line[line_info.cursor_i + 1]);
+		if (line_info.cursor_i + 1 < MAX_ALLOC)
+			ft_putstr(&line[line_info.cursor_i + 1]);
 	}
 }
