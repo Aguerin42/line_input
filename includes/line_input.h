@@ -131,4 +131,9 @@ int				nb_line(size_t len, size_t col);
 void			update_info(t_line *line_i, const char *line);
 void			replace_cursor(t_line line_info);
 
+/*
+**	debug.c
+*/
+
+void			debug_struct(t_line line_info, char *msg);
 #endif
