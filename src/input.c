@@ -77,6 +77,7 @@ char		*line_input(char *prompt, t_list *history)
 		tcgetattr(0, &save);
 		set_term();
 		input(&line, &line_info, prompt, history);
+		manage_history(NULL, 0, NULL, NULL);
 		reset_term(save);
 	}
 	else if (!line)

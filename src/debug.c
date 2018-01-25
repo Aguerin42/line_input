@@ -19,3 +19,21 @@ void	debug_struct(t_line line_info, char *msg)
 	ft_putnbr_fd(line_info.cursor_y, 2);
 	ft_putendl_fd("\n", 2);
 }
+
+void	debug_read(char buf[])
+{
+	ft_putendl_fd("", 2);
+	ft_putnbr_fd(buf[0], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putnbr_fd(buf[1], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putnbr_fd(buf[2], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putnbr_fd(buf[3], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putnbr_fd(buf[4], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putnbr_fd(buf[5], 2);
+	ft_putchar_fd(' ', 2);
+	ft_putendl_fd("", 2);
+}

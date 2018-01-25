@@ -1,5 +1,30 @@
 #include "line_input.h"
 
+static int	ctrl_key(char buf[], char **line, t_line *info, t_list *history)
+{
+	if (buf[0] == 1 || buf[0] == 5)
+		return (move_cursor_on_line(buf[0], info));
+	else if (buf[0] == 8 || (buf[0] == 4 && info->len))
+		return (delete_char(line, buf[0], info));
+	else if (buf[0] == 12)
+		ft_putstr(tgoto(tgetstr("cl", NULL), 0, 0));
+	else if (buf[0] == 14)
+		return (manage_history(line, 66, info, history));
+	else if (buf[0] == 16)
+		return (manage_history(line, 65, info, history));
+	else if (buf[0] == 20)
+		return (swap_char(line, info));
+	else if (buf[0] == 4)
+	{
+		ft_strcpy(*line, "exit");
+		buf[0] = 10;
+		return (1);
+	}
+	else
+		return (1);
+	return (0);
+}
+
 static int	check_key2(char **line, char buf[], t_line *info, t_list *history)
 {
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
@@ -50,29 +75,4 @@ int			check_key(char **line, char buf[], t_line *info, t_list *history)
 			return (check_key2(line, buf, info, history));
 	}
 	return (1);
-}
-
-int			ctrl_key(char buf[], char **line, t_line *info, t_list *history)
-{
-	if (buf[0] == 1 || buf[0] == 5)
-		return (move_cursor_on_line(buf[0], info));
-	else if (buf[0] == 8 || (buf[0] == 4 && info->len))
-		return (delete_char(line, buf[0], info));
-	else if (buf[0] == 12)
-		ft_putstr(tgoto(tgetstr("cl", NULL), 0, 0));
-	else if (buf[0] == 14)
-		return (manage_history(line, 66, info, history));
-	else if (buf[0] == 16)
-		return (manage_history(line, 65, info, history));
-	else if (buf[0] == 20)
-		return (swap_char(line, info));
-	else if (buf[0] == 4)
-	{
-		ft_strcpy(*line, "exit");
-		buf[0] = 10;
-		return (1);
-	}
-	else
-		return (1);
-	return (0);
 }

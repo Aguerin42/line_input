@@ -2,21 +2,18 @@
 
 static int	alter_line(char **line, t_line *line_info, char *new)
 {
-	size_t	len;
+	int		i;
 
 	if (line && line_info && new)
 	{
-		len = ft_strlen(new);
-		ft_bzero(*line, line_info->len);
-		if (line_info->size < len)
-			if (!(*line = (char*)ft_memrealloc(*line, line_info->size,\
-								line_info->size + (len - line_info->size) + 1)))
-			{
-				line_info->size = 0;
-				return (ft_putendl_fd("line_input: allocation error.", 2));
-			}
-		ft_strcpy(*line, new);
-		line_info->cursor_i = len;
+		i = -1;
+		ft_bzero(line[0], line_info->len);
+		line_info->len = 0;
+		line_info->cursor_i = 0;
+		while (new[++i])
+			if (!(insert_char(line, new[i], line_info)))
+				line_info->len++;
+		line_info->cursor_i = line_info->len;
 		return (0);
 	}
 	return (1);
@@ -33,11 +30,15 @@ int			manage_history(char **line, char m, t_line *line_info,
 			list = history;
 		else if (m == 65 && list && list->next)
 			list = list->next;
-		else if (m == 66 && list)
+		else if (m == 66 && list && list->prev)
 			list = list->prev;
+		else
+			return (1);
 		if (list)
 			return (alter_line(line, line_info, list->content));
 		return (0);
 	}
+	if (!history)
+		list = NULL;
 	return (1);
 }

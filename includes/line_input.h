@@ -76,8 +76,6 @@ int				manage_history(char **line, char m, t_line *line_info,
 
 int				check_key(char **line, char buf[], t_line *line_info,
 															t_list *history);
-int				ctrl_key(char buf[], char **line, t_line *line_info,
-															t_list *history);
 
 /*
 **	print.c
@@ -136,4 +134,6 @@ void			replace_cursor(t_line line_info);
 */
 
 void			debug_struct(t_line line_info, char *msg);
+void			debug_read(char buf[]);
+
 #endif
