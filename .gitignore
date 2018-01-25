@@ -41,7 +41,7 @@
 
 # Doxygen
 *.log
-Docs/
+documentation/html
 
 # Syncthing
 *.sync-conflict-*

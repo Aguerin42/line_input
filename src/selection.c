@@ -1,3 +1,11 @@
+/**
+**	\file	selection.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonctions de sélection
+*/
+
 #include "line_input.h"
 
 static void	change_word(int i, char m, char *line, t_line *line_info)
@@ -52,6 +60,10 @@ static int	selection2(int i, t_line *line_info)
 	}
 	return (i);
 }
+
+/**
+**	\brief	Sélection de caractère sur la ligne de commande
+*/
 
 int			selection(char n, char m, char *line, t_line *line_info)
 {

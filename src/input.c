@@ -1,11 +1,22 @@
+/**
+**	\file	input.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonction principale et fonctions d'initialisation
+*/
+
 #include "line_input.h"
 
-/*
-**	\brief	Initialisation de la structure `init_line_info`
+/**
+**	\brief	Initialisation de la structure `t_line`
 **
-**	La fonction initalise les paramètres de la structure `init_line_info`.
+**	La fonction initalise les champs de la structure `t_line`.
 **
-**	\param	size -	taille de la première allocation (sans compter le '\0')
+**	\param	size -		taille de l'allocation initiale
+**	\param	prompt -	chaîne représentant le prompt
+**
+**	\return	`structure t_line` initialisée
 */
 
 t_line		init_line_info(size_t size, char *prompt)
@@ -23,6 +34,10 @@ t_line		init_line_info(size_t size, char *prompt)
 	return (line_info);
 }
 
+/*
+**	Modification du comportement du terminal
+*/
+
 static void	set_term(void)
 {
 	struct termios	new;
@@ -35,12 +50,16 @@ static void	set_term(void)
 	tcsetattr(0, TCSADRAIN, &new);
 }
 
+/*
+**	Rétablissement du comportement par défaut du terminal
+*/
+
 static void	reset_term(struct termios save)
 {
 	tcsetattr(0, 0, &save);
 }
 
-/*
+/**
 **	\brief	Gestion de la ligne de commande
 **
 **	La fonction s'occupe de la gestion de la ligne de commande. Elle permet de
@@ -49,7 +68,7 @@ static void	reset_term(struct termios save)
 **	Lorsque l'utilisateur appuie sur _entrée_, la fonction renvoie la chaîne
 **	contenant les commandes.
 **
-**	La fonction intercepte le signal SIGINT et le rétablit à son comportement
+**	La fonction intercepte le signal `SIGINT` et le rétablit à son comportement
 **	par défaut avant de retourner la commande. Si la fonction appelante a
 **	également besoin d'intercepter ce signal, elle devra le rétablir après
 **	l'appel à _line_input_.
@@ -57,6 +76,8 @@ static void	reset_term(struct termios save)
 **	\param	prompt -		prompt à afficher
 **	\param	history -		liste pour historique, peut être `NULL` si celui-ci
 **							n'existe pas
+**
+**	\return	*commande* tappée par l'utilisateur ou `NULL` en cas d'erreur
 */
 
 char		*line_input(char *prompt, t_list *history)

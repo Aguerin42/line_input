@@ -1,4 +1,4 @@
-# line_input
+# line_input - Gestion d'une ligne de commande
 
 La fonction permet l'édition d'une ligne de commande. L'utilisateur peut se déplacer dans celle-ci et l'éditer à l'endroit voulu.
 
@@ -51,10 +51,19 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 
 Le programme devra être compilé avec la bibliothèque `termcap`.
 
-## **Sources**
+La documentation peut être créée avec la commande suivante :
+
+	$> make doxygen
+
+La documentation est générée grâce à [Doxygen][]. Le _Makefile_ utilise l'alias `doxygen` pour faire appel à l'exécutable, mais si celui-ci n'est pas défini il faut utiliser la commande :
+
+	$> make doxygen DOXYGEN=/CHEMIN/VERS/EXECUTABLE/DE/DOXYGEN
+
+## Sources
 
 - [Opengroup.org - The Open Group Base Specifications Issue 7](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html)
 - [marionpatrick.free.fr - Tutoriel Shell](http://marionpatrick.free.fr/man_html/html/tuto_shell.html)
 
-[Libft]: https://github.com/aguerin42/libft.git
-[Libag]: https://github.com/aguerin42/libag.git
+[libft]: https://github.com/aguerin42/libft.git
+[libag]: https://github.com/aguerin42/libag.git
+[Doxygen]: https://github.com/doxygen/doxygen

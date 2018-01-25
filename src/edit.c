@@ -1,6 +1,14 @@
+/**
+**	\file	edit.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonctions d'édition de la ligne
+*/
+
 #include "line_input.h"
 
-/*
+/**
 **	\brief	Insertion d'un caractère dans une chaîne
 **
 **	\return	**0** si l'insertion s'est effectuée correctement ou **1** sinon.
@@ -34,7 +42,7 @@ int			insert_char(char **line, char c, t_line *line_info)
 	return (1);
 }
 
-/*
+/**
 **	\brief	Suppression d'un caractère dans une chaîne
 **
 **	\return	**0** si la suppression s'est effectuée correctement ou **1** sinon.
@@ -61,6 +69,16 @@ int			delete_char(char **line, char t, t_line *line_info)
 	}
 	return (1);
 }
+
+/**
+**	\brief	Échange de la position de deux caractère
+**
+**	Fonction pour la gestion de `ctrl`-`t.`
+**
+**	\param	line -	ligne de commande
+**	\param	line_info -	structure contenant les informations nécessaires à
+**			*line_input*.
+*/
 
 int			swap_char(char **line, t_line *line_info)
 {

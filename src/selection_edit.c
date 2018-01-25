@@ -1,4 +1,29 @@
+/**
+**	\file	selection_edit.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonctions d'édition de la sélection
+*/
+
 #include "line_input.h"
+
+/**
+**	\brief	Optention ou sauvegarde du presse-papier
+**
+**	La fonction permet de sauvegarder une chaîne dans le presse-papier et de la
+**	récupérer.
+**	La variale le contenant est `static` et son contenu est donc toujours
+**	accessible lors d'un autre appel à *line_input*.
+**	Pour récupérer le contenu du presse-papier sans écraser celui-ci avec une
+**	nouvelle valeur, l'appel doit être effectué comme ceci :
+**
+**		clipboard = get_clipboard(NULL, 0);
+**
+**	\param	content -	contenu à écrire dans le presse-papier
+**	\param	del -		booléen, **1** pour libérer la mémoire du presse-papier
+**						ou **0** pour simplement récupérer celui-ci
+*/
 
 char	*get_clipboard(char *content, int del)
 {
@@ -10,6 +35,17 @@ char	*get_clipboard(char *content, int del)
 		clipboard = ft_strdup(content);
 	return (clipboard);
 }
+
+/**
+**	\brief	Collage de la précédente sélection
+**
+**	Insert la sélection précédemment copiée à l'emplacement du curseur. Si du
+**	texte est sélectionné, celui-ci est remplacé.
+**
+**	\param	line -		ligne de commande
+**	\param	line_info -	structure contenant les informations nécessaires à
+**						*line_input*.
+*/
 
 int		paste_selection(char **line, t_line *line_info)
 {
@@ -28,7 +64,7 @@ int		paste_selection(char **line, t_line *line_info)
 	return (1);
 }
 
-/*
+/**
 ** \brief	Copie ou découpe de la ligne de commande
 **
 **	\param	line -		ligne de commande
@@ -63,7 +99,7 @@ int		copy_cut_selection(char **line, int cut, t_line *line_info)
 	return (1);
 }
 
-/*
+/**
 **	\brief	Insertion d'un caractère à la place du ou des caratères sélectionnés
 */
 
@@ -78,7 +114,7 @@ int		insert_char_selection(char **line, char c, t_line *line_info)
 	return (1);
 }
 
-/*
+/**
 **	\brief	Suppression du ou des caractères sélectionnés
 */
 

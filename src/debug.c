@@ -1,4 +1,16 @@
+/**
+**	\file	debug.c
+**	\author	Alexis Guérin
+**	\date	24 décembre 2017
+**
+**	\brief	Affichage d'informations pour le débuguage
+*/
+
 #include "line_input.h"
+
+/**
+**	\brief	Affochage des champs de la structure t_line et de ses valeurs
+*/
 
 void	debug_struct(t_line line_info, char *msg)
 {
@@ -19,6 +31,10 @@ void	debug_struct(t_line line_info, char *msg)
 	ft_putnbr_fd(line_info.cursor_y, 2);
 	ft_putendl_fd("\n", 2);
 }
+
+/**
+**	\brief	Affichage du contenu du buffer de `read()`.
+*/
 
 void	debug_read(char buf[])
 {

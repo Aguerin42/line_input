@@ -1,3 +1,9 @@
+/**
+**	\file	line_input.h
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+*/
+
 #ifndef LINE_INPUT_H
 # define LINE_INPUT_H
 
@@ -9,19 +15,33 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 
+/**
+**	\brief	Taille d'allocation
+**
+**	L'allocation de la chaîne nécessaire à contenir la commande se fait de
+**	4096 en 4096
+*/
+
 # define INPUT_BUF_SIZE 4096
+
+/**
+**	\brief	Allocation maximale pour la ligne de commande
+*/
+
 # define MAX_ALLOC 262144
 
-/*
+/**
 **	\brief	Informations sur la ligne
-**
+*/
+
+/*
 **	size		Taille de l'allocation
 **	len			Taille de la chaîne
 **	cursor_i	Index du curseur dans la chaîne (>= 0)
 **	cursor_x	Colonne du curseur sur la ligne
 **	cursor_y	Ligne du curseur sur la ligne de commande
 **	prompt		Longueur du prompt
-**	nb_line		Nombre de ligne nécessaires pour l'affichage
+**	nb_line		Nombre de ligne nécessaires à l'affichage
 **	win_col		Nombre de colonnes de la fenêtre
 **	cursor_s	Indice du début/de la fin de la sélection par rapport au curseur
 **	term		Booléen indiquant si l'environnement a pu être récupéré ou non
@@ -29,16 +49,18 @@
 
 typedef struct	s_line
 {
-	size_t	size;
-	size_t	len;
-	size_t	cursor_i;
-	size_t	cursor_x;
-	size_t	cursor_y;
-	size_t	prompt;
-	size_t	nb_line;
-	size_t	win_col;
-	int		cursor_s;
-	int		term;
+	size_t	size; 		/*!< Taille de l'allocation */
+	size_t	len;		/*!< Taille de la chaîne */
+	size_t	cursor_i;	/*!< Index du curseur dans la chaîne (>=0) */
+	size_t	cursor_x;	/*!< Colonne du curseur sur la ligne */
+	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne de commande */
+	size_t	prompt;		/*!< Longueur du prompt */
+	size_t	nb_line;	/*!< Nombre de ligne nécaissaires à l'affichage */
+	size_t	win_col;	/*!< Nombre de colonnes de la fenêtre */
+	int		cursor_s;	/*!< Indice du début/de la fin de la séléction par
+							 rapport au cursur */
+	int		term;		/*!< Booléen indiquand si l'environnement à pu être
+							 récupéré ou non */
 }				t_line;
 
 /*

@@ -1,14 +1,21 @@
+/**
+**	\file	update.c
+**	\author	Alexis Guérin
+**	\date	23 janvier 2018
+**
+**	\brief	Mise à jour et récupérations d'informations
+*/
+
 #include "line_input.h"
 
-/*
+/**
 **	\brief	Calcul du nombre de lignes nécessaires à l'affichage
 **
 **	La fonction renvoie le nombre de ligne nécessaires à l'affichage de la ligne
-**	`line` en fonction de la largeur de la fenêtre et de la taille du prompt.
+**	en fonction de la largeur de la fenêtre et de la taille du prompt.
 **
-**	\param	line -		Ligne de commande
-**	\param	line_i -	Structure (s_line) contenant les informations sur line
-**						et la taille du prompt
+**	\param	len -	longueur de la ligne de commande
+**	\param	col -	largeur de la fenêtre en nombre de colonnes
 **
 **	\return	Nombre de lignes nécaissaires
 */
@@ -21,6 +28,13 @@ int		nb_line(size_t len, size_t col)
 		return (len / col + ((len % col) ? 1 : 0));
 	return (0);
 }
+
+/**
+**	\brief	Mise à jour de la structure `t_line`
+**
+**	Mise à jour des informations de la structure `t_line` (positions du curseur)
+**	en fonction de la taille de la chaîne et de la taille de la fenêtre.
+*/
 
 void	update_info(t_line *line_i, const char *line)
 {
@@ -40,7 +54,7 @@ void	update_info(t_line *line_i, const char *line)
 	}
 }
 
-/*
+/**
 **	\brief Replacement du curseur après affichage
 */
 

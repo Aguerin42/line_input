@@ -1,4 +1,16 @@
+/**
+**	\file	history.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Navigation dans l'historique
+*/
+
 #include "line_input.h"
+
+/*
+**	\brief	Remplacement de la ligne actuelle par celle de l'historique
+*/
 
 static int	alter_line(char **line, t_line *line_info, char *new)
 {
@@ -18,6 +30,20 @@ static int	alter_line(char **line, t_line *line_info, char *new)
 	}
 	return (1);
 }
+
+/**
+**	\brief	Navigation dans l'historique
+**
+**	L'utilisateur peut naviguer dans l'historique avec `ctrl`-`n`/`bas` ou
+**	`ctrl`-`p`/`haut` et éditer la ligne qu'il désire. L'historique en lui-même
+**	n'est pas modifié.
+**
+**	\param	line -		ligne de commande
+**	\param	m -			direction dans l'historique
+**	\param	line_info -	structure contenant les informations nécessaires à
+**						*line_input*.
+**	\param	history -	historique des commandes
+*/
 
 int			manage_history(char **line, char m, t_line *line_info,
 																t_list *history)

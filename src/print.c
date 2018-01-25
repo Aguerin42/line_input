@@ -1,10 +1,18 @@
+/**
+**	\file	print.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonctions d'affichage
+*/
+
 #include "line_input.h"
 
-/*
+/**
 **	\brief	Affichage de la ligne de commande
 **
-**	La fonction supprime les lignes affichées et affiche la nouvelle, après le
-**	prompt.
+**	La fonction supprime les lignes déjà affichées et affiche la nouvelle,
+**	après le prompt.
 **
 **	\param	line -		Ligne à afficher
 **	\param	line_info - Information sur la ligne et la position du curseur
@@ -43,6 +51,16 @@ static void	swap_cur(t_line *line_info)
 		line_info->cursor_i = tmp;
 	}
 }
+
+/**
+**	\brief	Affichage de la ligne de commande
+**
+**	Fonction d'affichage lorsque du texte est sélectionné.
+**
+**	\param	line -		Ligne à afficher
+**	\param	line_info - Information sur la ligne et la position du curseur
+**	\param	prompt -	Prompt du Shell
+*/
 
 void		print_selection(char *line, t_line line_info, char *prompt)
 {

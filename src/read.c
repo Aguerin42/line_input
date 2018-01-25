@@ -1,3 +1,11 @@
+/**
+**	\file	read.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Lecture de l'entrée standard
+*/
+
 #include "line_input.h"
 
 static void	input_simple(char buf[], char **line, t_line *line_info)
@@ -20,6 +28,20 @@ static void	input_simple(char buf[], char **line, t_line *line_info)
 		}
 	}
 }
+
+/**
+**	\brief	Lecture de l'entrée standard
+**
+**	La fonction appelle les différentes fonctions de lecture des touches tappées
+**	et de gestion de celles-ci, de mise à jour de line_info, de modifications de
+**	la ligne de commande et de replacement du curseur.
+**
+**	\param	line -		ligne de commande
+**	\param	line_info -	pointeur sur la structure contenant les informations
+**						nécessaires à *line_input*
+**	\param	prompt -	chaîne représentant le prompt (peut être `NULL`)
+**	\param	history -	historique de commandes (peut être `NULL`)
+*/
 
 void		input(char **line, t_line *line_info, char *prompt, t_list *history)
 {

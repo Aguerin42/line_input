@@ -1,3 +1,11 @@
+/**
+**	\file	key.c
+**	\author	Alexis Guérin
+**	\date	14 décembre 2017
+**
+**	\brief	Fonctions de gestion des touches tappées
+*/
+
 #include "line_input.h"
 
 static int	ctrl_key(char buf[], char **line, t_line *info, t_list *history)
@@ -46,8 +54,17 @@ static int	check_key2(char **line, char buf[], t_line *info, t_list *history)
 	return (1);
 }
 
-/*
+/**
 **	\brief	Vérification de la touche tappée
+**
+**	En fonction de la touche tappée, la fonction appelle la fonction appropriée.
+**
+**	\param	line -		ligne de commande
+**	\param	buf -		tableau de caractères, terminés par `\0` dans laquelle
+**						la fonction `read()` écrit les byts lus
+**	\param	info -		structure contenant les information nécessaires à
+**						*line_input*
+**	\param	history - 	historique des commandes (peut être `NULL`)
 */
 
 int			check_key(char **line, char buf[], t_line *info, t_list *history)

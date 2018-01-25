@@ -1,3 +1,9 @@
+/**
+**	\file	signal.c
+**	\author	Alexis Guérin
+**	\date	23 janvier 2018
+*/
+
 #include "line_input.h"
 
 /*
@@ -33,10 +39,18 @@ static void	ctrlc(int signal)
 	}
 }
 
+/*
+**	\brief	Signaux à ignorer
+*/
+
 static void	catch_unused_sig(int signal)
 {
 	(void)signal;
 }
+
+/**
+**	\brief	Gestion des signaux
+*/
 
 void		launch_signal(void)
 {
