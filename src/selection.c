@@ -83,7 +83,7 @@ int			selection(char n, char m, char *line, t_line *line_info)
 			line_info->cursor_s = i;
 		if (line_info->cursor_s >= 0)
 		{
-			print_selection(line, *line_info, get_prompt(NULL));
+			print_line(line, *line_info, get_prompt(NULL));
 			update_info(line_info, (const char*)line);
 			replace_cursor(*line_info);
 		}
