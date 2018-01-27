@@ -41,7 +41,7 @@ re: fclean all
 
 # Règle pour la norme
 norme: clean
-	@echo "$(CYAN)Norme pour $(PROJECT)$(RESET)"
+	@echo "$(MAGEN)Norme pour $(PROJECT)$(RESET)"
 	@norminette includes/ src/
 
 # Règles pour la documentation
@@ -50,7 +50,7 @@ doxygen:
 	@$(DOXYGEN) documentation/$(PROJECT).doxyconf > documentation/$(PROJECT).log
 
 cleandoxy:
-	@echo "Suppression de la documentation de $(PROJECT)$(RESET)"
+	@echo "Suppression de la documentation de $(PROJECT)"
 	@rm -rf documentation/html
 	@rm -rf documentation/$(PROJECT).log
 
@@ -65,5 +65,8 @@ NOIR  = \033[30m
 ROUGE = \033[31m
 ROUGEC = \033[1;31m
 VERT  = \033[32m
+
+# Variables
+DOXYGEN = doxygen
 
 .PHONY: all clean fclean re doxygen cleandoxy
