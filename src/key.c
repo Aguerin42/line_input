@@ -8,7 +8,7 @@
 
 #include "line_input.h"
 
-static int	ctrl_key(char buf[], char **line, t_line *info, t_list *history)
+static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)
 {
 	if (buf[0] == 1 || buf[0] == 5)
 		return (move_cursor_on_line(buf[0], info));
@@ -33,7 +33,7 @@ static int	ctrl_key(char buf[], char **line, t_line *info, t_list *history)
 	return (0);
 }
 
-static int	check_key2(char **line, char buf[], t_line *info, t_list *history)
+static int	check_key2(char **line, char buf[], t_line *info, t_lstag *history)
 {
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 49 && buf[3] == 59 &&
 		buf[4] == 53)
@@ -67,7 +67,7 @@ static int	check_key2(char **line, char buf[], t_line *info, t_list *history)
 **	\param	history - 	historique des commandes (peut être `NULL`)
 */
 
-int			check_key(char **line, char buf[], t_line *info, t_list *history)
+int			check_key(char **line, char buf[], t_line *info, t_lstag *history)
 {
 	if (line && info && info->size)
 	{

@@ -43,7 +43,8 @@ static void	input_simple(char buf[], char **line, t_line *line_info)
 **	\param	history -	historique de commandes (peut être `NULL`)
 */
 
-void		input(char **line, t_line *line_info, char *prompt, t_list *history)
+void		input(char **line, t_line *line_info, char *prompt,
+															t_lstag *history)
 {
 	char	buf[7];
 

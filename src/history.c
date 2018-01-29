@@ -46,9 +46,9 @@ static int	alter_line(char **line, t_line *line_info, char *new)
 */
 
 int			manage_history(char **line, char m, t_line *line_info,
-																t_list *history)
+															t_lstag *history)
 {
-	static t_list	*list = NULL;
+	static t_lstag	*list = NULL;
 
 	if (history && line && line_info)
 	{

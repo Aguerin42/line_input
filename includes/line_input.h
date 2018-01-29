@@ -68,7 +68,7 @@ typedef struct	s_line
 */
 
 t_line			init_line_info(size_t size, char *prompt);
-char			*line_input(char *prompt, t_list *history);
+char			*line_input(char *prompt, t_lstag *history);
 
 /*
 **	cursor_motion.c
@@ -90,14 +90,14 @@ int				swap_char(char **line, t_line *line_info);
 */
 
 int				manage_history(char **line, char m, t_line *line_info,
-															t_list *history);
+															t_lstag *history);
 
 /*
 **	key.c
 */
 
 int				check_key(char **line, char buf[], t_line *line_info,
-															t_list *history);
+															t_lstag *history);
 
 /*
 **	print.c
@@ -110,7 +110,7 @@ void			print_line(char *line, t_line line_info, char *prompt);
 */
 
 void			input(char **line, t_line *line_info, char *prompt,
-															t_list *history);
+															t_lstag *history);
 
 /*
 **	selection.c

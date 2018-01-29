@@ -80,7 +80,7 @@ static void	reset_term(struct termios save)
 **	\return	*commande* tappée par l'utilisateur ou `NULL` en cas d'erreur
 */
 
-char		*line_input(char *prompt, t_list *history)
+char		*line_input(char *prompt, t_lstag *history)
 {
 	char			*line;
 	t_line			line_info;
