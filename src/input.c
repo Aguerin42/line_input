@@ -68,10 +68,10 @@ static void	reset_term(struct termios save)
 **	Lorsque l'utilisateur appuie sur _entrée_, la fonction renvoie la chaîne
 **	contenant les commandes.
 **
-**	La fonction intercepte le signal `SIGINT` et le rétablit à son comportement
-**	par défaut avant de retourner la commande. Si la fonction appelante a
-**	également besoin d'intercepter ce signal, elle devra le rétablir après
-**	l'appel à _line_input_.
+**	La fonction intercepte les signaux `SIGINT` et `SIGTSTP` et les rétablit à
+**	leurs comportements par défaut avant de retourner la commande.
+**	Si la fonction appelante a également besoin d'intercepter ces signaux,
+**	elle devra les rétablir après l'appel à _line_input_.
 **
 **	\param	prompt -		prompt à afficher
 **	\param	history -		liste pour historique, peut être `NULL` si celui-ci
