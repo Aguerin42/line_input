@@ -45,9 +45,9 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 
 ## Utilisation et compilation
 
-*line_input* utilise des fonctions de la [libft][] et de la [libag][] et a besoin de leurs headers pour pouvoir être compilé. Il faut fournir au _Makefile_ le chemin vers les dossiers les contenant à l'aide de la variable *LIBFT_INC* et *LIBAG_INC*.
+*line_input* utilise des fonctions de la [libft][], de la [libag][] et de [environment][] et a besoin de leurs headers pour pouvoir être compilé. Il faut fournir au _Makefile_ le chemin vers les dossiers les contenant à l'aide de la variable *LIBFT_INC*, *LIBAG_INC* et *ENV_INC*.
 
-	$> make LIBFT_INC=../libft/includes LIBAG_INC=../libag/includes all
+	$> make LIBFT_INC=../libft/includes LIBAG_INC=../libag/includes ENV_INC=../environment/includes all
 
 Le programme devra être compilé avec la bibliothèque `termcap`.
 
@@ -66,4 +66,5 @@ La documentation est générée grâce à [Doxygen][]. Le _Makefile_ utilise l'a
 
 [libft]: https://github.com/aguerin42/libft.git
 [libag]: https://github.com/aguerin42/libag.git
+[environment]: https://github.com/aguerin42/environment.git
 [Doxygen]: https://github.com/doxygen/doxygen
