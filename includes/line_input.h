@@ -9,6 +9,7 @@
 
 # include "libft.h"
 # include "libag.h"
+# include "environment.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
@@ -68,7 +69,7 @@ typedef struct	s_line
 */
 
 t_line			init_line_info(size_t size, char *prompt);
-char			*line_input(char *prompt, t_lstag *history);
+char			*line_input(char *prompt, t_lstag *history, char **environ);
 
 /*
 **	cursor_motion.c

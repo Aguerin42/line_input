@@ -80,7 +80,7 @@ static void	reset_term(struct termios save)
 **	\return	*commande* tappée par l'utilisateur ou `NULL` en cas d'erreur
 */
 
-char		*line_input(char *prompt, t_lstag *history)
+char		*line_input(char *prompt, t_lstag *history, char **environ)
 {
 	char			*line;
 	t_line			line_info;
@@ -91,7 +91,7 @@ char		*line_input(char *prompt, t_lstag *history)
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
-		line_info.term = tgetent(NULL, getenv("TERM")) <= 0 ? 0 : 1;
+		line_info.term = tgetent(NULL, ft_getenv("TERM", environ)) <= 0 ? 0 : 1;
 		get_line_info(&line_info);
 		get_line(&line);
 		get_prompt(prompt);
