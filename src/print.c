@@ -22,7 +22,6 @@ static void	swap_cur(t_line *line_info)
 
 static void	print_selection(char *line, t_line line_info)
 {
-	
 	if (line_info.cursor_s > (int)line_info.cursor_i)
 		swap_cur(&line_info);
 	ft_putnstr(line, line_info.cursor_s);

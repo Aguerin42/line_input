@@ -74,8 +74,8 @@ static void	reset_term(struct termios save)
 **	elle devra les rétablir après l'appel à _line_input_.
 **
 **	\param	prompt			- prompt à afficher
-**	\param	history			- liste pour historique, peut être `NULL` si celui-ci
-**							n'existe pas
+**	\param	history			- liste pour historique, peut être `NULL` si
+**							celui-ci n'existe pas
 **	\param	environ			- environnment
 **
 **	\return	*commande* tappée par l'utilisateur ou `NULL` en cas d'erreur
