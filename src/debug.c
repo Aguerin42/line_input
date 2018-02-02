@@ -9,7 +9,7 @@
 #include "line_input.h"
 
 /**
-**	\brief	Affochage des champs de la structure t_line et de ses valeurs
+**	\brief	Affichage des champs de la structure t_line et de ses valeurs
 */
 
 void	debug_struct(t_line line_info, char *msg)

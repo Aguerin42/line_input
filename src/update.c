@@ -14,8 +14,8 @@
 **	La fonction renvoie le nombre de ligne nécessaires à l'affichage de la ligne
 **	en fonction de la largeur de la fenêtre et de la taille du prompt.
 **
-**	\param	len -	longueur de la ligne de commande
-**	\param	col -	largeur de la fenêtre en nombre de colonnes
+**	\param	len	- longueur de la ligne de commande
+**	\param	col	- largeur de la fenêtre en nombre de colonnes
 **
 **	\return	Nombre de lignes nécaissaires
 */

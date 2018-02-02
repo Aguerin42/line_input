@@ -13,8 +13,8 @@
 **
 **	La fonction initalise les champs de la structure `t_line`.
 **
-**	\param	size -		taille de l'allocation initiale
-**	\param	prompt -	chaîne représentant le prompt
+**	\param	size	- taille de l'allocation initiale
+**	\param	prompt	- chaîne représentant le prompt
 **
 **	\return	`structure t_line` initialisée
 */

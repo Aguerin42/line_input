@@ -36,11 +36,11 @@ static void	input_simple(char buf[], char **line, t_line *line_info)
 **	et de gestion de celles-ci, de mise à jour de line_info, de modifications de
 **	la ligne de commande et de replacement du curseur.
 **
-**	\param	line -		ligne de commande
-**	\param	line_info -	pointeur sur la structure contenant les informations
+**	\param	line		- ligne de commande
+**	\param	line_info	- pointeur sur la structure contenant les informations
 **						nécessaires à *line_input*
-**	\param	prompt -	chaîne représentant le prompt (peut être `NULL`)
-**	\param	history -	historique de commandes (peut être `NULL`)
+**	\param	prompt		- chaîne représentant le prompt (peut être `NULL`)
+**	\param	history		- historique de commandes (peut être `NULL`)
 */
 
 void		input(char **line, t_line *line_info, char *prompt,

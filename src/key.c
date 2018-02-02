@@ -59,12 +59,12 @@ static int	check_key2(char **line, char buf[], t_line *info, t_lstag *history)
 **
 **	En fonction de la touche tappée, la fonction appelle la fonction appropriée.
 **
-**	\param	line -		ligne de commande
-**	\param	buf -		tableau de caractères, terminés par `\0` dans laquelle
-**						la fonction `read()` écrit les byts lus
-**	\param	info -		structure contenant les information nécessaires à
-**						*line_input*
-**	\param	history - 	historique des commandes (peut être `NULL`)
+**	\param	line	- ligne de commande
+**	\param	buf		- tableau de caractères, terminés par `\0` dans laquelle
+**					la fonction `read()` écrit les byts lus
+**	\param	info	- structure contenant les information nécessaires à
+**					*line_input*
+**	\param	history	- historique des commandes (peut être `NULL`)
 */
 
 int			check_key(char **line, char buf[], t_line *info, t_lstag *history)

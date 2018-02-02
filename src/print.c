@@ -39,9 +39,9 @@ static void	print_selection(char *line, t_line line_info)
 **	La fonction supprime les lignes déjà affichées et affiche la nouvelle,
 **	après le prompt.
 **
-**	\param	line -		Ligne à afficher
-**	\param	line_info - Information sur la ligne et la position du curseur
-**	\param	prompt -	Prompt du Shell
+**	\param	line		- ligne à afficher
+**	\param	line_info	- information sur la ligne et la position du curseur
+**	\param	prompt		- prompt du Shell
 */
 
 void		print_line(char *line, t_line line_info, char *prompt)

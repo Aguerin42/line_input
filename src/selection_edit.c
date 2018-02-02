@@ -20,9 +20,9 @@
 **
 **		clipboard = get_clipboard(NULL, 0);
 **
-**	\param	content -	contenu à écrire dans le presse-papier
-**	\param	del -		booléen, **1** pour libérer la mémoire du presse-papier
-**						ou **0** pour simplement récupérer celui-ci
+**	\param	content	- contenu à écrire dans le presse-papier
+**	\param	del		- booléen, **1** pour libérer la mémoire du presse-papier
+**					ou **0** pour simplement récupérer celui-ci
 */
 
 char	*get_clipboard(char *content, int del)
@@ -42,8 +42,8 @@ char	*get_clipboard(char *content, int del)
 **	Insert la sélection précédemment copiée à l'emplacement du curseur. Si du
 **	texte est sélectionné, celui-ci est remplacé.
 **
-**	\param	line -		ligne de commande
-**	\param	line_info -	structure contenant les informations nécessaires à
+**	\param	line		- ligne de commande
+**	\param	line_info	- structure contenant les informations nécessaires à
 **						*line_input*.
 */
 
@@ -67,10 +67,10 @@ int		paste_selection(char **line, t_line *line_info)
 /**
 ** \brief	Copie ou découpe de la ligne de commande
 **
-**	\param	line -		ligne de commande
-**	\param	cut -		booléen pour indiquer si en plus de la copie la fonction
-**						doit aussi couper la sélection
-**	\param	line_info -	informations sur la ligne de commande
+**	\param	line		- ligne de commande
+**	\param	cut			- booléen pour indiquer si en plus de la copie
+**						la fonction doit aussi couper la sélection
+**	\param	line_info 	- informations sur la ligne de commande
 **
 **	\return	**1** si l'affichage n'as pas besoin d'être mis à jour (copie) ou
 **			** 0** sinon.

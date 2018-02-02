@@ -75,9 +75,9 @@ int			delete_char(char **line, char t, t_line *line_info)
 **
 **	Fonction pour la gestion de `ctrl`-`t.`
 **
-**	\param	line -	ligne de commande
-**	\param	line_info -	structure contenant les informations nécessaires à
-**			*line_input*.
+**	\param	line		- ligne de commande
+**	\param	line_info	- structure contenant les informations nécessaires à
+**						*line_input*.
 */
 
 int			swap_char(char **line, t_line *line_info)

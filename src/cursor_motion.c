@@ -49,13 +49,12 @@ static void	move_cursor_right(t_line *line_info)
 /**
 **	\brief	Déplacement du curseur dans la chaîne
 **
-**	\param	m -			direction de déplacement
-**
+**	\param	m			- direction de déplacement
 **		gauche : 68,
 **		droite : 67,
 **		début de la chaîne : 1 ou 72,
 **		fin de la chaîne : 5 ou 70
-**	\param	line_info -	structure contenant les informations nécessaires à
+**	\param	line_info	- structure contenant les informations nécessaires à
 **						*line_input*.
 **
 **	\return **0** lorsque l'affichage doit être mis à jour ou **1** sinon
@@ -100,14 +99,13 @@ static int	move_ctrl_arrow2(int i, char m, t_line *line_info)
 **
 **	Déplacement du curseur de mot en mot ou de ligne en ligne
 **
-**	\param	m -			direction de déplacement
-**
+**	\param	m			- direction de déplacement
 **		gauche : 68,
 **		droite : 67,
 **		haut : 65,
 **		bas : 66
-**	\param	line -		ligne de commande
-**	\param	line_info -	structure contenant les informations nécessaires à
+**	\param	line		- ligne de commande
+**	\param	line_info	- structure contenant les informations nécessaires à
 **						*line_input*.
 **
 **	\return **0** lorsque l'affichage doit être mis à jour ou **1** sinon
