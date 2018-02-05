@@ -87,7 +87,7 @@ int		copy_cut_selection(char **line, int cut, t_line *line_info)
 		i = (int)line_info->cursor_i;
 		s = line_info->cursor_s;
 		if (i > s)
-			ft_swap(&i, &s);
+			ag_swap(&i, &s);
 		if (s == (int)line_info->len)
 			s--;
 		get_clipboard((copy = ft_strsub(*line, i, s - i + 1)), 0);

@@ -88,7 +88,7 @@ char		*line_input(char *prompt, t_lstag *history, char **environ)
 	struct termios	save;
 
 	launch_signal();
-	ft_putstrs(prompt);
+	ag_putstrs(prompt);
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);

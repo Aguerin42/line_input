@@ -24,7 +24,7 @@ int			insert_char(char **line, char c, t_line *line_info)
 	{
 		if (line_info->len >= line_info->size - 1)
 		{
-			if (!(*line = (char*)ft_memrealloc(*line, line_info->size,\
+			if (!(*line = (char*)ag_memrealloc(*line, line_info->size,\
 										line_info->size + INPUT_BUF_SIZE)))
 			{
 				line_info->size = 0;

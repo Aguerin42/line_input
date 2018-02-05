@@ -27,7 +27,7 @@ static void	ctrlc(int signal)
 		term = line_info->term;
 		ft_putendl("");
 		prompt = get_prompt(NULL);
-		ft_putstrs(prompt);
+		ag_putstrs(prompt);
 		*line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 		line_info->term = term;
 		update_info(line_info, *line);

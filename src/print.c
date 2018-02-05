@@ -24,9 +24,9 @@ static void	print_selection(char *line, t_line line_info)
 {
 	if (line_info.cursor_s > (int)line_info.cursor_i)
 		swap_cur(&line_info);
-	ft_putnstr(line, line_info.cursor_s);
+	ag_putnstr(line, line_info.cursor_s);
 	ft_putstr(tgetstr("mr", NULL));
-	ft_putnstr(&line[line_info.cursor_s],
+	ag_putnstr(&line[line_info.cursor_s],
 	line_info.cursor_i - line_info.cursor_s + 1);
 	ft_putstr(tgetstr("me", NULL));
 	if (line_info.cursor_i + 1 < MAX_ALLOC)
@@ -60,7 +60,7 @@ void		print_line(char *line, t_line line_info, char *prompt)
 		while (--y > 0)
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
 		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
-		ft_putstrs(prompt);
+		ag_putstrs(prompt);
 		if (line_info.cursor_s > -1)
 			print_selection(line, line_info);
 		else
