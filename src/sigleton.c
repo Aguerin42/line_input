@@ -27,6 +27,24 @@ t_line	*get_line_info(t_line *info)
 }
 
 /**
+**	\brief	Pointeur sur le tableau d'environnement
+**
+**	Pour inialiser le sigleton, l'apple devra s'effectuer en donnant le
+**	tableau de chaîne de caractère contenant les variables d'environnement.
+**	Pour simplement récupéer la variable, le paramètre `env` devra être
+**	`NULL`.
+*/
+
+char	**get_environ(char **env)
+{
+	static char **save_env = NULL;
+
+	if (env)
+		save_env = env;
+	return (save_env);
+}
+
+/**
 **	\brief	Pointeur sur la chaîne de caractères de la ligne
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant le

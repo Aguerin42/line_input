@@ -71,7 +71,9 @@ int			check_key(char **line, char buf[], t_line *info, t_lstag *history)
 {
 	if (line && info && info->size)
 	{
-		if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
+		if (buf[0] == 9 && !buf[1])
+			return (complete_line(line, info));
+		else if ((buf[0] >= 32 && buf[0] <= 126) && !buf[1])
 			if (info->cursor_s == -1)
 				return (insert_char(line, buf[0], info));
 			else

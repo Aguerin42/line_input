@@ -93,6 +93,7 @@ char		*line_input(char *prompt, t_lstag *history, char **environ)
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 		line_info.term = tgetent(NULL, ft_getenv("TERM", environ)) <= 0 ? 0 : 1;
+		get_environ(environ);
 		get_line_info(&line_info);
 		get_line(&line);
 		get_prompt(prompt);
