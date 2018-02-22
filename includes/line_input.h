@@ -57,7 +57,7 @@ typedef struct	s_line
 	size_t	cursor_x;	/*!< Colonne du curseur sur la ligne */
 	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne de commande */
 	size_t	prompt;		/*!< Longueur du prompt */
-	size_t	nb_line;	/*!< Nombre de ligne nécaissaires à l'affichage */
+	size_t	nb_line;	/*!< Nombre de ligne nécessaires à l'affichage */
 	size_t	win_col;	/*!< Nombre de colonnes de la fenêtre */
 	int		cursor_s;	/*!< Indice du début/de la fin de la séléction par
 							 rapport au cursur */

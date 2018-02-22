@@ -8,41 +8,88 @@
 
 #include "line_input.h"
 
-static int	word_begin(char *line, int i)
+static char	*verif_path(char *path)
 {
-	while (i > 0 && !ag_isspace(line[i - 1]))
-		i--;
-	return (i);
+	char	*new;
+	char	*home;
+
+	if (ft_strnequ(path, "~/", 2))
+		if ((home = ft_getenv("HOME", (const char**)get_environ(NULL))))
+		{
+			if ((new = ft_strnew(ft_strlen(home) + ft_strlen(&path[1]))))
+			{
+				new = ft_strcpy(new, home);
+				new = ft_strcat(new, &path[1]);
+				ft_strdel(&path);
+				path = new;
+			}
+			else
+				ft_putendl_fd("line input: allocation error.", 2);
+		}
+	return (path);
 }
 
-static int	word_end(char *line, int i, int len)
+static char	**find_path(char *part, char **path, char **word, t_line *info)
 {
-	while (line[i] && i <= len && !ag_isspace(line[i]))
-		i++;
-	return (i);
+	char	*env;
+	char	**dpath;
+
+	dpath = NULL;
+	path ? delete_backslash(*path) : NULL;
+	delete_backslash(*word);
+	if (!path)
+	{
+		if (info->cursor_i <= ft_strlen(part))
+			env = ft_getenv("PATH", (const char**)get_environ(NULL));
+		else
+			env = "./";
+		dpath = ft_strsplit(env, ':');
+	}
+	else
+	{
+		*path = verif_path(*path);
+		dpath = ft_strsplit(*path, ':');
+	}
+	if (!dpath)
+		ft_putendl_fd("line input: allocation error.", 2);
+	ft_strdel(path);
+	return (dpath);
 }
 
-static char	*word(char *line, t_line *info, int *c)
+static void	insert_part(char **line, char *word, char *insert, t_line *info)
 {
-	int		b;
-	int		e;
-	char	*tmp;
+	int	i;
 
-	b = word_begin(line, info->cursor_i);
-	e = word_end(line, info->cursor_i, (int)info->len);
-	tmp = NULL;
-	if (b != e)
-		if (!(tmp = ft_strsub(line, b, e - b)))
-			ft_putendl_fd("allocation error", 2);
-	*c = b;
-	return (tmp);
+	info->cursor_i = find_end((const char*)line[0], info->cursor_i);
+	i = ft_strlen(word);
+	while (insert[i])
+		insert_char(line, insert[i++], info);
+	if (insert[i - 1] != '/')
+		insert_char(line, ' ', info);
+}
+
+static void	choice(char **line, t_line *info, char **ret)
+{
+	int i;
+
+	i = -1;
+	while (ret[++i])
+		ret[i] = insert_backslash(ret[i]);
+	i = nb_line(info->len, info->win_col);
+	while ((size_t)i-- > info->cursor_y)
+		ft_putstr(tgetstr("do", NULL));
+	ft_putendl("");
+	ag_putchoice((const char**)ret);
+	ag_putstrs(get_prompt(NULL));
+	ft_putstr(*line);
+	replace_cursor(*info);
 }
 
 /**
 **	\brief	Complétion de la ligne de commande
 **
 **	\param	line	- ligne de commande
-**	\param	info	- structure contenant les information nécessaires à
+**	\param	info	- structure contenant les informations nécessaires à
 **					*line_input*
 **
 **	\return	**0** en cas de succès et que la ligne doit être réaffichée,
@@ -51,27 +98,41 @@ static char	*word(char *line, t_line *info, int *c)
 
 int			complete_line(char **line, t_line *info)
 {
-	int		c;
-	char	*tmp;
+	char	*part;
+	char	*path;
+	char	*word;
 	char	**ret;
-	char	**path;
+	char	**dpath;
 
-	if (line && info)
+	int		val = 1;
+	if (line && info
+		&& (part = cut_command((const char*)*line, info->cursor_i)))
 	{
+		word = NULL;
 		path = NULL;
-		tmp = word(*line, info, &c);
-		if (c)
-			path = ft_strsplit("./", ':');
-		else
-			path = ft_strsplit(ft_getenv("PATH", get_environ(NULL)), ':');
-		ret = completion(c != (int)info->cursor_i ? tmp : "", (const char**)path);
-		c = -1;
-		while (ret[++c])
-			ag_putstrs_fd(ret[c], 2);
-		ft_putendl_fd("", 2);
-		tmp ? ft_strdel(&tmp) : NULL;
-		ret ? ag_strdeldouble(&path) : NULL;
-		path ? ag_strdeldouble(&path) : NULL;
+		if (!cut_path_word(part, &path, &word) && word)
+		{	
+			if ((dpath = find_path(part, path ? &path : NULL, &word, info)))
+			{
+				if ((ret = completion(word, (const char **)dpath)))
+				{
+					if (!ret[1])
+					{
+						ret[0] = insert_backslash(ret[0]);
+						word = insert_backslash(word);
+						insert_part(line, word, ret[0], info);
+						val = 0;
+					}
+					else
+						choice(line, info, ret);
+					ag_strdeldouble(&ret);
+				}
+				ag_strdeldouble(&dpath);
+			}
+			ft_strdel(&word);
+		}
+		ft_strdel(&part);
+		return (val);
 	}
 	return (1);
 }
