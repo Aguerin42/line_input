@@ -64,7 +64,7 @@ static void	insert_part(char **line, char *word, char *insert, t_line *info)
 	i = ft_strlen(word);
 	while (insert[i])
 		insert_char(line, insert[i++], info);
-	if (insert[i - 1] != '/')
+	if (insert[0] && insert[i - 1] != '/')
 		insert_char(line, ' ', info);
 }
 
