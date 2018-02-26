@@ -24,7 +24,7 @@ static char	*verif_path(char *path)
 				path = new;
 			}
 			else
-				ft_putendl_fd("line input: allocation error.", 2);
+				ft_putendl_fd("\nline input: allocation error.", 2);
 		}
 	return (path);
 }
@@ -51,7 +51,7 @@ static char	**find_path(char *part, char **path, char **word, t_line *info)
 		dpath = ft_strsplit(*path, ':');
 	}
 	if (!dpath)
-		ft_putendl_fd("line input: allocation error.", 2);
+		ft_putendl_fd("\nline input: allocation error.", 2);
 	ft_strdel(path);
 	return (dpath);
 }
@@ -131,6 +131,7 @@ int			complete_line(char **line, t_line *info)
 			}
 			ft_strdel(&word);
 		}
+		path ? ft_strdel(&path) : NULL;
 		ft_strdel(&part);
 		return (val);
 	}
