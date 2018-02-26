@@ -10,23 +10,25 @@
 
 static void	input_simple(char buf[], char **line, t_line *line_info)
 {
+	int				i;
+	char			*l;
+	struct winsize	win;
+
+	ioctl(0, TIOCGWINSZ, &win);
 	if (!buf[1] && buf[0] > 31 && buf[0] < 127)
-	{
-		ft_putchar(buf[0]);
 		insert_char(line, buf[0], line_info);
-		update_info(line_info, *line);
-	}
-	else if (!buf[1] && buf[0] == 127)
-	{
-		if (line_info->cursor_i > 0)
-		{
-			ft_putchar(8);
-			ft_putchar(' ');
-			ft_putchar(8);
-			delete_char(line, buf[0], line_info);
-			update_info(line_info, *line);
-		}
-	}
+	else if (!buf[1] && buf[0] == 127 && line_info->cursor_i > 0)
+		delete_char(line, buf[0], line_info);
+	update_info(line_info, *line);
+	ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
+	ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
+	l = *line;
+	if (line_info->len + line_info->prompt >= win.ws_col - 1)
+		ag_putstrs(">");
+	else
+		ag_putstrs((const char*)get_prompt(NULL));
+	i = line_info->len - win.ws_col + 4;
+	ft_putstr((char const*)&l[i > 0 ? i : 0]);
 }
 
 /**
@@ -66,7 +68,7 @@ void		input(char **line, t_line *line_info, char *prompt,
 					replace_cursor(*line_info);
 				}
 			}
-			else
+			else if (line_info->size)
 				input_simple(buf, line, line_info);
 		}
 	}
