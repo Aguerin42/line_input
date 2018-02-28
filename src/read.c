@@ -23,7 +23,7 @@ static void	input_simple(char buf[], char **line, t_line *line_info)
 	ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
 	ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
 	l = *line;
-	if (line_info->len + line_info->prompt >= win.ws_col - 1)
+	if ((int)line_info->len + (int)line_info->prompt >= win.ws_col - 1)
 		ag_putstrs(">");
 	else
 		ag_putstrs((const char*)get_prompt(NULL));
