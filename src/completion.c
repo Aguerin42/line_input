@@ -29,7 +29,35 @@ static char	*verif_path(char *path)
 	return (path);
 }
 
-static char	**find_path(char *part, char **path, char **word, t_line *info)
+static int	first_word(const char *line, int pos)
+{
+	int	i;
+	int	ret;
+
+	ret = -1;
+	if (line)
+	{
+		ret = 1;
+		i = find_begin(line, pos);
+		while (--i >= 0 && ag_isspace(line[i]))
+			NULL;
+		if (i <= 0)
+			ret = 1;
+		else if (is_shellop(line[i]))
+		{
+			ret = 1;
+			if (line[i] == '>' || line[i] == '<'
+				|| (line[i] == '|' && line[i - 1] == '>'))
+				ret = 0;
+		}
+		else
+			ret = 0;
+	}
+	return (ret);
+}
+
+
+static char	**find_path(char *line, char **path, char **word, t_line *info)
 {
 	char	*env;
 	char	**dpath;
@@ -39,7 +67,7 @@ static char	**find_path(char *part, char **path, char **word, t_line *info)
 	delete_backslash(*word);
 	if (!path)
 	{
-		if (info->cursor_i <= ft_strlen(part))
+		if (first_word((const char*)line, info->cursor_i))
 			env = ft_getenv("PATH", (const char**)get_environ(NULL));
 		else
 			env = "./";
@@ -64,8 +92,8 @@ static void	insert_part(char **line, char *word, char *insert, t_line *info)
 	i = ft_strlen(word);
 	while (insert[i])
 		insert_char(line, insert[i++], info);
-	if (insert[0] && insert[i - 1] != '/')
-		insert_char(line, ' ', info);
+//	if (insert[0] && insert[i - 1] != '/')
+//		insert_char(line, ' ', info);
 }
 
 static void	choice(char **line, t_line *info, char **ret)
@@ -112,7 +140,7 @@ int			complete_line(char **line, t_line *info)
 		path = NULL;
 		if (!cut_path_word(part, &path, &word) && word)
 		{	
-			if ((dpath = find_path(part, path ? &path : NULL, &word, info)))
+			if ((dpath = find_path(*line, path ? &path : NULL, &word, info)))
 			{
 				if ((ret = completion(word, (const char **)dpath)))
 				{
