@@ -142,7 +142,10 @@ int			complete_line(char **line, t_line *info)
 		{	
 			if ((dpath = find_path(*line, path ? &path : NULL, &word, info)))
 			{
-				if ((ret = completion(word, (const char **)dpath)))
+				if ((ret = completion(word[0] == '$' ? &word[1] : word,
+					word[0] == '$' ? NULL : (const char **)dpath,
+					word[0] == '$' ? (const char**)get_environ(NULL) : NULL,
+					NULL)))
 				{
 					if (!ret[1])
 					{
