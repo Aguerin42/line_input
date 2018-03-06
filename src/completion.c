@@ -83,7 +83,7 @@ static char	**find_path(char *line, char **path, char **word, t_line *info)
 	return (dpath);
 }
 
-static void	insert_part(char **line, char *insert, t_line *info)
+static void	insert_part(char **line, char *word, char *insert, t_line *info)
 {
 	int	i;
 	int	e;
@@ -95,7 +95,9 @@ static void	insert_part(char **line, char *insert, t_line *info)
 			(e > 0 && line[0][e] == ' ' && line[0][e - 1] == '\\')))
 		i++;
 	info->cursor_i = e + i + 1;
-	while (insert[i])
+	if (word[0] == '$')
+		i--;
+	while (i >= 0 && insert[i])
 		insert_char(line, insert[i++], info);
 	if (insert[0] && insert[i - 1] != '/')
 		insert_char(line, ' ', info);
@@ -152,11 +154,11 @@ int			complete_line(char **line, t_line *info)
 					word[0] == '$' ? (const char**)get_environ(NULL) : NULL,
 					NULL)))
 				{
-					if (!ret[1])
+					if (ret[0] && !ret[1])
 					{
 						ret[0] = insert_backslash(ret[0]);
 						word = insert_backslash(word);
-						insert_part(line, ret[0], info);
+						insert_part(line, word, ret[0], info);
 						val = 0;
 					}
 					else
