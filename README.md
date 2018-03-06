@@ -42,7 +42,7 @@ Lorsque l'utilisateur appuie sur `entrée`, la fonction renvoie la commande tap�
 - [x] Gestion de `Ctrl-c`
 - [x] Invertion du caractère sous le curseur et du précédent avec `Ctrl-t`
 - [x] Effacement de l'écran avec `Ctrl-l`
-- [ ] Completion de commande avec `tab`
+- [x] Completion de commande avec `tab`
 
 ## Utilisation et compilation
 
