@@ -80,20 +80,25 @@ static char	**find_path(char *line, char **path, char **word, t_line *info)
 	}
 	if (!dpath)
 		ft_putendl_fd("\nline input: allocation error.", 2);
-	ft_strdel(path);
 	return (dpath);
 }
 
-static void	insert_part(char **line, char *word, char *insert, t_line *info)
+static void	insert_part(char **line, char *insert, t_line *info)
 {
 	int	i;
+	int	e;
 
 	info->cursor_i = find_end((const char*)line[0], info->cursor_i);
-	i = ft_strlen(word);
+	e = info->cursor_i;
+	i = 0;
+	while (--e >= 0 && line[0][e] != '/' && (line[0][e] != ' ' ||
+			(e > 0 && line[0][e] == ' ' && line[0][e - 1] == '\\')))
+		i++;
+	info->cursor_i = e + i + 1;
 	while (insert[i])
 		insert_char(line, insert[i++], info);
-//	if (insert[0] && insert[i - 1] != '/')
-//		insert_char(line, ' ', info);
+	if (insert[0] && insert[i - 1] != '/')
+		insert_char(line, ' ', info);
 }
 
 static void	choice(char **line, t_line *info, char **ret)
@@ -151,7 +156,7 @@ int			complete_line(char **line, t_line *info)
 					{
 						ret[0] = insert_backslash(ret[0]);
 						word = insert_backslash(word);
-						insert_part(line, word, ret[0], info);
+						insert_part(line, ret[0], info);
 						val = 0;
 					}
 					else
