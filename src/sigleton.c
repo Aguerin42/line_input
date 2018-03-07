@@ -45,6 +45,24 @@ char	**get_environ(char **env)
 }
 
 /**
+**	\brief	Pointeur sur le tableau de builtin
+**
+**	Pour inialiser le sigleton, l'apple devra s'effectuer en donnant le
+**	tableau de chaîne de caractère contenant les variables d'environnement.
+**	Pour simplement récupéer la variable, le paramètre `builtin` devra être
+**	`NULL`.
+*/
+
+char	**get_builtin(char **builtin)
+{
+	static char **save_builtin = NULL;
+
+	if (builtin)
+		save_builtin = builtin;
+	return (save_builtin);
+}
+
+/**
 **	\brief	Pointeur sur la chaîne de caractères de la ligne
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant le

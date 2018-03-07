@@ -76,12 +76,14 @@ static void	reset_term(struct termios save)
 **	\param	prompt			- prompt à afficher
 **	\param	history			- liste pour historique, peut être `NULL` si
 **							celui-ci n'existe pas
-**	\param	environ			- environnment
+**	\param	environ			- environnment (ne peut être `NULL`)
+**	\param	builtin			- tableau contenant le nom des builtins
 **
 **	\return	*commande* tappée par l'utilisateur ou `NULL` en cas d'erreur
 */
 
-char		*line_input(char *prompt, t_lstag *history, char **environ)
+char		*line_input(char *prompt, t_lstag *history, char **environ,
+						char **builtin)
 {
 	char			*line;
 	t_line			line_info;
@@ -92,10 +94,11 @@ char		*line_input(char *prompt, t_lstag *history, char **environ)
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
-		if (!(line_info.term = tgetent(NULL,\
+		if (environ && !(line_info.term = tgetent(NULL,\
 					ft_getenv("TERM", (const char**)environ)) <= 0 ? 0 : 1))
 			tgetent(NULL, "xterm");
 		get_environ(environ);
+		get_builtin(builtin);
 		get_line_info(&line_info);
 		get_line(&line);
 		get_prompt(prompt);
@@ -106,7 +109,8 @@ char		*line_input(char *prompt, t_lstag *history, char **environ)
 		reset_term(save);
 	}
 	else if (!line)
-		ft_putendl_fd("\nline_input: allocation error.", 2);
+		ft_putendl_fd(
+		"\nline_input: allocation error in line_input() function", 2);
 	signal(SIGINT, SIG_DFL);
 	return (line);
 }

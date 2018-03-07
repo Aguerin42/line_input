@@ -151,8 +151,8 @@ int			complete_line(char **line, t_line *info)
 			{
 				if ((ret = completion(word[0] == '$' ? &word[1] : word,
 					word[0] == '$' ? NULL : (const char **)dpath,
-					word[0] == '$' ? (const char**)get_environ(NULL) : NULL,
-					NULL)))
+					first_word(*line, info->cursor_i) ? (const char**)get_builtin(NULL) : NULL,
+					word[0] == '$' ? (const char**)get_environ(NULL) : NULL)))
 				{
 					if (ret[0] && !ret[1])
 					{

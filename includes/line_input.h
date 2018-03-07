@@ -70,7 +70,8 @@ typedef struct	s_line
 */
 
 t_line			init_line_info(size_t size, char *prompt);
-char			*line_input(char *prompt, t_lstag *history, char **environ);
+char			*line_input(char *prompt, t_lstag *history, char **environ,
+							char **builtin);
 
 /*
 **	completion.c
@@ -142,6 +143,7 @@ int				delete_selection(char **line, t_line *line_info);
 
 t_line			*get_line_info(t_line *info);
 char			**get_environ(char **env);
+char			**get_builtin(char **builtin);
 char			**get_line(char **line);
 char			*get_prompt(char *prompt);
 
