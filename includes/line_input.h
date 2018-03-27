@@ -11,7 +11,7 @@
 # include "libag.h"
 # include "environment.h"
 # include "completion.h"
-# include "error.h"
+# include "liberror.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
