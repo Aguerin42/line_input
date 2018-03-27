@@ -28,7 +28,8 @@ int			insert_char(char **line, char c, t_line *line_info)
 										line_info->size + INPUT_BUF_SIZE)))
 			{
 				line_info->size = 0;
-				return (ft_putendl_fd("\nline_input: allocation error.", 2));
+				ft_putendl_fd("", 2);
+				return (sh_error_int(1, "line_input: insert_char"));
 			}
 			line_info->size += INPUT_BUF_SIZE;
 		}

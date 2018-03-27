@@ -24,7 +24,10 @@ static char	*verif_path(char *path)
 				path = new;
 			}
 			else
-				ft_putendl_fd("\nline input: allocation error.", 2);
+			{
+				ft_putendl_fd("", 2);
+				sh_error(1, "line input: verif_path");
+			}
 		}
 	return (path);
 }
@@ -79,7 +82,10 @@ static char	**find_path(char *line, char **path, char **word, t_line *info)
 		dpath = ft_strsplit(*path, ':');
 	}
 	if (!dpath)
-		ft_putendl_fd("\nline input: allocation error.", 2);
+	{
+		ft_putendl_fd("", 2);
+		sh_error(1, "line input: find_path");
+	}
 	return (dpath);
 }
 

@@ -35,7 +35,8 @@ static void	ctrlc(int signal)
 	else if (line_info && line_info->size)
 	{
 		line_info->size = 0;
-		ft_putendl_fd("\nline_input: allocation error", 2);
+		ft_putendl_fd("", 2);
+		sh_error(1, "line_input: ctrlc");
 	}
 }
 

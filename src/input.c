@@ -109,8 +109,10 @@ char		*line_input(char *prompt, t_lstag *history, char **environ,
 		reset_term(save);
 	}
 	else if (!line)
-		ft_putendl_fd(
-		"\nline_input: allocation error in line_input() function", 2);
+	{
+		ft_putendl_fd("", 2);
+		sh_error(1, "line_input");
+	}
 	signal(SIGINT, SIG_DFL);
 	return (line);
 }
