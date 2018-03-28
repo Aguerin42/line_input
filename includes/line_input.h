@@ -99,6 +99,8 @@ int				swap_char(char **line, t_line *line_info);
 **	history.c
 */
 
+void			delete_save(void);
+char			**get_save(char **line);
 int				manage_history(char **line, char m, t_line *line_info,
 															t_lstag *history);
 

@@ -106,6 +106,7 @@ char		*line_input(char *prompt, t_lstag *history, char **environ,
 		set_term();
 		input(&line, &line_info, prompt, history);
 		manage_history(NULL, 0, NULL, NULL);
+		delete_save();
 		reset_term(save);
 	}
 	else if (!line)
