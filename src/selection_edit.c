@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   selection_edit.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:44:18 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:46:33 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	selection_edit.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -8,7 +20,7 @@
 
 #include "line_input.h"
 
-/**
+/*
 **	\brief	Optention ou sauvegarde du presse-papier
 **
 **	La fonction permet de sauvegarder une chaîne dans le presse-papier et de la
@@ -36,7 +48,7 @@ char	*get_clipboard(char *content, int del)
 	return (clipboard);
 }
 
-/**
+/*
 **	\brief	Collage de la précédente sélection
 **
 **	Insert la sélection précédemment copiée à l'emplacement du curseur. Si du
@@ -64,7 +76,7 @@ int		paste_selection(char **line, t_line *line_info)
 	return (1);
 }
 
-/**
+/*
 ** \brief	Copie ou découpe de la ligne de commande
 **
 **	\param	line		- ligne de commande
@@ -99,7 +111,7 @@ int		copy_cut_selection(char **line, int cut, t_line *line_info)
 	return (1);
 }
 
-/**
+/*
 **	\brief	Insertion d'un caractère à la place du ou des caratères sélectionnés
 */
 
@@ -114,7 +126,7 @@ int		insert_char_selection(char **line, char c, t_line *line_info)
 	return (1);
 }
 
-/**
+/*
 **	\brief	Suppression du ou des caractères sélectionnés
 */
 

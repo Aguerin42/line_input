@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sigleton.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:44:47 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:45:14 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	sigleton.c
 **	\author	Alexis Guérin
 **	\date	23 janvier 2018
@@ -8,7 +20,7 @@
 
 #include "line_input.h"
 
-/**
+/*
 **	\brief	Pointeur sur la structure `t_line`
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant le
@@ -26,7 +38,7 @@ t_line	*get_line_info(t_line *info)
 	return (line_info);
 }
 
-/**
+/*
 **	\brief	Pointeur sur le tableau d'environnement
 **
 **	Pour inialiser le sigleton, l'apple devra s'effectuer en donnant le
@@ -44,7 +56,7 @@ char	**get_environ(char **env)
 	return (save_env);
 }
 
-/**
+/*
 **	\brief	Pointeur sur le tableau de builtin
 **
 **	Pour inialiser le sigleton, l'apple devra s'effectuer en donnant le
@@ -62,7 +74,7 @@ char	**get_builtin(char **builtin)
 	return (save_builtin);
 }
 
-/**
+/*
 **	\brief	Pointeur sur la chaîne de caractères de la ligne
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant le
@@ -80,7 +92,7 @@ char	**get_line(char **line)
 	return (save_line);
 }
 
-/**
+/*
 **	\brief	Chaîne de caractères pour le prompt
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant la

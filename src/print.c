@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:43:04 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:43:22 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	print.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -33,7 +45,7 @@ static void	print_selection(char *line, t_line line_info)
 		ft_putstr(&line[line_info.cursor_i + 1]);
 }
 
-/**
+/*
 **	\brief	Affichage de la ligne de commande
 **
 **	La fonction supprime les lignes déjà affichées et affiche la nouvelle,

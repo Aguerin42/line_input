@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   completion.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:40:31 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 14:05:11 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	completion.c
 **	\author	Alexis Guérin
 **	\date	12 février 2018
@@ -7,87 +19,6 @@
 */
 
 #include "line_input.h"
-
-static char	*verif_path(char *path)
-{
-	char	*new;
-	char	*home;
-
-	if (ft_strnequ(path, "~/", 2))
-		if ((home = ft_getenv("HOME", (const char**)get_environ(NULL))))
-		{
-			if ((new = ft_strnew(ft_strlen(home) + ft_strlen(&path[1]))))
-			{
-				new = ft_strcpy(new, home);
-				new = ft_strcat(new, &path[1]);
-				ft_strdel(&path);
-				path = new;
-			}
-			else
-			{
-				ft_putendl_fd("", 2);
-				sh_error(1, "line input: verif_path");
-			}
-		}
-	return (path);
-}
-
-static int	first_word(const char *line, int pos)
-{
-	int	i;
-	int	ret;
-
-	ret = -1;
-	if (line)
-	{
-		ret = 1;
-		i = find_begin(line, pos);
-		while (--i >= 0 && ag_isspace(line[i]))
-			NULL;
-		if (i <= 0)
-			ret = 1;
-		else if (is_shellop(line[i]))
-		{
-			ret = 1;
-			if (line[i] == '>' || line[i] == '<'
-				|| (line[i] == '|' && line[i - 1] == '>'))
-				ret = 0;
-		}
-		else
-			ret = 0;
-	}
-	return (ret);
-}
-
-
-static char	**find_path(char *line, char **path, char **word, t_line *info)
-{
-	char	*env;
-	char	**dpath;
-
-	dpath = NULL;
-	path ? delete_backslash(*path) : NULL;
-	delete_backslash(*word);
-	if (!path)
-	{
-		if (first_word((const char*)line, info->cursor_i))
-			env = ft_getenv("PATH", (const char**)get_environ(NULL));
-		else
-			env = "./";
-		dpath = ft_strsplit(env, ':');
-	}
-	else
-	{
-		*path = verif_path(*path);
-		dpath = ft_strsplit(*path, ':');
-	}
-	if (!dpath)
-	{
-		ft_putendl_fd("", 2);
-		sh_error(1, "line input: find_path");
-	}
-	return (dpath);
-}
 
 static void	insert_part(char **line, char *word, char *insert, t_line *info)
 {
@@ -126,7 +57,33 @@ static void	choice(char **line, t_line *info, char **ret)
 	replace_cursor(*info);
 }
 
-/**
+static int	complete_line2(char **line, t_line *info, char **word, char **dpath)
+{
+	int		val;
+	char	**ret;
+
+	val = 1;
+	if ((ret = completion(word[0][0] == '$' ? &word[0][1] : word[0],
+		word[0][0] == '$' ? NULL :
+		(const char **)dpath, first_word(*line, info->cursor_i) ?
+			(const char**)get_builtin(NULL) : NULL,
+		word[0][0] == '$' ? (const char**)get_environ(NULL) : NULL)))
+	{
+		if (ret[0] && !ret[1])
+		{
+			ret[0] = insert_backslash(ret[0]);
+			*word = insert_backslash(*word);
+			insert_part(line, *word, ret[0], info);
+			val = 0;
+		}
+		else
+			choice(line, info, ret);
+		ag_strdeldouble(&ret);
+	}
+	return (val);
+}
+
+/*
 **	\brief	Complétion de la ligne de commande
 **
 **	\param	line	- ligne de commande
@@ -139,45 +96,29 @@ static void	choice(char **line, t_line *info, char **ret)
 
 int			complete_line(char **line, t_line *info)
 {
+	int		val;
 	char	*part;
 	char	*path;
 	char	*word;
-	char	**ret;
 	char	**dpath;
 
-	int		val = 1;
+	val = 1;
 	if (line && info
 		&& (part = cut_command((const char*)*line, info->cursor_i)))
 	{
 		word = NULL;
 		path = NULL;
 		if (!cut_path_word(part, &path, &word) && word)
-		{	
+		{
 			if ((dpath = find_path(*line, path ? &path : NULL, &word, info)))
 			{
-				if ((ret = completion(word[0] == '$' ? &word[1] : word,
-					word[0] == '$' ? NULL : (const char **)dpath,
-					first_word(*line, info->cursor_i) ? (const char**)get_builtin(NULL) : NULL,
-					word[0] == '$' ? (const char**)get_environ(NULL) : NULL)))
-				{
-					if (ret[0] && !ret[1])
-					{
-						ret[0] = insert_backslash(ret[0]);
-						word = insert_backslash(word);
-						insert_part(line, word, ret[0], info);
-						val = 0;
-					}
-					else
-						choice(line, info, ret);
-					ag_strdeldouble(&ret);
-				}
+				val = complete_line2(line, info, &word, dpath);
 				ag_strdeldouble(&dpath);
 			}
 			ft_strdel(&word);
 		}
 		path ? ft_strdel(&path) : NULL;
 		ft_strdel(&part);
-		return (val);
 	}
-	return (1);
+	return (val);
 }

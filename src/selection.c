@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   selection.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:43:54 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:44:13 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	selection.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -61,7 +73,7 @@ static int	selection2(int i, t_line *line_info)
 	return (i);
 }
 
-/**
+/*
 **	\brief	Sélection de caractère sur la ligne de commande
 */
 

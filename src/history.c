@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:42:12 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:47:00 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	history.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -31,11 +43,11 @@ static int	alter_line(char **line, t_line *line_info, char *new)
 	return (1);
 }
 
-/**
+/*
 **	\brief	Suppression du sigleton de get_save()
 */
 
-void	delete_save(void)
+void		delete_save(void)
 {
 	char	**tmp;
 
@@ -43,7 +55,7 @@ void	delete_save(void)
 		ft_strdel(tmp);
 }
 
-/**
+/*
 **	\brief	Pointeur sur la chaîne de la commande en cours d'édition
 **
 **	Pour initialiser le sigleton, l'appel devra s'effectuer en donnant le
@@ -52,7 +64,7 @@ void	delete_save(void)
 **	devra être `NULL`
 */
 
-char	**get_save(char **line)
+char		**get_save(char **line)
 {
 	static char	**save_save = NULL;
 
@@ -61,7 +73,7 @@ char	**get_save(char **line)
 	return (save_save);
 }
 
-/**
+/*
 **	\brief	Navigation dans l'historique
 **
 **	L'utilisateur peut naviguer dans l'historique avec `ctrl`-`n`/`bas` ou

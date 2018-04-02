@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_motion.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.2.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:40:59 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:41:23 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	cursor_motion.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -46,7 +58,7 @@ static void	move_cursor_right(t_line *line_info)
 	}
 }
 
-/**
+/*
 **	\brief	Déplacement du curseur dans la chaîne
 **
 **	\param	m			- direction de déplacement
@@ -94,7 +106,7 @@ static int	move_ctrl_arrow2(int i, char m, t_line *line_info)
 	return (i);
 }
 
-/**
+/*
 **	\brief	Déplacement rapide du curseur
 **
 **	Déplacement du curseur de mot en mot ou de ligne en ligne

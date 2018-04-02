@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:39:48 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 13:00:15 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	input.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -8,7 +20,7 @@
 
 #include "line_input.h"
 
-/**
+/*
 **	\brief	Initialisation de la structure `t_line`
 **
 **	La fonction initalise les champs de la structure `t_line`.
@@ -59,7 +71,15 @@ static void	reset_term(struct termios save)
 	tcsetattr(0, 0, &save);
 }
 
-/**
+static void	quit_line_input(struct termios save)
+{
+	delete_save();
+	manage_history(NULL, 0, NULL, NULL);
+	reset_term(save);
+	signal(SIGINT, SIG_DFL);
+}
+
+/*
 **	\brief	Gestion de la ligne de commande
 **
 **	La fonction s'occupe de la gestion de la ligne de commande. Elle permet de
@@ -89,10 +109,10 @@ char		*line_input(char *prompt, t_lstag *history, char **environ,
 	t_line			line_info;
 	struct termios	save;
 
-	launch_signal();
-	ag_putstrs(prompt);
 	if ((line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
+		launch_signal();
+		ag_putstrs(prompt);
 		line_info = init_line_info(INPUT_BUF_SIZE, prompt);
 		if (environ && !(line_info.term = tgetent(NULL,\
 					ft_getenv("TERM", (const char**)environ)) <= 0 ? 0 : 1))
@@ -105,15 +125,9 @@ char		*line_input(char *prompt, t_lstag *history, char **environ,
 		tcgetattr(0, &save);
 		set_term();
 		input(&line, &line_info, prompt, history);
-		manage_history(NULL, 0, NULL, NULL);
-		delete_save();
-		reset_term(save);
+		quit_line_input(save);
 	}
-	else if (!line)
-	{
-		ft_putendl_fd("", 2);
-		sh_error(1, "line_input");
-	}
-	signal(SIGINT, SIG_DFL);
+	else
+		sh_error(1, "in function line_input");
 	return (line);
 }

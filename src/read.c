@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:43:30 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:43:49 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	read.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -31,7 +43,7 @@ static void	input_simple(char buf[], char **line, t_line *line_info)
 	ft_putstr((char const*)&l[i > 0 ? i : 0]);
 }
 
-/**
+/*
 **	\brief	Lecture de l'entrée standard
 **
 **	La fonction appelle les différentes fonctions de lecture des touches tappées

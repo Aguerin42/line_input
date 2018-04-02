@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_input.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:38:49 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 14:06:36 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	line_input.h
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -18,7 +30,7 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 
-/**
+/*
 **	\brief	Taille d'allocation
 **
 **	L'allocation de la chaîne nécessaire à contenir la commande se fait de
@@ -27,13 +39,13 @@
 
 # define INPUT_BUF_SIZE 4096
 
-/**
+/*
 **	\brief	Allocation maximale pour la ligne de commande
 */
 
 # define MAX_ALLOC 262144
 
-/**
+/*
 **	\brief	Informations sur la ligne
 */
 
@@ -52,18 +64,16 @@
 
 typedef struct	s_line
 {
-	size_t	size; 		/*!< Taille de l'allocation */
-	size_t	len;		/*!< Taille de la chaîne */
-	size_t	cursor_i;	/*!< Index du curseur dans la chaîne (>=0) */
-	size_t	cursor_x;	/*!< Colonne du curseur sur la ligne */
-	size_t	cursor_y;	/*!< Ligne du curseur sur la ligne de commande */
-	size_t	prompt;		/*!< Longueur du prompt */
-	size_t	nb_line;	/*!< Nombre de ligne nécessaires à l'affichage */
-	size_t	win_col;	/*!< Nombre de colonnes de la fenêtre */
-	int		cursor_s;	/*!< Indice du début/de la fin de la séléction par
-							 rapport au cursur */
-	int		term;		/*!< Booléen indiquand si l'environnement à pu être
-							 récupéré ou non */
+	size_t	size;
+	size_t	len;
+	size_t	cursor_i;
+	size_t	cursor_x;
+	size_t	cursor_y;
+	size_t	prompt;
+	size_t	nb_line;
+	size_t	win_col;
+	int		cursor_s;
+	int		term;
 }				t_line;
 
 /*
@@ -110,6 +120,14 @@ int				manage_history(char **line, char m, t_line *line_info,
 
 int				check_key(char **line, char buf[], t_line *line_info,
 															t_lstag *history);
+
+/*
+**	path.c
+*/
+
+int				first_word(const char *line, int pos);
+char			**find_path(char *line, char **path, char **word, t_line *info);
+char			*verif_path(char *path);
 
 /*
 **	print.c

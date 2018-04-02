@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:42:39 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 10:42:59 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	key.c
 **	\author	Alexis Guérin
 **	\date	14 décembre 2017
@@ -54,7 +66,7 @@ static int	check_key2(char **line, char buf[], t_line *info, t_lstag *history)
 	return (1);
 }
 
-/**
+/*
 **	\brief	Vérification de la touche tappée
 **
 **	En fonction de la touche tappée, la fonction appelle la fonction appropriée.

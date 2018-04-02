@@ -1,4 +1,16 @@
-/**
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/02 10:45:18 by aguerin           #+#    #+#             */
+/*   Updated: 2018/04/02 13:02:11 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
 **	\file	signal.c
 **	\author	Alexis Guérin
 **	\date	23 janvier 2018
@@ -22,10 +34,10 @@ static void	ctrlc(int signal)
 	(line = get_line(NULL)) ? ft_strdel(line) : NULL;
 	while (line_info->cursor_y++ < line_info->nb_line)
 		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+	ft_putendl("");
 	if ((*line = (char*)ft_memalloc(sizeof(char) * (INPUT_BUF_SIZE + 1))))
 	{
 		term = line_info->term;
-		ft_putendl("");
 		prompt = get_prompt(NULL);
 		ag_putstrs(prompt);
 		*line_info = init_line_info(INPUT_BUF_SIZE, prompt);
@@ -35,8 +47,7 @@ static void	ctrlc(int signal)
 	else if (line_info && line_info->size)
 	{
 		line_info->size = 0;
-		ft_putendl_fd("", 2);
-		sh_error(1, "line_input: ctrlc");
+		sh_error(1, "in function line_input: ctrlc. Press any key to quity");
 	}
 }
 
@@ -49,7 +60,7 @@ static void	catch_unused_sig(int signal)
 	(void)signal;
 }
 
-/**
+/*
 **	\brief	Gestion des signaux
 */
 
