@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:42:12 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:47:00 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:50:36 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			manage_history(char **line, char m, t_line *line_info,
 		{
 			delete_save();
 			if (!(l = ft_strdup(*line)))
-				return (sh_error_int(1, "line_input: manage_history"));
+				return (sh_error_int(1, "in function manage_history"));
 			get_save(&l);
 		}
 		if (!list && m == 65)

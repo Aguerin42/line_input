@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:45:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 13:02:11 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:52:01 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	ctrlc(int signal)
 	else if (line_info && line_info->size)
 	{
 		line_info->size = 0;
-		sh_error(1, "in function line_input: ctrlc. Press any key to quity");
+		sh_error(1, "in function line_input: ctrlc. Press any key to quit");
 	}
 }
 

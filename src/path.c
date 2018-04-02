@@ -6,7 +6,7 @@
 /*   By: aguerin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 14:05:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 14:06:04 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:51:14 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**find_path(char *line, char **path, char **word, t_line *info)
 	if (!dpath)
 	{
 		ft_putendl_fd("", 2);
-		sh_error(1, "line input: find_path");
+		sh_error(1, "in function line input: find_path");
 	}
 	return (dpath);
 }

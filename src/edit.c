@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:41:50 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:42:08 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/02 14:50:03 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			insert_char(char **line, char c, t_line *line_info)
 			{
 				line_info->size = 0;
 				ft_putendl_fd("", 2);
-				return (sh_error_int(1, "line_input: insert_char"));
+				return (sh_error_int(1, "in function line_input: insert_char"));
 			}
 			line_info->size += INPUT_BUF_SIZE;
 		}
