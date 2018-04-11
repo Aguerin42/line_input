@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:43:04 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:43:22 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/11 14:24:15 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ void		print_line(char *line, t_line line_info, char *prompt)
 			y = line_info.cursor_y;
 		ft_putstr(tgoto(tgetstr("ch", NULL), 0, 0));
 		while (--y > 0)
+		{
+			ft_putstr(tgoto(tgetstr("ce", NULL), 0, 0));
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
-		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
+		}
+		ft_putstr(tgoto(tgetstr("ce", NULL), 0, 0));
 		ag_putstrs(prompt);
 		if (line_info.cursor_s > -1)
 			print_selection(line, line_info);
