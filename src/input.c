@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:39:48 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 13:00:15 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/16 18:29:48 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static void	quit_line_input(struct termios save)
 	manage_history(NULL, 0, NULL, NULL);
 	reset_term(save);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
 }
 
 /*
