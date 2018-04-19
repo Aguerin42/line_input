@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:38:49 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 14:06:36 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/19 12:24:15 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "environment.h"
 # include "completion.h"
 # include "liberror.h"
+# include "heredoc.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <term.h>
@@ -75,6 +76,13 @@ typedef struct	s_line
 	int		cursor_s;
 	int		term;
 }				t_line;
+
+/*
+**	heredoc.c
+*/
+
+int				is_in_heredoc(int i);
+char			*redoc_delimiter(char *str);
 
 /*
 **	input.c

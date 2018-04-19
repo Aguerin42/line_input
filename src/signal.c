@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:45:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 14:52:01 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/19 12:43:09 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ static void	catch_unused_sig(int signal)
 void		launch_signal(void)
 {
 	signal(SIGTSTP, catch_unused_sig);
-	signal(SIGINT, ctrlc);
+	if (!is_in_heredoc(-1))
+		signal(SIGINT, ctrlc);
 }

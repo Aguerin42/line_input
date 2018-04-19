@@ -5,14 +5,14 @@ PROJECT = line_input
 # Options de compilation
 CC = @gcc
 CFLAGS = -Wall -Werror -Wextra
-CPPFLAGS = -I includes/ -I $(LIBFT_INC) -I $(LIBAG_INC) -I $(ENV_INC) -I $(CMP_INC) -I $(ERROR_INC)
+CPPFLAGS = -I includes/ -I $(LIBFT_INC) -I $(LIBAG_INC) -I $(ENV_INC) -I $(CMP_INC) -I $(HERE_INC) -I $(ERROR_INC)
 
 # Headers
 INC_FILE = line_input.h
 INC = $(addprefix includes/, $(INC_FILE))
 
 # Sources
-SRC_FILE = completion.c cursor_motion.c edit.c history.c input.c key.c path.c print.c read.c selection.c selection_edit.c sigleton.c signal.c update.c debug.c
+SRC_FILE = completion.c cursor_motion.c edit.c heredoc.c history.c input.c key.c path.c print.c read.c selection.c selection_edit.c sigleton.c signal.c update.c debug.c
 SRC = $(addprefix src/, $(SRC_FILE))
 
 # Objets

@@ -6,7 +6,7 @@
 /*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 10:42:39 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:42:59 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/19 12:45:48 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)
 		return (swap_char(line, info));
 	else if (buf[0] == 4)
 	{
-		ft_strcpy(*line, "exit");
+		if (is_in_heredoc(-1))
+			ft_strcpy(*line, redoc_delimiter(NULL));
+		else
+			ft_strcpy(*line, "exit");
 		buf[0] = 10;
 		return (1);
 	}
