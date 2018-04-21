@@ -6,7 +6,7 @@
 /*   By: aguerin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/02 14:05:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 14:51:14 by aguerin          ###   ########.fr       */
+/*   Updated: 2018/04/21 18:12:04 by aguerin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,21 @@ char	**find_path(char *line, char **path, char **word, t_line *info)
 
 	dpath = NULL;
 	path ? delete_backslash(*path) : NULL;
-	delete_backslash(*word);
+	word ? delete_backslash(*word) : NULL;
 	if (!path)
 	{
 		if (first_word((const char*)line, info->cursor_i))
 			env = ft_getenv("PATH", (const char**)get_environ(NULL));
 		else
 			env = "./";
-		dpath = ft_strsplit(env, ':');
+		if (env && !(dpath = ft_strsplit(env, ':')))
+			sh_error(1, "in find_path function");
 	}
 	else
 	{
 		*path = verif_path(*path);
-		dpath = ft_strsplit(*path, ':');
-	}
-	if (!dpath)
-	{
-		ft_putendl_fd("", 2);
-		sh_error(1, "in function line input: find_path");
+		if (*path && !(dpath = ft_strsplit(*path, ':')))
+			sh_error(1, "in find_path function");
 	}
 	return (dpath);
 }
