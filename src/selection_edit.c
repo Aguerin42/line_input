@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   selection_edit.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:44:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:46:33 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	selection_edit.c
-**	\author	Alexis Guérin
-**	\date	14 décembre 2017
-**
-**	\brief	Fonctions d'édition de la sélection
-*/
-
 #include "line_input.h"
 
 /*

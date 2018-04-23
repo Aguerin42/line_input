@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cursor_motion.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.2.fr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:40:59 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:41:23 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	cursor_motion.c
-**	\author	Alexis Guérin
-**	\date	14 décembre 2017
-**
-**	\brief	Fonctions de déplacement du curseur
-*/
-
 #include "line_input.h"
 
 /*

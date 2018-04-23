@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   completion.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:40:31 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 14:05:11 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	completion.c
-**	\author	Alexis Guérin
-**	\date	12 février 2018
-**
-**	\brief	Fonctions pour l'utilisation de la complétion
-*/
-
 #include "line_input.h"
 
 static void	insert_part(char **line, char *word, char *insert, t_line *info)

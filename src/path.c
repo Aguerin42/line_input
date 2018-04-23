@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 14:05:18 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/21 18:12:04 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "line_input.h"
 
 char	*verif_path(char *path)
@@ -63,6 +51,11 @@ int		first_word(const char *line, int pos)
 	return (ret);
 }
 
+/*
+**	Recherche le path pour la complétion, on fonction de la position du curseur
+**	dans la ligne
+*/
+
 char	**find_path(char *line, char **path, char **word, t_line *info)
 {
 	char	*env;
@@ -78,13 +71,13 @@ char	**find_path(char *line, char **path, char **word, t_line *info)
 		else
 			env = "./";
 		if (env && !(dpath = ft_strsplit(env, ':')))
-			sh_error(1, "in find_path function");
+			exit(sh_error_int(1, "in find_path function"));
 	}
 	else
 	{
 		*path = verif_path(*path);
 		if (*path && !(dpath = ft_strsplit(*path, ':')))
-			sh_error(1, "in find_path function");
+			exit(sh_error_int(1, "in find_path function"));
 	}
 	return (dpath);
 }

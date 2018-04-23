@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:43:04 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/11 14:24:15 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	print.c
-**	\author	Alexis Guérin
-**	\date	14 décembre 2017
-**
-**	\brief	Fonctions d'affichage
-*/
-
 #include "line_input.h"
 
 static void	swap_cur(t_line *line_info)

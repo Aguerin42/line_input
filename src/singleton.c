@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sigleton.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:44:47 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/02 10:45:14 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	sigleton.c
-**	\author	Alexis Guérin
-**	\date	23 janvier 2018
-**
-**	\brief	Fonctions contentant des variables `static`
-*/
-
 #include "line_input.h"
 
 /*

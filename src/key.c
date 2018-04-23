@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   key.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:42:39 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/19 12:45:48 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	key.c
-**	\author	Alexis Guérin
-**	\date	14 décembre 2017
-**
-**	\brief	Fonctions de gestion des touches tappées
-*/
-
 #include "line_input.h"
 
 static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)

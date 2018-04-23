@@ -1,23 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/02 10:39:48 by aguerin           #+#    #+#             */
-/*   Updated: 2018/04/16 18:29:48 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*
-**	\file	input.c
-**	\author	Alexis Guérin
-**	\date	14 décembre 2017
-**
-**	\brief	Fonction principale et fonctions d'initialisation
-*/
-
 #include "line_input.h"
 
 /*
