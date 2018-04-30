@@ -54,11 +54,12 @@ void		print_line(char *line, t_line line_info, char *prompt)
 			ft_putstr(tgoto(tgetstr("ce", NULL), 0, 0));
 			ft_putstr(tgoto(tgetstr("up", NULL), 0, 0));
 		}
-		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
+		ft_putstr(tgoto(tgetstr("ce", NULL), 0, 0));
 		ag_putstrs(prompt);
 		if (line_info.cursor_s > -1)
 			print_selection(line, line_info);
 		else
 			ft_putstr(line);
+		ft_putstr(tgoto(tgetstr("cd", NULL), 0, 0));
 	}
 }
