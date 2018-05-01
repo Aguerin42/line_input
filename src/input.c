@@ -56,7 +56,8 @@ static void	quit_line_input(struct termios save)
 	delete_save();
 	manage_history(NULL, 0, NULL, NULL);
 	reset_term(save);
-	signal(SIGINT, SIG_DFL);
+	if (!is_in_heredoc(-1))
+		signal(SIGINT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
 }
 

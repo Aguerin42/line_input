@@ -16,8 +16,10 @@ static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)
 		return (swap_char(line, info));
 	else if (buf[0] == 4)
 	{
-		if (is_in_heredoc(-1))
+		if (is_in_heredoc(-1) == 1)
 			ft_strcpy(*line, redoc_delimiter(NULL));
+		else if (is_in_heredoc(-1) == 2)
+			return (0);
 		else
 			ft_strcpy(*line, "exit");
 		buf[0] = 10;
