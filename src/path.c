@@ -71,13 +71,13 @@ char	**find_path(char *line, char **path, char **word, t_line *info)
 		else
 			env = "./";
 		if (env && !(dpath = ft_strsplit(env, ':')))
-			exit(sh_error_int(1, "in find_path function"));
+			sh_error_exit(1, "in find_path function");
 	}
 	else
 	{
 		*path = verif_path(*path);
 		if (*path && !(dpath = ft_strsplit(*path, ':')))
-			exit(sh_error_int(1, "in find_path function"));
+			sh_error_exit(1, "in find_path function");
 	}
 	return (dpath);
 }
