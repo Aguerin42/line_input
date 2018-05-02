@@ -1,5 +1,34 @@
 #include "line_input.h"
 
+static void	ctrlchd(int signal)
+{
+	int		term;
+	char	**line;
+	t_line	*line_info;
+
+	(void)signal;
+	line_info = get_line_info(NULL);
+	(line = get_line(NULL)) ? ft_strdel(line) : NULL;
+	while (line_info->cursor_y++ < line_info->nb_line)
+		ft_putstr(tgoto(tgetstr("do", NULL), 0, 0));
+	ft_putendl("");
+	if ((*line = (char*)ft_memalloc(sizeof(char) * 1)))
+	{
+		term = line_info->term;
+		ag_putstrs("$>");
+		*line_info = init_line_info(0, "$>");
+		line_info->term = term;
+		line_info->size = 0;
+		update_info(line_info, *line);
+		is_in_heredoc(3);
+	}
+	else if (line_info && line_info->size)
+	{
+		line_info->size = 0;
+		sh_error(1, "in function line_input: ctrlchd. Press any key");
+	}
+}
+
 /*
 **	\brief	Gestion de `Ctrl`-`C`
 */
@@ -51,4 +80,6 @@ void		launch_signal(void)
 	signal(SIGTSTP, catch_unused_sig);
 	if (!is_in_heredoc(-1))
 		signal(SIGINT, ctrlc);
+	else
+		signal(SIGINT, ctrlchd);
 }
