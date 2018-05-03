@@ -1,5 +1,17 @@
 #include "line_input.h"
 
+static int	ctrl_d(char buf[], char **line)
+{
+	if (is_in_heredoc(-1) == 1)
+		ft_strcpy(*line, redoc_delimiter(NULL));
+	else if (is_in_heredoc(-1) == 2)
+		return (0);
+	else
+		ft_strcpy(*line, "exit");
+	buf[0] = 10;
+	return (1);
+}
+
 static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)
 {
 	if (buf[0] == 1 || buf[0] == 5)
@@ -15,16 +27,7 @@ static int	ctrl_key(char buf[], char **line, t_line *info, t_lstag *history)
 	else if (buf[0] == 20)
 		return (swap_char(line, info));
 	else if (buf[0] == 4)
-	{
-		if (is_in_heredoc(-1) == 1)
-			ft_strcpy(*line, redoc_delimiter(NULL));
-		else if (is_in_heredoc(-1) == 2)
-			return (0);
-		else
-			ft_strcpy(*line, "exit");
-		buf[0] = 10;
-		return (1);
-	}
+		return (ctrl_d(buf, line));
 	else
 		return (1);
 	return (0);
